@@ -1,45 +1,154 @@
 import React from "react";
+import Card from "./components/Card";
+import Mobile from "./components/Mobile";
+import Header from "./components/Header";
+import Data from "./components/Data";
 import "./index.scss";
 
-function flip() {
-  // document.querySelector(".short").classNameList.toggle("flipped");
-  console.log("hello");
-}
-function changeTheme() {
-  // document.querySelector("body").classNameList.toggle("dark");
-  console.log("Brian?...");
-}
 let state = { value: "1" };
+
 function handleChange(event) {
   setState({ value: event.target.value });
 }
-
 function App() {
+  console.log("render");
+  const [darkmode, setDarkmode] = React.useState(false);
+
+  const changeColorTheme = () => {
+    setDarkmode(!darkmode);
+    if (darkmode) {
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+    }
+  };
+  /***************************************************************** */
+  const date = new Date();
+
+  const months = [
+    {
+      month: "January",
+      daysCount: 31,
+    },
+    {
+      month: "February",
+      daysCount: 28,
+    },
+    {
+      month: "March",
+      daysCount: 31,
+    },
+    {
+      month: "April",
+      daysCount: 30,
+    },
+    {
+      month: "May",
+      daysCount: 31,
+    },
+    {
+      month: "June",
+      daysCount: 30,
+    },
+    {
+      month: "July",
+      daysCount: 31,
+    },
+    {
+      month: "August",
+      daysCount: 31,
+    },
+    {
+      month: "September",
+      daysCount: 30,
+    },
+    {
+      month: "October",
+      daysCount: 31,
+    },
+    {
+      month: "November",
+      daysCount: 30,
+    },
+    {
+      month: "December",
+      daysCount: 31,
+    },
+  ];
+  if (date.getFullYear % 4 === 0) months[1].daysCount = 29;
+  const weekdays = [
+    "Monday",
+    "Tuesdat",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
+  const items = [
+    {
+      d: "___",
+      w: "_______",
+      m: "_______",
+
+      tempData: {
+        info: "-11",
+        limits: "-15 -> -10",
+        desc: "Cloudy",
+      },
+    },
+    {
+      d: "___",
+      w: "_______",
+      m: "_______",
+      tempData: {
+        info: "-11",
+        limits: "-15 -> -10",
+        desc: "Cloudy",
+      },
+    },
+    {
+      d: "___",
+      w: "_______",
+      m: "_______",
+      tempData: {
+        info: "-11",
+        limits: "-15 -> -10",
+        desc: "Cloudy",
+      },
+    },
+  ];
+  const showCurrentDate = (counter) => {
+    let currentDate = {
+      day: date.getDate() + counter,
+      weekday: date.getDay() + counter - 1,
+      month: months[date.getMonth()].month,
+    };
+    const cMonth = date.getMonth();
+    if (currentDate.day > months[cMonth].daysCount) {
+      currentDate.day -= month[cMonth].daysCount;
+      if (date.getMonth() < 11) {
+        currentDate.month = months[cMonth + 1].month;
+      } else {
+        currentDate.month = months[cMonth - 11].month;
+      }
+    }
+    if (currentDate.weekday > 6) {
+      currentDate.weekday = currentDate.weekday - 7;
+    }
+    currentDate.weekday = weekdays[currentDate.weekday];
+
+    return currentDate;
+  };
+  for (let i = 0; i < items.length; i++) {
+    const tmp = showCurrentDate(i);
+    items[i].d = tmp.day;
+    items[i].w = tmp.weekday;
+    items[i].m = tmp.month;
+  }
   return (
     <>
-      <header>
-        <nav>
-          <div className="logo">
-            <a href="#">weza</a>
-          </div>
-          <ul>
-            <li>
-              <a href="#">About us</a>
-            </li>
-            <li>
-              <a href="#" id="active-link">
-                Weather
-              </a>
-            </li>
-            <li>
-              <a href="#">Moon calendar</a>
-            </li>
-          </ul>
-          <div className="theme-switcher" onClick={changeTheme}>
-            <img src="./assets/img/moon.png" alt="theme-switch" />
-          </div>
-        </nav>
-      </header>
+      <Header changeColorTheme={changeColorTheme} />
 
       <h2 className="title">
         <span className="red">N</span>earest weather
@@ -49,63 +158,7 @@ function App() {
         looking now <a href="#">Minsk</a>
       </p>
 
-      <section className="mobile">
-        <div className="weather">
-          <div className="temp">
-            <h4>-11</h4>
-            <img src="./assets/img/cloud.png" alt="weather" />
-            <p>-15 -- -10</p>
-            <p>Cloudy</p>
-          </div>
-          <div className="date">
-            <h4>Minsk</h4>
-            <b>4 February</b>
-            <p>Friday</p>
-          </div>
-          <div className="params">
-            <div className="row">
-              <p>Speed</p>
-              <span>20m/s</span>
-              <img src="assets/img/snowy.png" alt="weather-params" />
-            </div>
-            <div className="row">
-              <p>Humidity</p>
-              <span>70%</span>
-              <img src="assets/img/snowy.png" alt="weather-params" />
-            </div>
-            <div className="row">
-              <p>Pressure</p>
-              <span>765mmHg</span>
-              <img src="assets/img/snowy.png" alt="weather-params" />
-            </div>
-          </div>
-        </div>
-        <div className="slider">
-          <div className="sliderInfo">
-            <h5>10:45</h5>
-            <h5>
-              -14&deg
-              <img src="assets/img/thunderstorm.png" alt="weather-ico" />
-            </h5>
-          </div>
-          <input
-            type="range"
-            min="1"
-            max="18"
-            value={state.value}
-            onChange={handleChange}
-            className="thumb"
-          />
-          <ul className="sliderSub">
-            <li>06:45</li>
-            <li>09:45</li>
-            <li>12:45</li>
-            <li>15:45</li>
-            <li>18:45</li>
-            <li>21:45</li>
-          </ul>
-        </div>
-      </section>
+      <Mobile state={state} handleChange={handleChange} />
 
       <div className="cards-menu">
         <p id="choosed">3 Days</p>
@@ -114,75 +167,20 @@ function App() {
       </div>
 
       <div className="cardContainer">
-        <div className="card">
-          <div className="content">
-            <div className="date">
-              <h4 className="weekday">Today</h4>
-              <p>February 24</p>
-            </div>
-            <div className="temp">
-              <h4>-11</h4>
-              <img src="./assets/img/cloud.png" alt="weather" />
-              <p>-15 -- -10</p>
-              <p>Cloudy</p>
-            </div>
-            <div className="phase">
-              <p>Moon phase:</p>
-              <img src="./assets/img/sun.png" alt="moon-phase" />
-            </div>
-          </div>
-          <table>
-            <tbody>
-              <tr>
-                <th className="tableDate">Time</th>
-                <th>Temperature (*C)</th>
-                <th>Speed (m/s)</th>
-                <th>Humidity (%)</th>
-                <th>Pressure (mmHg)</th>
-              </tr>
-              <tr className="tableRow">
-                <th colSpan="5">Morning</th>
-              </tr>
-              <tr>
-                <td className="tableDate">Morning</td>
-                <td>-10</td>
-                <td>22 SW</td>
-                <td>70</td>
-                <td>745</td>
-              </tr>
-              <tr className="tableRow">
-                <th colSpan="5">Afternoon</th>
-              </tr>
-              <tr>
-                <td className="tableDate">Afternoon</td>
-                <td>-11</td>
-                <td>25 NW</td>
-                <td>75</td>
-                <td>755</td>
-              </tr>
-              <tr className="tableRow">
-                <th colSpan="5">Evening</th>
-              </tr>
-              <tr>
-                <td className="tableDate">Evening</td>
-                <td>-14</td>
-                <td>19 SE</td>
-                <td>60</td>
-                <td>740</td>
-              </tr>
-              <tr className="tableRow">
-                <th colSpan="5">Night</th>
-              </tr>
-              <tr>
-                <td className="tableDate">Night</td>
-                <td>-15</td>
-                <td>30 NE</td>
-                <td>80</td>
-                <td>765</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        {items.map((item, index) => (
+          <Card
+            key={index}
+            flipMode={1}
+            day={item.d}
+            week={item.w}
+            month={item.m}
+            temp={item.tempData}
+            moon={"../public/assets/img/cloud.png"}
+            weekend={
+              item.w === "Sunday" || item.w === "Saturday" ? true : false
+            }
+          />
+        ))}
       </div>
 
       <div className="select">
@@ -192,75 +190,7 @@ function App() {
         <span className="red">F</span>orecast in nearest cities
       </h2>
       <div className="cardContainer">
-        <div className="card short" onClick={flip}>
-          <div className="content">
-            <div className="date">
-              <h4>Kiev</h4>
-              <p>February 24</p>
-            </div>
-            <div className="temp">
-              <h4>-11</h4>
-              <img src="./assets/img/cloud.png" alt="weather" />
-              <p>-15 -- -10</p>
-              <p>Cloudy</p>
-            </div>
-            <div className="phase">
-              <p>Moon phase:</p>
-              <img src="./assets/img/sun.png" alt="moon-phase" />
-            </div>
-          </div>
-          <table>
-            <tbody>
-              <tr>
-                <th className="tableDate">Time</th>
-                <th>Temperature (*C)</th>
-                <th>Speed (m/s)</th>
-                <th>Humidity (%)</th>
-                <th>Pressure (mmHg)</th>
-              </tr>
-              <tr className="tableRow">
-                <th colSpan="4">Morning</th>
-              </tr>
-              <tr>
-                <td className="tableDate">Morning</td>
-                <td>-10</td>
-                <td>22 SW</td>
-                <td>70</td>
-                <td>744</td>
-              </tr>
-              <tr className="tableRow">
-                <th colSpan="4">Afternoon</th>
-              </tr>
-              <tr>
-                <td className="tableDate">Afternoon</td>
-                <td>-11</td>
-                <td>25 NW</td>
-                <td>75</td>
-                <td>755</td>
-              </tr>
-              <tr className="tableRow">
-                <th colSpan="4">Evening</th>
-              </tr>
-              <tr>
-                <td className="tableDate">Evening</td>
-                <td>-14</td>
-                <td>19 SE</td>
-                <td>60</td>
-                <td>740</td>
-              </tr>
-              <tr className="tableRow">
-                <th colSpan="4">Night</th>
-              </tr>
-              <tr>
-                <td className="tableDate">Night</td>
-                <td>-15</td>
-                <td>30 NE</td>
-                <td>80</td>
-                <td>765</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        {/* <Card flip={flip} classMode={"card short"} /> */}
       </div>
       <article>
         <h2 className="title">
