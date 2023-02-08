@@ -179,8 +179,12 @@ p.subtitle a {
   p:hover {
     background: #eaeaea;
   }
-  p#choosed {
+  p.choosed {
     background: #fff;
+  }
+  p.disabled {
+    pointer-events: none;
+    opacity: 0.5;
   }
 }
 
@@ -230,18 +234,26 @@ p.subtitle a {
 
   width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 .selectCity {
   margin: 10px 0;
   background: #d9d9d9;
-  padding: 15px 80px;
+  padding: 15px 40px;
   border-radius: 10px;
   cursor: pointer;
   color: #000;
   font-family: "InterMedium";
   font-size: 20px;
+  outline: none;
+  border: none;
+  text-align: center;
+  &::placeholder {
+    color: #000;
+  }
 }
+
 .selectCity:hover {
   background: #eaeaea;
 }
@@ -509,7 +521,7 @@ section.mobile {
     font-size: 14px;
   }
   .selectCity {
-    padding: 10px 50px;
+    padding: 10px 20px;
     font-size: 18px;
   }
   section.mobile {
@@ -1061,7 +1073,7 @@ section.mobile {
   .cards-menu p:hover {
     background: #282c34;
   }
-  .cards-menu p#choosed {
+  .cards-menu p.choosed {
     background: #282c34;
     color: #fff;
     border: none;

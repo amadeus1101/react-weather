@@ -2,27 +2,61 @@ import React from "react";
 import Card from "./components/Card";
 import Mobile from "./components/Mobile";
 import Header from "./components/Header";
-import Data from "./components/Data";
+import axios from "axios";
+
 import "./index.scss";
 
-let state = { value: "1" };
+// async function position() {
+//   const pos = await new Promise((resolve, reject) => {
+//     navigator.geolocation.getCurrentPosition(resolve, reject);
+//   });
+//   return {
+//     long: pos.coords.longitude,
+//     lat: pos.coord.latitude,
+//   };
+// }
+// await position();
 
-function handleChange(event) {
-  setState({ value: event.target.value });
-}
 function App() {
   console.log("render");
-  const [darkmode, setDarkmode] = React.useState(false);
+  const ar = [1, 2, 3];
+  const cardMenu = ["3 Days", "Week"];
+  const [activeMenuItem, setActiveMenuItem] = React.useState(0);
+  const [weather, setWeather] = React.useState({});
+  const [location, setLocation] = React.useState("Minsk");
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [darkmode, setDarkmode] = React.useState(true);
+  let lat = 53.9;
+  let lon = 27.5667;
+  let daylimit = 3;
+  // const url = `https://api.openweathermap.org/data/2.5/weather?q=Minsk&appid=d8cb9f388c6c6f5acf8c2866895c6134`;
+  const url = `https://api.weather.yandex.ru/v2/forecast?lat=53.9&lon=27.5667&lang=be_BY&limit=3&hours=true&extra=false`;
 
-  const changeColorTheme = () => {
-    setDarkmode(!darkmode);
-    if (darkmode) {
-      document.body.classList.add("dark");
-    } else {
-      document.body.classList.remove("dark");
+  React.useEffect(() => {
+    async function getWeather() {
+      const weatherResp = await axios.get(
+        `http://localhost:3001/v2/forecast?lat=${lat}&lon=${lon}&lang=en_US&limit=${daylimit}&hours=true&extra=false`
+      );
+      setIsLoading(false);
+      setWeather(weatherResp.data);
+    }
+    getWeather();
+  }, []);
+
+  const catchLocation = (event) => {
+    if (event.key === "Enter") {
+      async function getWeather() {
+        const weatherResp = await axios.get(url);
+        setIsLoading(false);
+        setWeather(weatherResp.data);
+        console.log("POOOOOOOOOOOOOOOOOOST");
+      }
+      getWeather();
     }
   };
-  /***************************************************************** */
+  const onChooseMenu = (id) => {
+    setActiveMenuItem(id);
+  };
   const date = new Date();
 
   const months = [
@@ -77,56 +111,67 @@ function App() {
   ];
   if (date.getFullYear % 4 === 0) months[1].daysCount = 29;
   const weekdays = [
+    "Sunday",
     "Monday",
-    "Tuesdat",
+    "Tuesday",
     "Wednesday",
     "Thursday",
     "Friday",
     "Saturday",
-    "Sunday",
   ];
-  const items = [
-    {
-      d: "___",
-      w: "_______",
-      m: "_______",
 
-      tempData: {
-        info: "-11",
-        limits: "-15 -> -10",
-        desc: "Cloudy",
+  let globalArray = [];
+  for (let i = 0; i < daylimit; i++) {
+    globalArray[i] = {
+      day: 1,
+      weekday: "Monday",
+      isWeekend: false,
+      month: "February",
+      temperature: -11,
+      temperatureMin: -15,
+      temperatureMax: -10,
+      description: "Cloudy",
+      icon: "",
+      morning: {
+        temperature: -12,
+        speed: 22,
+        direction: 348,
+        humidity: 60,
+        pressure: 765,
       },
-    },
-    {
-      d: "___",
-      w: "_______",
-      m: "_______",
-      tempData: {
-        info: "-11",
-        limits: "-15 -> -10",
-        desc: "Cloudy",
+      afternoon: {
+        temperature: -12,
+        speed: 22,
+        direction: 348,
+        humidity: 60,
+        pressure: 765,
       },
-    },
-    {
-      d: "___",
-      w: "_______",
-      m: "_______",
-      tempData: {
-        info: "-11",
-        limits: "-15 -> -10",
-        desc: "Cloudy",
+      evening: {
+        temperature: -12,
+        speed: 22,
+        direction: 348,
+        humidity: 60,
+        pressure: 765,
       },
-    },
-  ];
+      night: {
+        temperature: -12,
+        speed: 22,
+        direction: 348,
+        humidity: 60,
+        pressure: 765,
+      },
+    };
+  }
   const showCurrentDate = (counter) => {
     let currentDate = {
       day: date.getDate() + counter,
-      weekday: date.getDay() + counter - 1,
+      weekday: date.getDay() + counter,
       month: months[date.getMonth()].month,
+      isWeekday: false,
     };
     const cMonth = date.getMonth();
     if (currentDate.day > months[cMonth].daysCount) {
-      currentDate.day -= month[cMonth].daysCount;
+      currentDate.day -= months[cMonth].daysCount;
       if (date.getMonth() < 11) {
         currentDate.month = months[cMonth + 1].month;
       } else {
@@ -136,55 +181,154 @@ function App() {
     if (currentDate.weekday > 6) {
       currentDate.weekday = currentDate.weekday - 7;
     }
+    if (currentDate.weekday === 0 || currentDate.weekday === 6) {
+      currentDate.isWeekday = true;
+    }
     currentDate.weekday = weekdays[currentDate.weekday];
 
     return currentDate;
   };
-  for (let i = 0; i < items.length; i++) {
-    const tmp = showCurrentDate(i);
-    items[i].d = tmp.day;
-    items[i].w = tmp.weekday;
-    items[i].m = tmp.month;
+
+  if (!isLoading) {
+    for (let i = 0; i < globalArray.length; i++) {
+      let tmp = showCurrentDate(i);
+      globalArray[i].day = tmp.day;
+      globalArray[i].weekday = tmp.weekday;
+      globalArray[i].isWeekend = tmp.isWeekday;
+      globalArray[i].month = tmp.month;
+      globalArray[i].temperature =
+        weather.forecasts[i].hours[date.getHours()].temp;
+      globalArray[i].icon = `https://yastatic.net/weather/i/icons/funky/dark/${
+        weather.forecasts[i].hours[date.getHours()].icon
+      }.svg`;
+      globalArray[i].temperatureMin = weather.forecasts[i].parts.night.temp_min;
+      globalArray[i].temperatureMax = weather.forecasts[i].parts.day.temp_max;
+
+      /**  morning */
+      globalArray[i].morning.temperature = Math.round(
+        (weather.forecasts[i].parts.morning.temp_min +
+          weather.forecasts[i].parts.morning.temp_max) /
+          2
+      );
+      globalArray[i].morning.speed =
+        weather.forecasts[i].parts.morning.wind_speed;
+      globalArray[i].morning.pressure =
+        weather.forecasts[i].parts.morning.pressure_mm;
+      globalArray[i].morning.humidity =
+        weather.forecasts[i].parts.morning.humidity;
+      globalArray[i].morning.direction =
+        weather.forecasts[i].parts.morning.wind_dir;
+      /** afternoon */
+      globalArray[i].afternoon.temperature = Math.round(
+        (weather.forecasts[i].parts.day.temp_min +
+          weather.forecasts[i].parts.day.temp_max) /
+          2
+      );
+      globalArray[i].afternoon.speed =
+        weather.forecasts[i].parts.day.wind_speed;
+      globalArray[i].afternoon.pressure =
+        weather.forecasts[i].parts.day.pressure_mm;
+      globalArray[i].afternoon.humidity =
+        weather.forecasts[i].parts.day.humidity;
+      globalArray[i].afternoon.direction =
+        weather.forecasts[i].parts.day.wind_dir;
+      /** evening */
+      globalArray[i].evening.temperature = Math.round(
+        (weather.forecasts[i].parts.evening.temp_min +
+          weather.forecasts[i].parts.evening.temp_max) /
+          2
+      );
+      globalArray[i].evening.speed =
+        weather.forecasts[i].parts.evening.wind_speed;
+      globalArray[i].evening.pressure =
+        weather.forecasts[i].parts.evening.pressure_mm;
+      globalArray[i].evening.humidity =
+        weather.forecasts[i].parts.evening.humidity;
+      globalArray[i].evening.direction =
+        weather.forecasts[i].parts.evening.wind_dir;
+      /** night */
+      globalArray[i].night.temperature = Math.round(
+        (weather.forecasts[i].parts.night.temp_min +
+          weather.forecasts[i].parts.night.temp_max) /
+          2
+      );
+      globalArray[i].night.speed = weather.forecasts[i].parts.night.wind_speed;
+      globalArray[i].night.pressure =
+        weather.forecasts[i].parts.night.pressure_mm;
+      globalArray[i].night.humidity = weather.forecasts[i].parts.night.humidity;
+      globalArray[i].night.direction =
+        weather.forecasts[i].parts.night.wind_dir;
+    }
+    globalArray[0].weekday = "Today";
+    console.log("loading complete");
   }
+
+  const changeColorTheme = () => {
+    setDarkmode(!darkmode);
+    if (darkmode) {
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+    }
+  };
+
   return (
     <>
       <Header changeColorTheme={changeColorTheme} />
+      {console.log(weather)}
 
       <h2 className="title">
-        <span className="red">N</span>earest weather
+        <span className="red">N</span>
+        earest weather
       </h2>
       <p className="subtitle">
         Here you will see nearest weather forecast in your city. City you
-        looking now <a href="#">Minsk</a>
+        looking now <a href="#">{location}</a>
       </p>
 
-      <Mobile state={state} handleChange={handleChange} />
+      <Mobile todayData={globalArray[0]} pos={location} />
 
       <div className="cards-menu">
-        <p id="choosed">3 Days</p>
-        <p>Week</p>
-        <p>Month</p>
+        {cardMenu.map((item, index) => (
+          <p
+            onClick={() => {
+              onChooseMenu(index);
+            }}
+            className={index === activeMenuItem ? "choosed" : ""}
+          >
+            {item}
+          </p>
+        ))}
+        {/* Update forecast for month */}
+        <p className="disabled">Month</p>
       </div>
 
       <div className="cardContainer">
-        {items.map((item, index) => (
-          <Card
-            key={index}
-            flipMode={1}
-            day={item.d}
-            week={item.w}
-            month={item.m}
-            temp={item.tempData}
-            moon={"../public/assets/img/cloud.png"}
-            weekend={
-              item.w === "Sunday" || item.w === "Saturday" ? true : false
-            }
-          />
-        ))}
+        {!isLoading &&
+          globalArray.map((item, index) => (
+            <Card
+              key={index}
+              flipMode={0}
+              {...item}
+              temp={"1"}
+              moon={"../public/assets/img/cloud.png"}
+              url={url}
+            />
+          ))}
       </div>
 
       <div className="select">
-        <div className="selectCity">Minsk, Belarus</div>
+        <p className="subtitle">
+          To change a city, please, enter "latitude, longitude" or "cityname"
+          and press ENTER
+        </p>
+        <input
+          className="selectCity"
+          type="text"
+          value={location}
+          onChange={(event) => setLocation(event.target.value)}
+          onKeyDown={(event) => catchLocation(event)}
+        />
       </div>
       <h2 className="title">
         <span className="red">F</span>orecast in nearest cities
@@ -221,7 +365,7 @@ function App() {
         </p>
       </article>
       <footer>
-        <h3>weza</h3>
+        <h3>weza-1.0.0</h3>
         <nav>
           <ul>
             <li>

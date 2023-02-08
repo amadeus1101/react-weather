@@ -19,7 +19,7 @@ function Header({ changeColorTheme }) {
           </li>
         </ul>
         <div className="theme-switcher" onClick={changeColorTheme}>
-          <img src="./assets/img/moon.png" alt="theme-switch" />
+          <img src="../../assets/img/moon.png" alt="theme-switch" />
         </div>
       </nav>
     </header>
