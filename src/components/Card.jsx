@@ -2,6 +2,47 @@ import React from "react";
 
 function Card(props) {
   const [isFlipped, setIsFlipped] = React.useState(false);
+
+  let pathToTheMoon = "";
+  const defineMoon = () => {
+    switch (props.moon) {
+      case 0:
+        pathToTheMoon = "1.png";
+        break;
+      case 1:
+      case 2:
+      case 3:
+        pathToTheMoon = "2.png";
+        break;
+      case 4:
+        pathToTheMoon = "3.png";
+        break;
+      case 5:
+      case 6:
+      case 7:
+        pathToTheMoon = "4.png";
+        break;
+      case 8:
+        pathToTheMoon = "5.png";
+        break;
+      case 9:
+      case 10:
+      case 11:
+        pathToTheMoon = "6.png";
+        break;
+      case 12:
+        pathToTheMoon = "7.png";
+        break;
+      case 13:
+      case 14:
+      case 15:
+        pathToTheMoon = "8.png";
+        break;
+      default:
+        pathToTheMoon = "moon2.png";
+    }
+  };
+  defineMoon();
   const onFlip = () => {
     if (window.innerWidth <= 910 || props.flipMode) {
       setIsFlipped(!isFlipped);
@@ -28,7 +69,7 @@ function Card(props) {
         </div>
         <div className="phase">
           <p>Moon phase:</p>
-          <img src={props.moon} alt="moon-phase" />
+          <img src={`../../assets/img/${pathToTheMoon}`} alt="moon-phase" />
         </div>
       </div>
       <table>

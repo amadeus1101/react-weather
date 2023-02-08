@@ -31,7 +31,10 @@ function App() {
   let daylimit = 3;
   // const url = `https://api.openweathermap.org/data/2.5/weather?q=Minsk&appid=d8cb9f388c6c6f5acf8c2866895c6134`;
   const url = `https://api.weather.yandex.ru/v2/forecast?lat=53.9&lon=27.5667&lang=be_BY&limit=3&hours=true&extra=false`;
-
+  // navigator.geolocation.getCurrentPosition(function (position) {
+  //   lat = position.coords.latitude;
+  //   lon = position.coords.longitude;
+  // });
   React.useEffect(() => {
     async function getWeather() {
       const weatherResp = await axios.get(
@@ -46,7 +49,9 @@ function App() {
   const catchLocation = (event) => {
     if (event.key === "Enter") {
       async function getWeather() {
-        const weatherResp = await axios.get(url);
+        const weatherResp = await axios.get(
+          `http://localhost:3001/v2/forecast?lat=${lat}&lon=${lon}&lang=en_US&limit=${daylimit}&hours=true&extra=false`
+        );
         setIsLoading(false);
         setWeather(weatherResp.data);
         console.log("POOOOOOOOOOOOOOOOOOST");
@@ -132,6 +137,7 @@ function App() {
       temperatureMax: -10,
       description: "Cloudy",
       icon: "",
+      moon: 1,
       morning: {
         temperature: -12,
         speed: 22,
@@ -203,6 +209,7 @@ function App() {
       }.svg`;
       globalArray[i].temperatureMin = weather.forecasts[i].parts.night.temp_min;
       globalArray[i].temperatureMax = weather.forecasts[i].parts.day.temp_max;
+      globalArray[i].moon = weather.forecasts[i].moon_code;
 
       /**  morning */
       globalArray[i].morning.temperature = Math.round(
@@ -234,7 +241,7 @@ function App() {
         weather.forecasts[i].parts.day.wind_dir;
       /** evening */
       globalArray[i].evening.temperature = Math.round(
-        (weather.forecasts[i].parts.evening.temp_min +
+        (weather.forecasts[i].parts.evening.temp_avg +
           weather.forecasts[i].parts.evening.temp_max) /
           2
       );
@@ -274,7 +281,7 @@ function App() {
 
   return (
     <>
-      <Header changeColorTheme={changeColorTheme} />
+      <Header changeColorTheme={changeColorTheme} mode={darkmode} />
       {console.log(weather)}
 
       <h2 className="title">
@@ -286,11 +293,18 @@ function App() {
         looking now <a href="#">{location}</a>
       </p>
 
-      <Mobile todayData={globalArray[0]} pos={location} />
+      {!isLoading && (
+        <Mobile
+          todayData={weather.forecasts[0]}
+          pos={location}
+          showCurrentDate={showCurrentDate}
+        />
+      )}
 
       <div className="cards-menu">
         {cardMenu.map((item, index) => (
           <p
+            key={index}
             onClick={() => {
               onChooseMenu(index);
             }}
@@ -306,14 +320,7 @@ function App() {
       <div className="cardContainer">
         {!isLoading &&
           globalArray.map((item, index) => (
-            <Card
-              key={index}
-              flipMode={0}
-              {...item}
-              temp={"1"}
-              moon={"../public/assets/img/cloud.png"}
-              url={url}
-            />
+            <Card key={index} flipMode={0} {...item} temp={"1"} url={url} />
           ))}
       </div>
 

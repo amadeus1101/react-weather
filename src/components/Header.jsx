@@ -1,4 +1,4 @@
-function Header({ changeColorTheme }) {
+function Header({ changeColorTheme, mode }) {
   return (
     <header>
       <nav>
@@ -19,7 +19,10 @@ function Header({ changeColorTheme }) {
           </li>
         </ul>
         <div className="theme-switcher" onClick={changeColorTheme}>
-          <img src="../../assets/img/moon.png" alt="theme-switch" />
+          <img
+            src={`../../assets/img/${mode ? "moon2.png" : "sun.png"}`}
+            alt="theme-switch"
+          />
         </div>
       </nav>
     </header>
