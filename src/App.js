@@ -29,7 +29,6 @@ function App() {
   let lat = 53.9;
   let lon = 27.5667;
   let daylimit = 3;
-  // const url = `https://api.openweathermap.org/data/2.5/weather?q=Minsk&appid=d8cb9f388c6c6f5acf8c2866895c6134`;
   const url = `https://api.weather.yandex.ru/v2/forecast?lat=53.9&lon=27.5667&lang=be_BY&limit=3&hours=true&extra=false`;
   // navigator.geolocation.getCurrentPosition(function (position) {
   //   lat = position.coords.latitude;
