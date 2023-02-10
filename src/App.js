@@ -37,7 +37,7 @@ function App() {
   React.useEffect(() => {
     async function getWeather() {
       const weatherResp = await axios.get(
-        `http://https://react-weather-server-fkfe.vercel.app/v2/forecast?lat=${lat}&lon=${lon}&lang=en_US&limit=${daylimit}&hours=true&extra=false`
+        `https://react-weather-server-fkfe.vercel.app/v2/forecast?lat=${lat}&lon=${lon}&lang=en_US&limit=${daylimit}&hours=true&extra=false`
       );
       setIsLoading(false);
       setWeather(weatherResp.data);
