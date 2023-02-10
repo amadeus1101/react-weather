@@ -342,7 +342,7 @@ function App() {
       <div className="cardContainer">
         {/* <Card flip={flip} classMode={"card short"} /> */}
       </div>
-      <article>
+      {/* <article>
         <h2 className="title">
           <span className="red">D</span>ay of Rolex
         </h2>
@@ -369,7 +369,7 @@ function App() {
           salom trea liciy Rreyne samoldano; ursa etra el abaddon. Dicta error
           atque corporis doloribus officia, odio debitis! Odio, fugit ad?
         </p>
-      </article>
+      </article> */}
       <footer>
         <h3>weza-1.0.0</h3>
         <nav>
