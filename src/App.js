@@ -372,7 +372,7 @@ function App() {
       </article> */}
       <footer>
         <h3>weza-1.0.0</h3>
-        <nav>
+        {/* <nav>
           <ul>
             <li>
               <a href="#">About us</a>
@@ -386,7 +386,7 @@ function App() {
               <a href="#">Moon calendar</a>
             </li>
           </ul>
-        </nav>
+        </nav> */}
 
         <p>
           <a href="#">www.weza.com</a> All rights reserved
