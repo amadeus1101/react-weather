@@ -38,7 +38,7 @@ function App() {
   React.useEffect(() => {
     async function getWeather() {
       const weatherResp = await axios.get(
-        `http://localhost:3001/v2/forecast?lat=${lat}&lon=${lon}&lang=en_US&limit=${daylimit}&hours=true&extra=false`
+        `http://https://react-weather-server-fkfe.vercel.app/v2/forecast?lat=${lat}&lon=${lon}&lang=en_US&limit=${daylimit}&hours=true&extra=false`
       );
       setIsLoading(false);
       setWeather(weatherResp.data);
@@ -135,7 +135,7 @@ function App() {
       temperature: -11,
       temperatureMin: -15,
       temperatureMax: -10,
-      description: "Cloudy",
+      description: "Clouds",
       icon: "",
       moon: 1,
       morning: {
