@@ -31,7 +31,7 @@ function Mobile({ todayData, pos, showCurrentDate }) {
           <p>
             {String(todayData.parts.morning.temp_min) +
               " -> " +
-              String(todayData.parts.day.temp_max)}
+              String(todayData.parts.day.temp_max + 1)}
           </p>
           <p>{todayData.description}</p>
         </div>

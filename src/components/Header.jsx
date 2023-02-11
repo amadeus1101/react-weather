@@ -3,10 +3,12 @@ function Header({ changeColorTheme, mode }) {
     <header>
       <nav>
         <div className="logo">
-          <a href="#">weza</a>
+          <a href="#">
+            weza <sup>beta</sup>
+          </a>
         </div>
         <ul>
-          <li>
+          <li className="disabled">
             <a href="#">About us</a>
           </li>
           <li>
@@ -14,7 +16,7 @@ function Header({ changeColorTheme, mode }) {
               Weather
             </a>
           </li>
-          <li>
+          <li className="disabled">
             <a href="#">Moon calendar</a>
           </li>
         </ul>

@@ -37,6 +37,14 @@ body {
   background: rgb(222, 252, 255);
   transition: background 0.5s;
 }
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+sup {
+  font-size: 12px;
+}
+
 /*? */
 
 /********************HEADER*********************/
@@ -58,6 +66,7 @@ header {
       font-family: "InterBold";
       color: #fff;
     }
+
     ul {
       display: flex;
       li {
@@ -182,10 +191,6 @@ p.subtitle a {
   p.choosed {
     background: #fff;
   }
-  p.disabled {
-    pointer-events: none;
-    opacity: 0.5;
-  }
 }
 
 @media (max-width: 901px) {
@@ -288,12 +293,12 @@ footer {
   }
   h3 {
     font-family: "InterBold";
-    font-size: 24px;
+    font-size: 18px;
   }
   p {
     margin-top: 10px;
     font-family: "InterRegular";
-    font-size: 18px;
+    font-size: 14px;
   }
   a {
     text-decoration: underline;
@@ -310,7 +315,7 @@ footer {
         padding: 5px 20px;
         a {
           font-family: "InterRegular";
-          font-size: 16px;
+          font-size: 14px;
           color: #fff;
           text-decoration: underline;
         }

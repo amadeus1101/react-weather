@@ -20,7 +20,7 @@ import "./index.scss";
 function App() {
   console.log("render");
   const ar = [1, 2, 3];
-  const cardMenu = ["3 Days", "Week"];
+  const cardMenu = ["3 Days"];
   const [activeMenuItem, setActiveMenuItem] = React.useState(0);
   const [weather, setWeather] = React.useState({});
   const [location, setLocation] = React.useState("Minsk");
@@ -30,10 +30,12 @@ function App() {
   let lon = 27.5667;
   let daylimit = 3;
   const url = `https://api.weather.yandex.ru/v2/forecast?lat=53.9&lon=27.5667&lang=be_BY&limit=3&hours=true&extra=false`;
-  // navigator.geolocation.getCurrentPosition(function (position) {
-  //   lat = position.coords.latitude;
-  //   lon = position.coords.longitude;
-  // });
+  const getPosition = (pos) => {
+    lat = pos.coords.latitude;
+    lon = pos.coords.longitude;
+  };
+  navigator.geolocation.getCurrentPosition(getPosition);
+
   React.useEffect(() => {
     async function getWeather() {
       const weatherResp = await axios.get(
@@ -207,7 +209,8 @@ function App() {
         weather.forecasts[i].hours[date.getHours()].icon
       }.svg`;
       globalArray[i].temperatureMin = weather.forecasts[i].parts.night.temp_min;
-      globalArray[i].temperatureMax = weather.forecasts[i].parts.day.temp_max;
+      globalArray[i].temperatureMax =
+        weather.forecasts[i].parts.day.temp_max + 1;
       globalArray[i].moon = weather.forecasts[i].moon_code;
 
       /**  morning */
@@ -281,7 +284,6 @@ function App() {
   return (
     <>
       <Header changeColorTheme={changeColorTheme} mode={darkmode} />
-      {console.log(weather)}
 
       <h2 className="title">
         <span className="red">N</span>
@@ -313,6 +315,7 @@ function App() {
           </p>
         ))}
         {/* Update forecast for month */}
+        <p className="disabled">Week</p>
         <p className="disabled">Month</p>
       </div>
 
@@ -336,9 +339,9 @@ function App() {
           onKeyDown={(event) => catchLocation(event)}
         />
       </div>
-      <h2 className="title">
+      {/* <h2 className="title">
         <span className="red">F</span>orecast in nearest cities
-      </h2>
+      </h2> */}
       <div className="cardContainer">
         {/* <Card flip={flip} classMode={"card short"} /> */}
       </div>
@@ -371,7 +374,9 @@ function App() {
         </p>
       </article> */}
       <footer>
-        <h3>weza-1.0.0</h3>
+        <h3>
+          weza<sup>beta</sup>-0.1.0
+        </h3>
         {/* <nav>
           <ul>
             <li>
