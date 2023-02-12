@@ -60,7 +60,7 @@ function Mobile({ todayData, pos, showCurrentDate }) {
       </div>
       <div className="slider">
         <div className="sliderInfo">
-          <h5>{`${state.value}:${minutes}`}</h5>
+          <h5>{`${state.value}:${minutes < 10 ? "0" + minutes : minutes}`}</h5>
           <h5>
             {`${todayData.hours[state.value].temp}*`}
             <img
