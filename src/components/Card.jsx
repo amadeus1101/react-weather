@@ -48,7 +48,12 @@ function Card(props) {
       setIsFlipped(!isFlipped);
     }
   };
-
+  let showDeg = "";
+  let showHumidPercent = "";
+  if (window.innerWidth <= 910) {
+    showHumidPercent = "%";
+    showDeg = "°";
+  }
   return (
     <div
       className={isFlipped ? "card short flipped" : "card "}
@@ -89,9 +94,9 @@ function Card(props) {
           </tr>
           <tr>
             <td className="tableDate">Morning</td>
-            <td>{props.morning.temperature}</td>
+            <td>{props.morning.temperature + showDeg}</td>
             <td>{`${props.morning.speed} ${props.morning.direction}`}</td>
-            <td>{props.morning.humidity}</td>
+            <td>{props.morning.humidity + showHumidPercent}</td>
             <td>{props.morning.pressure}</td>
           </tr>
           <tr className="tableRow">
@@ -99,9 +104,9 @@ function Card(props) {
           </tr>
           <tr>
             <td className="tableDate">Afternoon</td>
-            <td>{props.afternoon.temperature}</td>
+            <td>{props.afternoon.temperature + showDeg}</td>
             <td>{`${props.afternoon.speed} ${props.afternoon.direction}`}</td>
-            <td>{props.afternoon.humidity}</td>
+            <td>{props.afternoon.humidity + showHumidPercent}</td>
             <td>{props.afternoon.pressure}</td>
           </tr>
           <tr className="tableRow">
@@ -109,9 +114,9 @@ function Card(props) {
           </tr>
           <tr>
             <td className="tableDate">Evening</td>
-            <td>{props.evening.temperature}</td>
+            <td>{props.evening.temperature + showDeg}</td>
             <td>{`${props.evening.speed} ${props.evening.direction}`}</td>
-            <td>{props.evening.humidity}</td>
+            <td>{props.evening.humidity + showHumidPercent}</td>
             <td>{props.evening.pressure}</td>
           </tr>
           <tr className="tableRow">
@@ -119,9 +124,9 @@ function Card(props) {
           </tr>
           <tr>
             <td className="tableDate">Night</td>
-            <td>{props.night.temperature}</td>
+            <td>{props.night.temperature + showDeg}</td>
             <td>{`${props.night.speed} ${props.night.direction}`}</td>
-            <td>{props.night.humidity}</td>
+            <td>{props.night.humidity + showHumidPercent}</td>
             <td>{props.night.pressure}</td>
           </tr>
         </tbody>
