@@ -50,15 +50,15 @@ function App() {
 
   const catchLocation = (event) => {
     if (event.key === "Enter") {
-      async function getWeather() {
-        const weatherResp = await axios.get(
-          `http://localhost:3001/v2/forecast?lat=${lat}&lon=${lon}&lang=en_US&limit=${daylimit}&hours=true&extra=false`
-        );
-        setIsLoading(false);
-        setWeather(weatherResp.data);
-        console.log("POOOOOOOOOOOOOOOOOOST");
-      }
-      getWeather();
+      // async function getWeather() {
+      //   const weatherResp = await axios.get(
+      //     `http://localhost:3001/v2/forecast?lat=${lat}&lon=${lon}&lang=en_US&limit=${daylimit}&hours=true&extra=false`
+      //   );
+      //   setIsLoading(false);
+      //   setWeather(weatherResp.data);
+      //   console.log("POOOOOOOOOOOOOOOOOOST");
+      // }
+      // getWeather();
     }
   };
   const onChooseMenu = (id) => {
