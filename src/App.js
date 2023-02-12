@@ -19,17 +19,18 @@ import "./index.scss";
 
 function App() {
   console.log("render");
-  const ar = [1, 2, 3];
-  const cardMenu = ["3 Days"];
+
+  const cardMenu = ["3 Days", "Week"];
   const [activeMenuItem, setActiveMenuItem] = React.useState(0);
   const [weather, setWeather] = React.useState({});
   const [location, setLocation] = React.useState("Minsk");
   const [isLoading, setIsLoading] = React.useState(true);
-  const [darkmode, setDarkmode] = React.useState(true);
+  const [darkmode, setDarkmode] = React.useState(false);
+  const [daylimit, setDaylimit] = React.useState(3);
   let lat = 53.9;
   let lon = 27.5667;
-  let daylimit = 3;
-  const url = `https://api.weather.yandex.ru/v2/forecast?lat=53.9&lon=27.5667&lang=be_BY&limit=3&hours=true&extra=false`;
+
+  //const url = `https://api.weather.yandex.ru/v2/forecast?lat=53.9&lon=27.5667&lang=be_BY&limit=3&hours=true&extra=false`;
   const getPosition = (pos) => {
     lat = pos.coords.latitude;
     lon = pos.coords.longitude;
@@ -39,7 +40,7 @@ function App() {
   React.useEffect(() => {
     async function getWeather() {
       const weatherResp = await axios.get(
-        `https://react-weather-server-fkfe.vercel.app/v2/forecast?lat=${lat}&lon=${lon}&lang=en_US&limit=${daylimit}&hours=true&extra=false`
+        `https://react-weather-server-fkfe.vercel.app/v2/forecast?lat=${lat}&lon=${lon}&lang=en_US&limit=7&hours=true&extra=false`
       );
       setIsLoading(false);
       setWeather(weatherResp.data);
@@ -62,6 +63,11 @@ function App() {
   };
   const onChooseMenu = (id) => {
     setActiveMenuItem(id);
+    if (id === 1) {
+      setDaylimit(7);
+    } else {
+      setDaylimit(3);
+    }
   };
   const date = new Date();
 
@@ -129,43 +135,43 @@ function App() {
   let globalArray = [];
   for (let i = 0; i < daylimit; i++) {
     globalArray[i] = {
-      day: 1,
-      weekday: "Monday",
+      day: 0,
+      weekday: "",
       isWeekend: false,
-      month: "February",
-      temperature: -11,
-      temperatureMin: -15,
-      temperatureMax: -10,
-      description: "Clouds",
+      month: "",
+      temperature: 0,
+      temperatureMin: 0,
+      temperatureMax: 0,
+      description: "",
       icon: "",
-      moon: 1,
+      moon: 0,
       morning: {
-        temperature: -12,
-        speed: 22,
-        direction: 348,
-        humidity: 60,
-        pressure: 765,
+        temperature: 0,
+        speed: 0,
+        direction: 0,
+        humidity: 0,
+        pressure: 0,
       },
       afternoon: {
-        temperature: -12,
-        speed: 22,
-        direction: 348,
-        humidity: 60,
-        pressure: 765,
+        temperature: 0,
+        speed: 0,
+        direction: 0,
+        humidity: 0,
+        pressure: 0,
       },
       evening: {
-        temperature: -12,
-        speed: 22,
-        direction: 348,
-        humidity: 60,
-        pressure: 765,
+        temperature: 0,
+        speed: 0,
+        direction: 0,
+        humidity: 0,
+        pressure: 0,
       },
       night: {
-        temperature: -12,
-        speed: 22,
-        direction: 348,
-        humidity: 60,
-        pressure: 765,
+        temperature: 0,
+        speed: 0,
+        direction: 0,
+        humidity: 0,
+        pressure: 0,
       },
     };
   }
@@ -197,20 +203,53 @@ function App() {
   };
 
   if (!isLoading) {
+    //console.log(weather);
+    const tempMinMax = (day) => {
+      let tempObj = {
+        t_min: weather.forecasts[day].parts.night.temp_min,
+        t_max: weather.forecasts[day].parts.day.temp_max,
+      };
+      if (tempObj.t_min > weather.forecasts[day].parts.morning.temp_min)
+        tempObj.t_min = weather.forecasts[day].parts.morning.temp_min;
+      if (tempObj.t_min > weather.forecasts[day].parts.day.temp_min)
+        tempObj.t_min = weather.forecasts[day].parts.day.temp_min;
+      if (tempObj.t_min > weather.forecasts[day].parts.evening.temp_min)
+        tempObj.t_min = weather.forecasts[day].parts.evening.temp_min;
+      if (tempObj.t_max < weather.forecasts[day].parts.morning.temp_max)
+        tempObj.t_max = weather.forecasts[day].parts.morning.temp_max;
+      if (tempObj.t_max < weather.forecasts[day].parts.evening.temp_max)
+        tempObj.t_max = weather.forecasts[day].parts.evening.temp_max;
+      if (tempObj.t_max < weather.forecasts[day].parts.night.temp_max)
+        tempObj.t_max = weather.forecasts[day].parts.night.temp_max;
+      return tempObj;
+    };
+    const defineDaytime = (hour, day) => {
+      if (hour < 6) {
+        return weather.forecasts[day].parts.night;
+      }
+      if (hour > 5 && hour < 12) {
+        return weather.forecasts[day].parts.morning;
+      }
+      if (hour > 11 && hour < 18) {
+        return weather.forecasts[day].parts.day;
+      }
+      if (hour > 17) {
+        return weather.forecasts[day].parts.evening;
+      }
+    };
     for (let i = 0; i < globalArray.length; i++) {
+      let todayParams = defineDaytime(date.getHours(), i);
+      let tObj = tempMinMax(i);
       let tmp = showCurrentDate(i);
       globalArray[i].day = tmp.day;
       globalArray[i].weekday = tmp.weekday;
       globalArray[i].isWeekend = tmp.isWeekday;
       globalArray[i].month = tmp.month;
-      globalArray[i].temperature =
-        weather.forecasts[i].hours[date.getHours()].temp;
-      globalArray[i].icon = `https://yastatic.net/weather/i/icons/funky/dark/${
-        weather.forecasts[i].hours[date.getHours()].icon
-      }.svg`;
-      globalArray[i].temperatureMin = weather.forecasts[i].parts.night.temp_min;
-      globalArray[i].temperatureMax =
-        weather.forecasts[i].parts.day.temp_max + 1;
+      globalArray[i].temperature = todayParams.temp_avg;
+      globalArray[i].icon = todayParams.icon;
+      globalArray[i].description = todayParams.condition;
+      globalArray[i].temperatureMin = tObj.t_min;
+      globalArray[i].temperatureMax = tObj.t_max;
       globalArray[i].moon = weather.forecasts[i].moon_code;
 
       /**  morning */
@@ -269,15 +308,29 @@ function App() {
         weather.forecasts[i].parts.night.wind_dir;
     }
     globalArray[0].weekday = "Today";
+    globalArray[0].temperature =
+      weather.forecasts[0].hours[date.getHours()].temp;
     console.log("loading complete");
   }
 
-  const changeColorTheme = () => {
-    setDarkmode(!darkmode);
-    if (darkmode) {
+  try {
+    if (localStorage.getItem("theme") === "dark") {
       document.body.classList.add("dark");
-    } else {
+      //setDarkmode(true);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+
+  const changeColorTheme = () => {
+    if (localStorage.getItem("theme") === "dark") {
       document.body.classList.remove("dark");
+      localStorage.removeItem("theme");
+      setDarkmode(false);
+    } else {
+      document.body.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+      setDarkmode(true);
     }
   };
 
@@ -314,15 +367,12 @@ function App() {
             {item}
           </p>
         ))}
-        {/* Update forecast for month */}
-        <p className="disabled">Week</p>
-        <p className="disabled">Month</p>
       </div>
 
       <div className="cardContainer">
         {!isLoading &&
           globalArray.map((item, index) => (
-            <Card key={index} flipMode={0} {...item} temp={"1"} url={url} />
+            <Card key={index} flipMode={0} {...item} />
           ))}
       </div>
 
@@ -394,10 +444,20 @@ function App() {
         </nav> */}
 
         <p>
-          <a href="#">www.weza.com</a> All rights reserved
+          <a href="https://react-weather-brown-gamma.vercel.app">
+            react-weather.app
+          </a>{" "}
+          All rights reserved
         </p>
         <p>
-          Icons used by <a href="#">Flaticon.org</a>
+          <a href="https://www.flaticon.com/free-icons/moon" title="moon icons">
+            Moon
+          </a>{" "}
+          &{" "}
+          <a href="https://www.flaticon.com/free-icons/sun" title="sun icons">
+            Sun
+          </a>{" "}
+          icons created by Freepik - Flaticon
         </p>
       </footer>
     </>

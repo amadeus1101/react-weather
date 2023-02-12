@@ -55,6 +55,10 @@ header {
   justify-content: center;
   padding: 15px;
   background: #ff3131;
+  // position: fixed;
+  // left: 0;
+  // top: 0;
+  // z-index: 1000;
   nav {
     max-width: 1440px;
     width: 100%;
@@ -116,6 +120,7 @@ header {
 
     .theme-switcher img {
       width: 24px;
+      cursor: pointer;
     }
   }
 }
@@ -1053,23 +1058,24 @@ section.mobile {
 .dark {
   background: #20232a;
   transition: background 0.5s;
+  p {
+    color: #a9a9a9;
+  }
   article {
     background: #20232a;
     transition: background 0.5s;
-    p {
-      color: #a9a9a9;
-    }
   }
   header,
   footer {
     background: rgb(202, 8, 47);
   }
+  footer p {
+    color: #fff;
+  }
   h2.title {
     color: #fff;
   }
-  p.subtitle {
-    color: #a9a9a9;
-  }
+
   .cards-menu p {
     background: #20232a;
     border: none;
@@ -1096,7 +1102,7 @@ section.mobile {
     background: #282c34;
     .content {
       border-color: #a9a9a9;
-      p {
+      .date p {
         color: #a9a9a9;
       }
     }
@@ -1125,9 +1131,6 @@ section.mobile {
         h4 {
           color: #fff;
         }
-        p {
-          color: #a9a9a9;
-        }
       }
       .date {
         border-color: #5f5f5f;
@@ -1139,7 +1142,6 @@ section.mobile {
         }
       }
       .params .row {
-        p,
         span {
           color: #a9a9a9;
         }

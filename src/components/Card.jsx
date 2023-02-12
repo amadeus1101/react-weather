@@ -61,7 +61,10 @@ function Card(props) {
         </div>
         <div className="temp">
           <h4>{props.temperature}</h4>
-          <img src={props.icon} alt="weather" />
+          <img
+            src={`https://yastatic.net/weather/i/icons/funky/dark/${props.icon}.svg`}
+            alt="weather"
+          />
           <p>
             {`${props.temperatureMin}` + " -> " + `${props.temperatureMax}`}
           </p>
