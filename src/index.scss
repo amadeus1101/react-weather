@@ -1141,8 +1141,12 @@ section.mobile {
           color: #a9a9a9;
         }
       }
+      .params::before {
+        background: #5f5f5f;
+      }
       .params .row {
-        span {
+        span,
+        p {
           color: #a9a9a9;
         }
       }

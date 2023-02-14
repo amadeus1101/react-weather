@@ -1,4 +1,5 @@
 import React from "react";
+import ContentLoader from "react-content-loader";
 
 function Card(props) {
   const [isFlipped, setIsFlipped] = React.useState(false);
@@ -59,78 +60,87 @@ function Card(props) {
       className={isFlipped ? "card short flipped" : "card "}
       onClick={onFlip}
     >
-      <div className="content">
-        <div className="date">
-          <h4 className={props.isWeekend ? "weekday" : ""}>{props.weekday}</h4>
-          <p>{props.month + " " + props.day}</p>
-        </div>
-        <div className="temp">
-          <h4>{props.temperature}</h4>
-          <img
-            src={`https://yastatic.net/weather/i/icons/funky/dark/${props.icon}.svg`}
-            alt="weather"
-          />
-          <p>
-            {`${props.temperatureMin}` + " -> " + `${props.temperatureMax}`}
-          </p>
-          <p>{props.description}</p>
-        </div>
-        <div className="phase">
-          <p>Moon phase:</p>
-          <img src={`../../assets/img/${pathToTheMoon}`} alt="moon-phase" />
-        </div>
-      </div>
-      <table>
-        <tbody>
-          <tr>
-            <th className="tableDate">Time</th>
-            <th>Temperature (*C)</th>
-            <th>Speed (m/s)</th>
-            <th>Humidity (%)</th>
-            <th>Pressure (mmHg)</th>
-          </tr>
-          <tr className="tableRow">
-            <th colSpan="4">Morning</th>
-          </tr>
-          <tr>
-            <td className="tableDate">Morning</td>
-            <td>{props.morning.temperature + showDeg}</td>
-            <td>{`${props.morning.speed} ${props.morning.direction}`}</td>
-            <td>{props.morning.humidity + showHumidPercent}</td>
-            <td>{props.morning.pressure}</td>
-          </tr>
-          <tr className="tableRow">
-            <th colSpan="4">Afternoon</th>
-          </tr>
-          <tr>
-            <td className="tableDate">Afternoon</td>
-            <td>{props.afternoon.temperature + showDeg}</td>
-            <td>{`${props.afternoon.speed} ${props.afternoon.direction}`}</td>
-            <td>{props.afternoon.humidity + showHumidPercent}</td>
-            <td>{props.afternoon.pressure}</td>
-          </tr>
-          <tr className="tableRow">
-            <th colSpan="4">Evening</th>
-          </tr>
-          <tr>
-            <td className="tableDate">Evening</td>
-            <td>{props.evening.temperature + showDeg}</td>
-            <td>{`${props.evening.speed} ${props.evening.direction}`}</td>
-            <td>{props.evening.humidity + showHumidPercent}</td>
-            <td>{props.evening.pressure}</td>
-          </tr>
-          <tr className="tableRow">
-            <th colSpan="4">Night</th>
-          </tr>
-          <tr>
-            <td className="tableDate">Night</td>
-            <td>{props.night.temperature + showDeg}</td>
-            <td>{`${props.night.speed} ${props.night.direction}`}</td>
-            <td>{props.night.humidity + showHumidPercent}</td>
-            <td>{props.night.pressure}</td>
-          </tr>
-        </tbody>
-      </table>
+      {props.loading ? (
+        "Waiting for network..."
+      ) : (
+        <>
+          {" "}
+          <div className="content">
+            <div className="date">
+              <h4 className={props.isWeekend ? "weekday" : ""}>
+                {props.weekday}
+              </h4>
+              <p>{props.month + " " + props.day}</p>
+            </div>
+            <div className="temp">
+              <h4>{props.temperature}</h4>
+              <img
+                src={`https://yastatic.net/weather/i/icons/funky/dark/${props.icon}.svg`}
+                alt="weather"
+              />
+              <p>
+                {`${props.temperatureMin}` + " -> " + `${props.temperatureMax}`}
+              </p>
+              <p>{props.description}</p>
+            </div>
+            <div className="phase">
+              <p>Moon phase:</p>
+              <img src={`../../assets/img/${pathToTheMoon}`} alt="moon-phase" />
+            </div>
+          </div>
+          <table>
+            <tbody>
+              <tr>
+                <th className="tableDate">Time</th>
+                <th>Temperature (*C)</th>
+                <th>Speed (m/s)</th>
+                <th>Humidity (%)</th>
+                <th>Pressure (mmHg)</th>
+              </tr>
+              <tr className="tableRow">
+                <th colSpan="4">Morning</th>
+              </tr>
+              <tr>
+                <td className="tableDate">Morning</td>
+                <td>{props.morning.temperature + showDeg}</td>
+                <td>{`${props.morning.speed} ${props.morning.direction}`}</td>
+                <td>{props.morning.humidity + showHumidPercent}</td>
+                <td>{props.morning.pressure}</td>
+              </tr>
+              <tr className="tableRow">
+                <th colSpan="4">Afternoon</th>
+              </tr>
+              <tr>
+                <td className="tableDate">Afternoon</td>
+                <td>{props.afternoon.temperature + showDeg}</td>
+                <td>{`${props.afternoon.speed} ${props.afternoon.direction}`}</td>
+                <td>{props.afternoon.humidity + showHumidPercent}</td>
+                <td>{props.afternoon.pressure}</td>
+              </tr>
+              <tr className="tableRow">
+                <th colSpan="4">Evening</th>
+              </tr>
+              <tr>
+                <td className="tableDate">Evening</td>
+                <td>{props.evening.temperature + showDeg}</td>
+                <td>{`${props.evening.speed} ${props.evening.direction}`}</td>
+                <td>{props.evening.humidity + showHumidPercent}</td>
+                <td>{props.evening.pressure}</td>
+              </tr>
+              <tr className="tableRow">
+                <th colSpan="4">Night</th>
+              </tr>
+              <tr>
+                <td className="tableDate">Night</td>
+                <td>{props.night.temperature + showDeg}</td>
+                <td>{`${props.night.speed} ${props.night.direction}`}</td>
+                <td>{props.night.humidity + showHumidPercent}</td>
+                <td>{props.night.pressure}</td>
+              </tr>
+            </tbody>
+          </table>
+        </>
+      )}
     </div>
   );
 }

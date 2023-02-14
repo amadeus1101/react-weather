@@ -1,8 +1,9 @@
 import React from "react";
 
 function Mobile({ todayData, pos, showCurrentDate }) {
+  const hoursArray = [1, 5, 9, 13, 17, 21];
   const today = showCurrentDate(0);
-  console.log(today);
+
   const date = new Date();
   const weekdays = [
     "Sunday",
@@ -62,7 +63,7 @@ function Mobile({ todayData, pos, showCurrentDate }) {
         <div className="sliderInfo">
           <h5>{`${state.value}:${minutes < 10 ? "0" + minutes : minutes}`}</h5>
           <h5>
-            {`${todayData.hours[state.value].temp}*`}
+            {`${todayData.hours[state.value].temp}°`}
             <img
               src={`https://yastatic.net/weather/i/icons/funky/dark/${
                 todayData.hours[state.value].icon
@@ -81,12 +82,11 @@ function Mobile({ todayData, pos, showCurrentDate }) {
         />
 
         <ul className="sliderSub">
-          <li>{`6:${minutes}`}</li>
-          <li>{`9:${minutes}`}</li>
-          <li>{`12:${minutes}`}</li>
-          <li>{`15:${minutes}`}</li>
-          <li>{`18:${minutes}`}</li>
-          <li>{`21:${minutes}`}</li>
+          {hoursArray.map((item, index) => (
+            <li key={index}>
+              {item + ":" + (minutes < 10 ? "0" + minutes : minutes)}
+            </li>
+          ))}
         </ul>
       </div>
     </section>

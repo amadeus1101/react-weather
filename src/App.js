@@ -370,10 +370,9 @@ function App() {
       </div>
 
       <div className="cardContainer">
-        {!isLoading &&
-          globalArray.map((item, index) => (
-            <Card key={index} flipMode={0} {...item} />
-          ))}
+        {globalArray.map((item, index) => (
+          <Card key={index} flipMode={0} {...item} loading={isLoading} />
+        ))}
       </div>
 
       <div className="select">
