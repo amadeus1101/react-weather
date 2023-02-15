@@ -1,8 +1,12 @@
 import React from "react";
-import Card from "./components/Card";
 import Mobile from "./components/Mobile";
 import Header from "./components/Header";
 import axios from "axios";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Calendar from "./pages/Calendar";
+import ErrorPage from "./pages/ErrorPage";
+import { Routes, Route } from "react-router-dom";
 
 import "./index.scss";
 
@@ -21,12 +25,22 @@ function App() {
   console.log("render");
 
   const cardMenu = ["3 Days", "Week"];
-  const [activeMenuItem, setActiveMenuItem] = React.useState(0);
+
   const [weather, setWeather] = React.useState({});
   const [location, setLocation] = React.useState("Minsk");
   const [isLoading, setIsLoading] = React.useState(true);
   const [darkmode, setDarkmode] = React.useState(false);
   const [daylimit, setDaylimit] = React.useState(3);
+  const [activeMenuItem, setActiveMenuItem] = React.useState(0);
+  const onChooseMenu = (id) => {
+    setActiveMenuItem(id);
+    if (id === 1) {
+      setDaylimit(7);
+    } else {
+      setDaylimit(3);
+    }
+  };
+
   let lat = 53.9;
   let lon = 27.5667;
 
@@ -61,14 +75,7 @@ function App() {
       // getWeather();
     }
   };
-  const onChooseMenu = (id) => {
-    setActiveMenuItem(id);
-    if (id === 1) {
-      setDaylimit(7);
-    } else {
-      setDaylimit(3);
-    }
-  };
+
   const date = new Date();
 
   const months = [
@@ -338,14 +345,24 @@ function App() {
     <>
       <Header changeColorTheme={changeColorTheme} mode={darkmode} />
 
-      <h2 className="title">
-        <span className="red">N</span>
-        earest weather
-      </h2>
-      <p className="subtitle">
-        Here you will see nearest weather forecast in your city. City you
-        looking now <a href="#">{location}</a>
-      </p>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Home
+              cardMenu={cardMenu}
+              globalArray={globalArray}
+              isLoading={isLoading}
+              onChooseMenu={onChooseMenu}
+              activeMenuItem={activeMenuItem}
+              location={location}
+            />
+          }
+        />
+        <Route path="/about" element={<About />} />
+        <Route path="/calendar" element={<Calendar />} />
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
 
       {!isLoading && (
         <Mobile
@@ -354,111 +371,6 @@ function App() {
           showCurrentDate={showCurrentDate}
         />
       )}
-
-      <div className="cards-menu">
-        {cardMenu.map((item, index) => (
-          <p
-            key={index}
-            onClick={() => {
-              onChooseMenu(index);
-            }}
-            className={index === activeMenuItem ? "choosed" : ""}
-          >
-            {item}
-          </p>
-        ))}
-      </div>
-
-      <div className="cardContainer">
-        {globalArray.map((item, index) => (
-          <Card key={index} flipMode={0} {...item} loading={isLoading} />
-        ))}
-      </div>
-
-      <div className="select">
-        <p className="subtitle">
-          To change a city, please, enter "latitude, longitude" or "cityname"
-          and press ENTER
-        </p>
-        <input
-          className="selectCity"
-          type="text"
-          value={location}
-          onChange={(event) => setLocation(event.target.value)}
-          onKeyDown={(event) => catchLocation(event)}
-        />
-      </div>
-      {/* <h2 className="title">
-        <span className="red">F</span>orecast in nearest cities
-      </h2> */}
-      <div className="cardContainer">
-        {/* <Card flip={flip} classMode={"card short"} /> */}
-      </div>
-      {/* <article>
-        <h2 className="title">
-          <span className="red">D</span>ay of Rolex
-        </h2>
-        <p className="subtitle">Daily rubric of what? ...</p>
-
-        <p>
-          <span className="red">T</span>oday we celebrate The International Day
-          of Folex. Lorem ipsum dolor sit amet consequetur amatur de alesan.
-          Orde lando salom trea liciy Rreyne samoldano; ursa etra el abaddon.
-          Lorem ipsum dolor sit amet consequetur amatur de alesan. Orde lando
-          salom trea liciy Rreyne samoldano; ursa etra el abaddon.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam vel
-          itaque dignissimos nulla quidem neque nam iusto consequatur nihil,
-          dicta error atque corporis doloribus officia, odio debitis! Odio,
-          fugit ad? De alesan. Orde lando salom trea liciy Rreyne samoldano;
-          ursa etra el abaddon. Lorem ipsum dolor sit amet consequetur amatur de
-          alesan. Orde lando salom trea liciy Rreyne samoldano; ursa etra el
-          abaddon.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consequetur amatur de alesan. Orde lando
-          salom trea liciy Rreyne samoldano; ursa etra el abaddon. Dicta error
-          atque corporis doloribus officia, odio debitis! Odio, fugit ad?
-        </p>
-      </article> */}
-      <footer>
-        <h3>
-          weza<sup>beta</sup>-0.1.0
-        </h3>
-        {/* <nav>
-          <ul>
-            <li>
-              <a href="#">About us</a>
-            </li>
-            <li>
-              <a href="#" id="active-link">
-                Weather
-              </a>
-            </li>
-            <li>
-              <a href="#">Moon calendar</a>
-            </li>
-          </ul>
-        </nav> */}
-
-        <p>
-          <a href="https://react-weather-brown-gamma.vercel.app">
-            react-weather.app
-          </a>{" "}
-          All rights reserved
-        </p>
-        <p>
-          <a href="https://www.flaticon.com/free-icons/moon" title="moon icons">
-            Moon
-          </a>{" "}
-          &{" "}
-          <a href="https://www.flaticon.com/free-icons/sun" title="sun icons">
-            Sun
-          </a>{" "}
-          icons created by Freepik - Flaticon
-        </p>
-      </footer>
     </>
   );
 }

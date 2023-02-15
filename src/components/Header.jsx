@@ -1,4 +1,12 @@
+import { Link } from "react-router-dom";
+import React from "react";
+
 function Header({ changeColorTheme, mode }) {
+  const [activeLink, setActiveLink] = React.useState(1);
+  const links = ["About us", "Weather", "Moon calendar"];
+  const changeActiveLink = (id) => {
+    setActiveLink(id);
+  };
   return (
     <header>
       <nav>
@@ -8,16 +16,14 @@ function Header({ changeColorTheme, mode }) {
           </a>
         </div>
         <ul>
-          <li className="disabled">
-            <a href="#">About us</a>
+          <li>
+            <Link to="/about">About us</Link>
           </li>
           <li>
-            <a href="#" id="active-link">
-              Weather
-            </a>
+            <Link to="/">Weather</Link>
           </li>
-          <li className="disabled">
-            <a href="#">Moon calendar</a>
+          <li>
+            <Link to="/calendar">Moon calendar</Link>
           </li>
         </ul>
         <div className="theme-switcher" onClick={changeColorTheme}>
