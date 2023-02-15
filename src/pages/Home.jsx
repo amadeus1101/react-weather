@@ -46,13 +46,13 @@ function Home({
           To change a city, please, enter "latitude, longitude" or "cityname"
           and press ENTER
         </p>
-        <input
+        {/* <input
           className="selectCity"
           type="text"
           value={location}
           onChange={(event) => setLocation(event.target.value)}
           onKeyDown={(event) => catchLocation(event)}
-        />
+        /> */}
       </div>
       {/* <h2 className="title">
         <span className="red">F</span>orecast in nearest cities
