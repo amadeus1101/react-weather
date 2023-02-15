@@ -1,5 +1,4 @@
 import Card from "../components/Card";
-import Footer from "../components/Footer";
 
 function Home({
   cardMenu,
@@ -89,7 +88,6 @@ function Home({
           atque corporis doloribus officia, odio debitis! Odio, fugit ad?
         </p>
       </article> */}
-      <Footer />
     </>
   );
 }

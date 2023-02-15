@@ -1,6 +1,7 @@
 import React from "react";
 import Mobile from "./components/Mobile";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import axios from "axios";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -43,39 +44,6 @@ function App() {
 
   let lat = 53.9;
   let lon = 27.5667;
-
-  //const url = `https://api.weather.yandex.ru/v2/forecast?lat=53.9&lon=27.5667&lang=be_BY&limit=3&hours=true&extra=false`;
-  const getPosition = (pos) => {
-    lat = pos.coords.latitude;
-    lon = pos.coords.longitude;
-  };
-  navigator.geolocation.getCurrentPosition(getPosition);
-
-  React.useEffect(() => {
-    async function getWeather() {
-      const weatherResp = await axios.get(
-        `https://react-weather-server-fkfe.vercel.app/v2/forecast?lat=${lat}&lon=${lon}&lang=en_US&limit=7&hours=true&extra=false`
-      );
-      setIsLoading(false);
-      setWeather(weatherResp.data);
-    }
-    getWeather();
-  }, []);
-
-  const catchLocation = (event) => {
-    if (event.key === "Enter") {
-      // async function getWeather() {
-      //   const weatherResp = await axios.get(
-      //     `http://localhost:3001/v2/forecast?lat=${lat}&lon=${lon}&lang=en_US&limit=${daylimit}&hours=true&extra=false`
-      //   );
-      //   setIsLoading(false);
-      //   setWeather(weatherResp.data);
-      //   console.log("POOOOOOOOOOOOOOOOOOST");
-      // }
-      // getWeather();
-    }
-  };
-
   const date = new Date();
 
   const months = [
@@ -140,6 +108,52 @@ function App() {
   ];
 
   let globalArray = [];
+  //const url = `https://api.weather.yandex.ru/v2/forecast?lat=53.9&lon=27.5667&lang=be_BY&limit=3&hours=true&extra=false`;
+  const getPosition = (pos) => {
+    lat = pos.coords.latitude;
+    lon = pos.coords.longitude;
+  };
+  navigator.geolocation.getCurrentPosition(getPosition);
+
+  React.useEffect(() => {
+    try {
+      if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark");
+        setDarkmode(true);
+      } else {
+        if (date.getHours() > 18 && localStorage.getItem("theme") !== "light") {
+          localStorage.setItem("theme", "dark");
+          document.body.classList.add("dark");
+          setDarkmode(true);
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    async function getWeather() {
+      const weatherResp = await axios.get(
+        `https://react-weather-server-fkfe.vercel.app/v2/forecast?lat=${lat}&lon=${lon}&lang=en_US&limit=7&hours=true&extra=false`
+      );
+      setIsLoading(false);
+      setWeather(weatherResp.data);
+    }
+    getWeather();
+  }, []);
+
+  const catchLocation = (event) => {
+    if (event.key === "Enter") {
+      // async function getWeather() {
+      //   const weatherResp = await axios.get(
+      //     `http://localhost:3001/v2/forecast?lat=${lat}&lon=${lon}&lang=en_US&limit=${daylimit}&hours=true&extra=false`
+      //   );
+      //   setIsLoading(false);
+      //   setWeather(weatherResp.data);
+      //   console.log("POOOOOOOOOOOOOOOOOOST");
+      // }
+      // getWeather();
+    }
+  };
+
   for (let i = 0; i < daylimit; i++) {
     globalArray[i] = {
       day: 0,
@@ -320,19 +334,10 @@ function App() {
     console.log("loading complete");
   }
 
-  try {
-    if (localStorage.getItem("theme") === "dark") {
-      document.body.classList.add("dark");
-      //setDarkmode(true);
-    }
-  } catch (err) {
-    console.log(err);
-  }
-
   const changeColorTheme = () => {
     if (localStorage.getItem("theme") === "dark") {
       document.body.classList.remove("dark");
-      localStorage.removeItem("theme");
+      localStorage.setItem("theme", "light");
       setDarkmode(false);
     } else {
       document.body.classList.add("dark");
@@ -371,6 +376,7 @@ function App() {
           showCurrentDate={showCurrentDate}
         />
       )}
+      <Footer />
     </>
   );
 }
