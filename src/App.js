@@ -354,14 +354,21 @@ function App() {
         <Route
           path="/"
           element={
-            <Home
-              cardMenu={cardMenu}
-              globalArray={globalArray}
-              isLoading={isLoading}
-              onChooseMenu={onChooseMenu}
-              activeMenuItem={activeMenuItem}
-              location={location}
-            />
+            <>
+              <Mobile
+                todayData={weather.forecasts[0]}
+                pos={location}
+                showCurrentDate={showCurrentDate}
+              />
+              <Home
+                cardMenu={cardMenu}
+                globalArray={globalArray}
+                isLoading={isLoading}
+                onChooseMenu={onChooseMenu}
+                activeMenuItem={activeMenuItem}
+                location={location}
+              />
+            </>
           }
         />
         <Route path="/about" element={<About />} />
@@ -369,13 +376,13 @@ function App() {
         <Route path="*" element={<ErrorPage />} />
       </Routes>
 
-      {!isLoading && (
+      {/* {!isLoading && (
         <Mobile
           todayData={weather.forecasts[0]}
           pos={location}
           showCurrentDate={showCurrentDate}
         />
-      )}
+      )} */}
       <Footer />
     </>
   );
