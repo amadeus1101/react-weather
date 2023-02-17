@@ -1,4 +1,5 @@
 import Card from "../components/Card";
+import Mobile from "../components/Mobile";
 
 function Home({
   cardMenu,
@@ -7,12 +8,22 @@ function Home({
   onChooseMenu,
   activeMenuItem,
   location,
+  todayData,
+  pos,
+  showCurrentDate,
 }) {
   const chooseActiveMenuItem = (i) => {
     onChooseMenu(i);
   };
   return (
     <>
+      {todayData && (
+        <Mobile
+          todayData={todayData}
+          pos={pos}
+          showCurrentDate={showCurrentDate}
+        />
+      )}
       <h2 className="title">
         <span className="red">N</span>
         earest weather

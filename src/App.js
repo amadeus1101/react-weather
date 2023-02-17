@@ -354,21 +354,18 @@ function App() {
         <Route
           path="/"
           element={
-            <>
-              <Mobile
-                todayData={weather.forecasts[0]}
-                pos={location}
-                showCurrentDate={showCurrentDate}
-              />
-              <Home
-                cardMenu={cardMenu}
-                globalArray={globalArray}
-                isLoading={isLoading}
-                onChooseMenu={onChooseMenu}
-                activeMenuItem={activeMenuItem}
-                location={location}
-              />
-            </>
+            <Home
+              cardMenu={cardMenu}
+              globalArray={globalArray}
+              isLoading={isLoading}
+              onChooseMenu={onChooseMenu}
+              activeMenuItem={activeMenuItem}
+              location={location}
+              /*Mobile*/
+              todayData={!isLoading ? weather.forecasts[0] : ""}
+              pos={location}
+              showCurrentDate={showCurrentDate}
+            />
           }
         />
         <Route path="/about" element={<About />} />
