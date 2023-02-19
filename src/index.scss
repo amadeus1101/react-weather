@@ -55,10 +55,10 @@ header {
   justify-content: center;
   padding: 15px;
   background: #ff3146;
-  // position: fixed;
-  // left: 0;
-  // top: 0;
-  // z-index: 1000;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
 
   nav {
     max-width: 1440px;
@@ -141,13 +141,14 @@ header {
 }
 
 h2.title {
-  margin-top: 30px;
+  margin-top: 120px;
   letter-spacing: 0;
   text-align: center;
   font-family: "InterBold";
   font-size: 48px;
   color: #000;
 }
+
 h2.title::after {
   display: block;
   content: "";
@@ -228,6 +229,9 @@ p.subtitle a {
         font-size: 14px;
       }
     }
+  }
+  h2.title {
+    margin-top: 30px;
   }
 }
 @media (max-width: 500px) {
@@ -408,8 +412,8 @@ article {
 
 .calendar {
   max-width: 1440px;
-  margin: 50px auto;
-  padding: 50px 100px;
+  margin: 30px auto 0;
+  padding: 20px 100px 30px;
   background: #fff;
   border-radius: 50px;
   display: flex;
@@ -422,7 +426,7 @@ article {
   }
   .month-container {
     width: 100%;
-    margin: 40px auto 0;
+    margin: 20px auto 0;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(6, 1fr);
@@ -470,7 +474,7 @@ article {
 }
 @media (max-width: 1025px) {
   .calendar {
-    padding: 50px 50px;
+    padding: 20px 50px 50px;
   }
 }
 @media (max-width: 910px) {
@@ -510,7 +514,7 @@ article {
 }
 @media (max-width: 625px) {
   .calendar {
-    margin: 30px auto;
+    margin: 30px auto 0;
     padding: 20px;
     .month-container {
       .month-item {
@@ -622,6 +626,7 @@ section.mobile {
   align-items: center;
   padding: 50px 30px 40px;
   background: #fff;
+  margin-top: 60px;
   .weather {
     width: 100%;
     display: grid;
@@ -778,9 +783,11 @@ section.mobile {
 }
 
 @media (max-width: 769px) {
-  h2.title,
+  h2.title {
+    font-size: 32px;
+  }
   p.subtitle {
-    display: none;
+    font-size: 14px;
   }
   article {
     p {
@@ -852,7 +859,7 @@ section.mobile {
   }
   article {
     padding: 30px 40px 100px;
-    margin: 0 auto;
+    margin: 30px auto 0;
   }
   section.mobile {
     .weather {
@@ -1405,6 +1412,9 @@ section.mobile {
         color: #a9a9a9;
       }
     }
+  }
+  .card.short.flipped .content .date h4.weekday {
+    color: #ff3146;
   }
   section.mobile {
     transition: background 0.5s;

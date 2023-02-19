@@ -32,14 +32,13 @@ function Calendar() {
   fillCalendar();
   return (
     <>
-      <h2 className="title">
-        <span className="red">M</span>oon Calendar
-      </h2>
-      <p className="subtitle">Meet the new moon-calendar for the month</p>
       <div className="calendar">
-        <h4>
-          <span className="red">F</span>ebruary-2023
-        </h4>
+        <h2 className="title">
+          <span className="red">F</span>ebruary
+        </h2>
+        <p className="subtitle">
+          Moon calendar on <span className="red">February</span> 2023
+        </p>
         <div className="month-container">
           {calendar.map((item, index) => (
             <div
