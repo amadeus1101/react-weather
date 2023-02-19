@@ -9,26 +9,22 @@ function Home({
   onChooseMenu,
   activeMenuItem,
   location,
+  setLocation,
   todayData,
   pos,
   showCurrentDate,
   catchLocation,
-  latitude,
-  longitude,
 }) {
   const [inputValue, setInputValue] = React.useState("");
-  const defineLatLon = (obj) => {
-    if (obj.key === "Enter") {
-      let nLat;
-      let nLon;
-      for (let i = 0; i < inputValue.length; i++) {
-        if (inputValue[i] === " ") {
-          nLat = inputValue.slice(0, i);
-          nLon = inputValue.slice(i + 1);
-          break;
-        }
-      }
-      catchLocation(nLat, nLon);
+  const checkCityname = (event) => {
+    if (event.key === "Enter") {
+      setLocation(inputValue);
+      fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${inputValue}&appid=d8cb9f388c6c6f5acf8c2866895c6134`
+      )
+        .then((res) => res.json())
+        .then((json) => catchLocation(json.coord.lat, json.coord.lon))
+        .catch((error) => setLocation("Invalid City!!!"));
     }
   };
   const chooseActiveMenuItem = (i) => {
@@ -49,7 +45,7 @@ function Home({
       </h2>
       <p className="subtitle">
         Here you will see nearest weather forecast in your city. City you
-        looking now <a href="#">{latitude + " " + longitude}</a>
+        looking now <a href="#location">{location}</a>
       </p>
       <div className="cards-menu">
         {cardMenu.map((item, index) => (
@@ -73,15 +69,16 @@ function Home({
 
       <div className="select">
         <p className="subtitle">
-          To change a city, please, enter latitude, longitude as "XX.XXX YY.YYY"
-          or "cityname" and press ENTER
+          To change a city, please, put correct city-name into the search box
+          and press ENTER
         </p>
         <input
+          id="location"
           className="selectCity"
           type="text"
           value={inputValue}
           onChange={(event) => setInputValue(event.target.value)}
-          onKeyDown={(event) => defineLatLon(event)}
+          onKeyDown={(event) => checkCityname(event)}
         />
       </div>
       {/* <h2 className="title">

@@ -33,8 +33,8 @@ function App() {
   const [darkmode, setDarkmode] = React.useState(false);
   const [daylimit, setDaylimit] = React.useState(3);
   const [activeMenuItem, setActiveMenuItem] = React.useState(0);
-  const [latitude, setLatitude] = React.useState(53.9);
-  const [longitude, setLongitude] = React.useState(27.5667);
+  let latitude = 53.9;
+  let longitude = 27.5667;
   const onChooseMenu = (id) => {
     setActiveMenuItem(id);
     if (id === 1) {
@@ -110,8 +110,8 @@ function App() {
   let globalArray = [];
   //const url = `https://api.weather.yandex.ru/v2/forecast?lat=53.9&lon=27.5667&lang=be_BY&limit=3&hours=true&extra=false`;
   const getPosition = (pos) => {
-    setLatitude(pos.coords.latitude);
-    setLongitude(pos.coords.longitude);
+    latitude = pos.coords.latitude;
+    longitude = pos.coords.longitude;
   };
   navigator.geolocation.getCurrentPosition(getPosition);
 
@@ -141,8 +141,6 @@ function App() {
   }, []);
 
   const catchLocation = (lat, lon) => {
-    setLatitude(lat);
-    setLongitude(lon);
     async function getWeather() {
       const weatherResp = await axios.get(
         `https://react-weather-server-fkfe.vercel.app/v2/forecast?lat=${lat}&lon=${lon}&lang=en_US&limit=7&hours=true&extra=false`
@@ -360,9 +358,8 @@ function App() {
               onChooseMenu={onChooseMenu}
               activeMenuItem={activeMenuItem}
               location={location}
+              setLocation={setLocation}
               catchLocation={catchLocation}
-              longitude={longitude}
-              latitude={latitude}
               /*Mobile*/
               todayData={!isLoading ? weather.forecasts[0] : ""}
               pos={location}
