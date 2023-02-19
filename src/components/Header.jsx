@@ -4,37 +4,43 @@ import { ReactComponent as Logo } from "./logo.svg";
 
 function Header({ changeColorTheme, mode }) {
   const [activeLink, setActiveLink] = React.useState(1);
+  const [menuOpened, setMenuOpened] = React.useState(false);
   const links = ["About us", "Weather", "Moon calendar"];
   let menu = document.querySelector(".burger");
   const changeActiveLink = (id) => {
     setActiveLink(id);
   };
-  const onClickBurger = () => {
-    menu.classList.toggle("active-menu");
-    document.querySelector("header").classList.toggle("burger-opened");
+  const onClickMenu = () => {
+    if (!menuOpened) {
+      menu.classList.add("active-menu");
+      document.querySelector("header").classList.add("burger-opened");
+      document.body.style.overflow = "hidden";
+    } else {
+      menu.classList.remove("active-menu");
+      document.querySelector("header").classList.remove("burger-opened");
+      document.body.style.overflow = "scroll";
+    }
+    setMenuOpened(!menuOpened);
   };
-  const closeMenu = () => {
-    document.querySelector("header").classList.remove("burger-opened");
-    menu.classList.remove("active-menu");
-  };
+
   return (
     <header>
       <nav>
         <Link to="/">
-          <div className="logo" onClick={() => closeMenu()}>
+          <div className="logo" onClick={() => onClickMenu()}>
             <Logo />
             <p>eza</p>
           </div>
         </Link>
         <ul>
-          <li className="burger" onClick={() => onClickBurger()}></li>
-          <li onClick={() => closeMenu()}>
+          <li className="burger" onClick={() => onClickMenu()}></li>
+          <li onClick={() => onClickMenu()}>
             <Link to="/about">About us</Link>
           </li>
-          <li onClick={() => closeMenu()}>
+          <li onClick={() => onClickMenu()}>
             <Link to="/">Weather</Link>
           </li>
-          <li onClick={() => closeMenu()}>
+          <li onClick={() => onClickMenu()}>
             <Link to="/calendar">Moon calendar</Link>
           </li>
         </ul>
