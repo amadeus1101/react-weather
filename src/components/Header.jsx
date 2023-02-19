@@ -25,7 +25,7 @@ function Header({ changeColorTheme, mode }) {
     } else {
       menu.classList.remove("active-menu");
       document.querySelector("header").classList.remove("burger-opened");
-      document.body.style.overscrollBehavior = "none";
+      //document.body.style.overscrollBehavior = "none";
     }
     setMenuOpened(!menuOpened);
   };
