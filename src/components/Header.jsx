@@ -7,6 +7,13 @@ function Header({ changeColorTheme, mode }) {
   const [menuOpened, setMenuOpened] = React.useState(false);
   const links = ["About us", "Weather", "Moon calendar"];
   let menu = document.querySelector(".burger");
+
+  window.addEventListener("resize", () => {
+    let vh = window.innerHeight * 0.01;
+
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  });
+
   const changeActiveLink = (id) => {
     setActiveLink(id);
   };
@@ -18,7 +25,7 @@ function Header({ changeColorTheme, mode }) {
     } else {
       menu.classList.remove("active-menu");
       document.querySelector("header").classList.remove("burger-opened");
-      document.body.style.overflow = "scroll";
+      document.body.style.overscrollBehavior = "none";
     }
     setMenuOpened(!menuOpened);
   };
