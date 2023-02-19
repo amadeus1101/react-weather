@@ -33,6 +33,8 @@ function App() {
   const [darkmode, setDarkmode] = React.useState(false);
   const [daylimit, setDaylimit] = React.useState(3);
   const [activeMenuItem, setActiveMenuItem] = React.useState(0);
+  const [latitude, setLatitude] = React.useState(53.9);
+  const [longitude, setLongitude] = React.useState(27.5667);
   const onChooseMenu = (id) => {
     setActiveMenuItem(id);
     if (id === 1) {
@@ -42,8 +44,6 @@ function App() {
     }
   };
 
-  let lat = 53.9;
-  let lon = 27.5667;
   const date = new Date();
 
   const months = [
@@ -110,8 +110,8 @@ function App() {
   let globalArray = [];
   //const url = `https://api.weather.yandex.ru/v2/forecast?lat=53.9&lon=27.5667&lang=be_BY&limit=3&hours=true&extra=false`;
   const getPosition = (pos) => {
-    lat = pos.coords.latitude;
-    lon = pos.coords.longitude;
+    setLatitude(pos.coords.latitude);
+    setLongitude(pos.coords.longitude);
   };
   navigator.geolocation.getCurrentPosition(getPosition);
 
@@ -132,7 +132,7 @@ function App() {
     }
     async function getWeather() {
       const weatherResp = await axios.get(
-        `https://react-weather-server-fkfe.vercel.app/v2/forecast?lat=${lat}&lon=${lon}&lang=en_US&limit=7&hours=true&extra=false`
+        `https://react-weather-server-fkfe.vercel.app/v2/forecast?lat=${latitude}&lon=${longitude}&lang=en_US&limit=7&hours=true&extra=false`
       );
       setIsLoading(false);
       setWeather(weatherResp.data);
@@ -140,18 +140,17 @@ function App() {
     getWeather();
   }, []);
 
-  const catchLocation = (event) => {
-    if (event.key === "Enter") {
-      // async function getWeather() {
-      //   const weatherResp = await axios.get(
-      //     `http://localhost:3001/v2/forecast?lat=${lat}&lon=${lon}&lang=en_US&limit=${daylimit}&hours=true&extra=false`
-      //   );
-      //   setIsLoading(false);
-      //   setWeather(weatherResp.data);
-      //   console.log("POOOOOOOOOOOOOOOOOOST");
-      // }
-      // getWeather();
+  const catchLocation = (lat, lon) => {
+    setLatitude(lat);
+    setLongitude(lon);
+    async function getWeather() {
+      const weatherResp = await axios.get(
+        `https://react-weather-server-fkfe.vercel.app/v2/forecast?lat=${lat}&lon=${lon}&lang=en_US&limit=7&hours=true&extra=false`
+      );
+      setIsLoading(false);
+      setWeather(weatherResp.data);
     }
+    getWeather();
   };
 
   for (let i = 0; i < daylimit; i++) {
@@ -361,6 +360,9 @@ function App() {
               onChooseMenu={onChooseMenu}
               activeMenuItem={activeMenuItem}
               location={location}
+              catchLocation={catchLocation}
+              longitude={longitude}
+              latitude={latitude}
               /*Mobile*/
               todayData={!isLoading ? weather.forecasts[0] : ""}
               pos={location}

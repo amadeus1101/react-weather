@@ -1,3 +1,4 @@
+import React from "react";
 import Card from "../components/Card";
 import Mobile from "../components/Mobile";
 
@@ -11,7 +12,25 @@ function Home({
   todayData,
   pos,
   showCurrentDate,
+  catchLocation,
+  latitude,
+  longitude,
 }) {
+  const [inputValue, setInputValue] = React.useState("");
+  const defineLatLon = (obj) => {
+    if (obj.key === "Enter") {
+      let nLat;
+      let nLon;
+      for (let i = 0; i < inputValue.length; i++) {
+        if (inputValue[i] === " ") {
+          nLat = inputValue.slice(0, i);
+          nLon = inputValue.slice(i + 1);
+          break;
+        }
+      }
+      catchLocation(nLat, nLon);
+    }
+  };
   const chooseActiveMenuItem = (i) => {
     onChooseMenu(i);
   };
@@ -30,7 +49,7 @@ function Home({
       </h2>
       <p className="subtitle">
         Here you will see nearest weather forecast in your city. City you
-        looking now <a href="#">{location}</a>
+        looking now <a href="#">{latitude + " " + longitude}</a>
       </p>
       <div className="cards-menu">
         {cardMenu.map((item, index) => (
@@ -54,16 +73,16 @@ function Home({
 
       <div className="select">
         <p className="subtitle">
-          To change a city, please, enter "latitude, longitude" or "cityname"
-          and press ENTER
+          To change a city, please, enter latitude, longitude as "XX.XXX YY.YYY"
+          or "cityname" and press ENTER
         </p>
-        {/* <input
+        <input
           className="selectCity"
           type="text"
-          value={location}
-          onChange={(event) => setLocation(event.target.value)}
-          onKeyDown={(event) => catchLocation(event)}
-        /> */}
+          value={inputValue}
+          onChange={(event) => setInputValue(event.target.value)}
+          onKeyDown={(event) => defineLatLon(event)}
+        />
       </div>
       {/* <h2 className="title">
         <span className="red">F</span>orecast in nearest cities
