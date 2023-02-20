@@ -24,7 +24,6 @@ import "./index.scss";
 
 function App() {
   console.log("render");
-
   const cardMenu = ["3 Days", "Week"];
 
   const [weather, setWeather] = React.useState({});

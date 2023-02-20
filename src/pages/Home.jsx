@@ -15,7 +15,7 @@ function Home({
   showCurrentDate,
   catchLocation,
 }) {
-  const [inputValue, setInputValue] = React.useState("");
+  const [inputValue, setInputValue] = React.useState(location);
   const checkCityname = (event) => {
     if (event.key === "Enter") {
       setLocation(inputValue);
