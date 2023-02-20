@@ -21,11 +21,10 @@ function Header({ changeColorTheme, mode }) {
     if (!menuOpened) {
       menu.classList.add("active-menu");
       document.querySelector("header").classList.add("burger-opened");
-      document.body.style.overflowY = "hidden";
+      //document.body.style.overflow = "hidden";
     } else {
       menu.classList.remove("active-menu");
       document.querySelector("header").classList.remove("burger-opened");
-      document.body.style.overflowY = "auto";
       //document.body.style.overscrollBehavior = "none";
     }
     setMenuOpened(!menuOpened);
