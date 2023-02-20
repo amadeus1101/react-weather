@@ -243,6 +243,7 @@ p.subtitle a {
     transform: translateY(100%);
     width: 100%;
     height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
     //min-height: 100vh;
     //overflow-y: hidden;
 
