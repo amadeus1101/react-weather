@@ -61,10 +61,39 @@ function Card(props) {
       onClick={onFlip}
     >
       {props.loading ? (
-        "Waiting for network..."
+        <>
+          <div className="skeleton">
+            <div className="skeleton-block">
+              <h5></h5>
+            </div>
+            <div className="skeleton-block">
+              <h5></h5>
+              <p></p>
+            </div>
+            <div className="skeleton-block">
+              <p></p>
+              <div className="skeleton-round"></div>
+            </div>
+          </div>
+          <div className="skeleton-table">
+            <ul className="skeleton-table-header">
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
+            <ul className="skeleton-table-data">
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
+          </div>
+        </>
       ) : (
         <>
-          {" "}
           <div className="content">
             <div className="date">
               <h4 className={props.isWeekend ? "weekday" : ""}>

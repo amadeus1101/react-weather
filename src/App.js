@@ -24,23 +24,21 @@ import "./index.scss";
 
 function App() {
   console.log("render");
-  const cardMenu = ["3 Days", "Week"];
+  const cardMenu = ["1 Day", "3 Days", "Week"];
 
   const [weather, setWeather] = React.useState({});
   const [location, setLocation] = React.useState("Minsk");
   const [isLoading, setIsLoading] = React.useState(true);
   const [darkmode, setDarkmode] = React.useState(false);
   const [daylimit, setDaylimit] = React.useState(3);
-  const [activeMenuItem, setActiveMenuItem] = React.useState(0);
+  const [activeMenuItem, setActiveMenuItem] = React.useState(1);
   let latitude = 53.9;
   let longitude = 27.5667;
   const onChooseMenu = (id) => {
     setActiveMenuItem(id);
-    if (id === 1) {
-      setDaylimit(7);
-    } else {
-      setDaylimit(3);
-    }
+    if (id === 0) setDaylimit(1);
+    if (id === 1) setDaylimit(3);
+    if (id === 2) setDaylimit(7);
   };
 
   const date = new Date();
@@ -354,6 +352,7 @@ function App() {
               cardMenu={cardMenu}
               globalArray={globalArray}
               isLoading={isLoading}
+              setIsLoading={setIsLoading}
               onChooseMenu={onChooseMenu}
               activeMenuItem={activeMenuItem}
               location={location}

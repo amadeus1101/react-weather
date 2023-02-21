@@ -6,6 +6,7 @@ function Home({
   cardMenu,
   globalArray,
   isLoading,
+  setIsLoading,
   onChooseMenu,
   activeMenuItem,
   location,
@@ -23,7 +24,10 @@ function Home({
         `https://api.openweathermap.org/data/2.5/weather?q=${inputValue}&appid=d8cb9f388c6c6f5acf8c2866895c6134`
       )
         .then((res) => res.json())
-        .then((json) => catchLocation(json.coord.lat, json.coord.lon))
+        .then((json) => {
+          catchLocation(json.coord.lat, json.coord.lon);
+          setIsLoading(true);
+        })
         .catch((error) => setLocation("Invalid City!!!"));
     }
   };
