@@ -36,13 +36,13 @@ function Home({
   };
   return (
     <>
-      {todayData && (
-        <Mobile
-          todayData={todayData}
-          pos={pos}
-          showCurrentDate={showCurrentDate}
-        />
-      )}
+      <Mobile
+        todayData={todayData}
+        pos={pos}
+        showCurrentDate={showCurrentDate}
+        loading={isLoading}
+      />
+
       <h2 className="title">
         <span className="red">N</span>
         earest weather
