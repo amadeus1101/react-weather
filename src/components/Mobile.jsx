@@ -22,7 +22,7 @@ function Mobile({ todayData, pos, showCurrentDate, loading }) {
   }
   return (
     <section className="mobile">
-      {!loading ? (
+      {loading ? (
         <>
           <div className="skeleton-mobile-weather">
             <div className="skeleton-temp"></div>
