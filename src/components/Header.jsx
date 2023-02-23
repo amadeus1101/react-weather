@@ -3,9 +3,9 @@ import React from "react";
 import { ReactComponent as Logo } from "./logo.svg";
 
 function Header({ changeColorTheme, mode }) {
-  const [activeLink, setActiveLink] = React.useState(1);
+  //const [activeLink, setActiveLink] = React.useState(1);
   const [menuOpened, setMenuOpened] = React.useState(false);
-  const links = ["About us", "Weather", "Moon calendar"];
+  //const links = ["About us", "Weather", "Moon calendar"];
   let menu = document.querySelector(".burger");
 
   window.addEventListener("resize", () => {
@@ -21,11 +21,11 @@ function Header({ changeColorTheme, mode }) {
     if (!menuOpened) {
       menu.classList.add("active-menu");
       document.querySelector("header").classList.add("burger-opened");
-      document.body.style.overflow = "hidden";
+      //document.body.style.overflow = "hidden";
     } else {
       menu.classList.remove("active-menu");
       document.querySelector("header").classList.remove("burger-opened");
-      document.body.style.overflow = "auto";
+      //document.body.style.overflow = "auto";
       //document.body.style.overscrollBehavior = "none";
     }
     setMenuOpened(!menuOpened);

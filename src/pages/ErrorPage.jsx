@@ -1,4 +1,11 @@
 function ErrorPage() {
-  return <h1>Sorry, we cannot find this page(</h1>;
+  return (
+    <div className="error-container">
+      <div className="error-content">
+        <h2>404</h2>
+        <p>We are sorry, the page you looking for does not exist(</p>
+      </div>
+    </div>
+  );
 }
 export default ErrorPage;
