@@ -14,9 +14,6 @@ function Header({ changeColorTheme, mode }) {
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   });
 
-  const changeActiveLink = (id) => {
-    setActiveLink(id);
-  };
   const onClickMenu = () => {
     if (!menuOpened) {
       menu.classList.add("active-menu");
