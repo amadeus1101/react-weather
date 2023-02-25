@@ -133,9 +133,20 @@ header {
       }
     }
 
-    .theme-switcher img {
-      width: 24px;
-      cursor: pointer;
+    .param-panel {
+      display: flex;
+      align-items: center;
+      .card-mode-switcher {
+        cursor: pointer;
+        margin: 0 15px;
+        img {
+          width: 20px;
+        }
+      }
+      .theme-switcher img {
+        width: 24px;
+        cursor: pointer;
+      }
     }
   }
 }
@@ -244,7 +255,7 @@ p.subtitle a {
       transform: translateY(100%);
       width: 100%;
       height: 100vh;
-      height: calc(var(--vh, 1vh) * 100);
+      //height: calc(var(--vh, 1vh) * 100);
       z-index: 1000;
       background: rgb(202, 8, 47);
       padding: 200px 50px;
@@ -273,7 +284,7 @@ p.subtitle a {
           margin: 30px 0;
         }
       }
-      .theme-switcher {
+      .param-panel .theme-switcher {
         position: absolute;
         margin: 34px;
         top: 0;
@@ -341,7 +352,7 @@ p.subtitle a {
       }
     }
 
-    .theme-switcher {
+    .param-panel .theme-switcher {
       position: relative;
     }
   }
@@ -702,12 +713,12 @@ footer {
   }
 }
 .cardContainer {
-  max-width: 1440px;
+  max-width: 1300px;
   margin: 20px auto 40px;
   padding: 0 20px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
 }
 
@@ -1426,55 +1437,30 @@ section.mobile {
 }
 @media (max-width: 901px) {
   .card {
-    max-width: 240px;
-    height: 300px;
-    padding: 30px;
     h4 {
       font-size: 32px;
     }
+    p {
+      font-size: 14px;
+    }
     .content {
-      width: 100%;
-      height: 100%;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      border: none;
-
-      position: relative;
-      padding: 90px 0 0 0;
-      .date {
-        width: 100%;
-        position: absolute;
-        left: 0;
-        top: 0;
-        p {
-          font-size: 18px;
-        }
-        &::after {
-          display: block;
-          content: "";
-          width: 100%;
-          height: 3px;
-          background: #d9d9d9;
-          margin-top: 15px;
-        }
+      .date p {
+        font-size: 18px;
       }
-      .temp {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto;
-        p {
-          font-size: 14px;
-        }
-        img {
-          grid-area: 3;
-        }
+      .temp img {
+        width: 40px;
       }
-      .phase {
-        display: none;
+      .phase img {
+        width: 32px;
       }
     }
     table {
-      display: none;
+      padding: 0 10px;
+      border-spacing: 0 12px;
+    }
+    table tr th,
+    table tr td {
+      font-size: 14px;
     }
     .skeleton {
       flex-direction: column;
@@ -1515,25 +1501,168 @@ section.mobile {
     }
   }
 }
-
+@media (max-width: 769px) {
+  .card {
+    cursor: pointer;
+    box-shadow: none;
+    overflow: hidden;
+    padding: 10px 20px;
+    border-radius: 15px;
+    margin-top: 20px;
+    h4 {
+      font-size: 24px;
+    }
+    p {
+      font-size: 14px;
+    }
+    .content {
+      background: #fff;
+      z-index: 11;
+      border: none;
+      padding: 0;
+      .date p {
+        font-size: 14px;
+      }
+      .temp {
+        width: 50%;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: 1fr;
+        p:last-child {
+          display: none;
+        }
+      }
+      .phase {
+        display: none;
+      }
+    }
+    table {
+      transition: 0.5s;
+      opacity: 0;
+      z-index: 1;
+      margin-top: -130px;
+      padding: 0;
+      border-spacing: 0 10px;
+      tr th,
+      tr td {
+        font-size: 12px;
+      }
+    }
+  }
+  .card:hover {
+    .content {
+      border-bottom: 3px solid #d9d9d9;
+      padding-bottom: 12px;
+    }
+    table {
+      margin-top: 0;
+      animation: fade-in 1s linear;
+      opacity: 1;
+    }
+  }
+}
+@media (max-width: 600px) {
+  .card {
+    .content {
+      .temp {
+        width: 60%;
+      }
+    }
+    table {
+      margin-top: -110px;
+      tr:first-child {
+        display: none;
+      }
+    }
+  }
+}
+@media (max-width: 500px) {
+  .card {
+    margin-top: 10px;
+    h4 {
+      font-size: 20px;
+    }
+    p {
+      font-size: 12px;
+    }
+    .content {
+      .date p {
+        font-size: 12px;
+      }
+      .temp {
+        width: 65%;
+        img {
+          width: 36px;
+        }
+      }
+    }
+  }
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  80% {
+    opacity: 1;
+  }
+}
 /*******                 *PSEUDO SHORT FORM CLASS*               **********************/
 
 .card.short {
   max-width: 240px;
   height: 300px;
   padding: 30px;
+  margin: 30px 10px 0;
+  box-shadow: 5px 5px 15px rgb(0 0 0 / 25%), 10px 10px 5px rgb(0 0 0 / 10%);
   /*anim*/
+
   /* perspective: 500px;
     transition: transform 1s;
     transform-style: preserve-3d; */
+  .skeleton {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    .skeleton-block:first-child {
+      h5 {
+        width: 180px;
+        height: 65px;
+      }
+
+      &::after {
+        display: block;
+        content: "";
+        width: 180px;
+        height: 3px;
+        background: #d9d9d9;
+        margin-top: 15px;
+      }
+    }
+    .skeleton-block:nth-child(2) {
+      h5,
+      p {
+        width: 90px;
+        height: 55px;
+        margin: 10px 0 0 0;
+
+        display: block;
+      }
+    }
+    .skeleton-block:last-child {
+      display: none;
+    }
+  }
+  .skeleton-table {
+    display: none;
+  }
   &:hover {
     cursor: pointer;
-    transform: translateX(5px) translateY(-5px);
   }
   h4 {
     transition: 0.3s;
     font-size: 32px;
   }
+
   .content {
     width: 100%;
     height: 100%;
@@ -1541,6 +1670,7 @@ section.mobile {
     align-items: center;
     justify-content: center;
     border: none;
+    animation: fade-in 1s linear;
 
     position: relative;
     padding: 90px 0 0 0;
@@ -1560,7 +1690,7 @@ section.mobile {
         display: block;
         content: "";
         width: 100%;
-        height: 3px;
+        height: 2px;
         background: #d9d9d9;
         margin-top: 15px;
       }
@@ -1582,11 +1712,20 @@ section.mobile {
   table {
     display: none;
   }
+
   &.flipped {
+    box-shadow: -5px 5px 15px rgb(0 0 0 / 25%), -10px 10px 5px rgb(0 0 0 / 10%);
     padding: 25px;
     /*anim*/
+
     transform: rotateY(180deg);
     transition: transform 0.5s;
+    animation: fade-in 1s linear;
+    &:hover {
+      table {
+        animation: none;
+      }
+    }
     .content {
       height: auto;
       padding: 0;
@@ -1595,6 +1734,8 @@ section.mobile {
       padding-bottom: 10px;
       /*anim*/
       transform: rotateY(180deg);
+
+      opacity: 1;
       .date {
         position: relative;
         h4 {
@@ -1625,11 +1766,14 @@ section.mobile {
     }
     table {
       margin-top: 3px;
+      opacity: 1;
       display: table;
       width: 100%;
       padding: 0;
       border-spacing: 3px 6px;
+
       /*anim*/
+
       transform: rotateY(180deg);
       .tableDate {
         display: none;
@@ -1651,58 +1795,68 @@ section.mobile {
     }
   }
 }
-
+@media (max-width: 769px) {
+  .card.short {
+    .content {
+      .temp {
+        p:last-child {
+          display: block;
+        }
+      }
+    }
+  }
+}
 @media (max-width: 800px) {
   .cardContainer {
     padding: 0 10px;
   }
 }
-/* @media (max-width: 769px) {
-    .card.short {
-      max-width: 200px;
-      height: 250px;
-      margin: 30px 5px 0;
-    }
-    .card.short h4 {
-      font-size: 24px;
-    }
-    .card.short .content .date p {
-      font-size: 16px;
-    }
-    .card .content .temp img {
-      width: 36px;
-    }
-    .card.short .content {
-      padding: 80px 0 0 0;
-    }
-    .card.short .content .date::after {
-      height: 2px;
-    }
-    .card.short.flipped {
-      padding: 20px;
-    }
-    .short.flipped .content {
-      padding: 0 0 3px;
-    }
-    .short.flipped .content .date h4 {
-      font-size: 24px;
-    }
-    .short.flipped .content .date p {
-      font-size: 14px;
-    }
-    .short.flipped .content .phase img {
-      width: 28px;
-    }
-    .short.flipped table tr.tableRow th {
-      font-size: 12px;
-    }
-    .short.flipped table tr td {
-      font-size: 12px;
-    }
-    .short.flipped table {
-      border-spacing: 0 4px;
-    }
-  } */
+// @media (max-width: 769px) {
+//   .card.short {
+//     max-width: 200px;
+//     height: 250px;
+//     margin: 30px 5px 0;
+//   }
+//   .card.short h4 {
+//     font-size: 24px;
+//   }
+//   .card.short .content .date p {
+//     font-size: 16px;
+//   }
+//   .card .content .temp img {
+//     width: 36px;
+//   }
+//   .card.short .content {
+//     padding: 80px 0 0 0;
+//   }
+//   .card.short .content .date::after {
+//     height: 2px;
+//   }
+//   .card.short.flipped {
+//     padding: 20px;
+//   }
+//   .short.flipped .content {
+//     padding: 0 0 3px;
+//   }
+//   .short.flipped .content .date h4 {
+//     font-size: 24px;
+//   }
+//   .short.flipped .content .date p {
+//     font-size: 14px;
+//   }
+//   .short.flipped .content .phase img {
+//     width: 28px;
+//   }
+//   .short.flipped table tr.tableRow th {
+//     font-size: 12px;
+//   }
+//   .short.flipped table tr td {
+//     font-size: 12px;
+//   }
+//   .short.flipped table {
+//     border-spacing: 0 4px;
+//   }
+// }
 
 /******************DARK MODE***************/
 .dark {
@@ -1718,11 +1872,11 @@ section.mobile {
   header,
   footer {
     //background: rgb(202, 8, 47);
-    background: #12a8bd;
+    background: #00537d;
   }
   header.burger-opened {
     nav {
-      background: #12a8bd;
+      background: #00537d;
     }
   }
   .error-container {
@@ -1790,6 +1944,7 @@ section.mobile {
     background: #282c34;
     .content {
       border-color: #a9a9a9;
+      background: #282c34;
       .date p {
         color: #a9a9a9;
       }
@@ -1851,7 +2006,8 @@ section.mobile {
       }
     }
   }
-  .card.short.flipped .content .date h4.weekday {
+  .card.short.flipped .content .date h4.weekday,
+  .card.short .content .date h4.weekday {
     color: #ff3146;
   }
   section.mobile {

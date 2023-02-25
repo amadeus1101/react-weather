@@ -1,10 +1,8 @@
 import React from "react";
-import ContentLoader from "react-content-loader";
 
 function Card(props) {
-  const [isFlipped, setIsFlipped] = React.useState(false);
-
   let pathToTheMoon = "";
+
   const defineMoon = () => {
     switch (props.moon) {
       case 0:
@@ -44,10 +42,9 @@ function Card(props) {
     }
   };
   defineMoon();
-  const onFlip = () => {
-    if (window.innerWidth <= 910 || props.flipMode) {
-      setIsFlipped(!isFlipped);
-    }
+
+  const flipTheCard = (id) => {
+    props.changeActiveCard(id);
   };
   let showDeg = "";
   let showHumidPercent = "";
@@ -55,11 +52,19 @@ function Card(props) {
     showHumidPercent = "%";
     showDeg = "°";
   }
+
+  let classType = "card";
+  const setCardClass = () => {
+    if (props.cardMode) {
+      if (props.activeType) classType = "card short flipped";
+      else classType = "card short";
+    } else {
+      classType = "card";
+    }
+  };
+  setCardClass();
   return (
-    <div
-      className={isFlipped ? "card short flipped" : "card "}
-      onClick={onFlip}
-    >
+    <div className={classType} onClick={() => flipTheCard(props.cardId)}>
       {props.loading ? (
         <>
           <div className="skeleton">

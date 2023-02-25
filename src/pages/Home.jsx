@@ -15,8 +15,11 @@ function Home({
   pos,
   showCurrentDate,
   catchLocation,
+  cardMode,
 }) {
   const [inputValue, setInputValue] = React.useState(location);
+  const [activeCard, setActiveCard] = React.useState();
+
   const checkCityname = (event) => {
     if (event.key === "Enter") {
       setLocation(inputValue);
@@ -30,6 +33,10 @@ function Home({
         })
         .catch((error) => setLocation("Invalid City!!!"));
     }
+  };
+
+  const changeActiveCard = (id) => {
+    activeCard === id ? setActiveCard() : setActiveCard(id);
   };
   const chooseActiveMenuItem = (i) => {
     onChooseMenu(i);
@@ -67,7 +74,16 @@ function Home({
 
       <div className="cardContainer">
         {globalArray.map((item, index) => (
-          <Card key={index} flipMode={0} {...item} loading={isLoading} />
+          <Card
+            key={index}
+            cardMode={cardMode}
+            {...item}
+            loading={isLoading}
+            cardId={index}
+            changeActiveCard={changeActiveCard}
+            activeType={activeCard === index ? true : false}
+            setActiveCard={setActiveCard}
+          />
         ))}
       </div>
 

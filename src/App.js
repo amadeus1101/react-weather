@@ -25,7 +25,7 @@ import "./index.scss";
 function App() {
   console.log("render");
   const cardMenu = ["1 Day", "3 Days", "Week"];
-
+  const [cardMode, setCardMode] = React.useState(0);
   const [weather, setWeather] = React.useState({});
   const [location, setLocation] = React.useState("Minsk");
   const [isLoading, setIsLoading] = React.useState(true);
@@ -127,6 +127,7 @@ function App() {
     } catch (err) {
       console.log(err);
     }
+
     async function getWeather() {
       const weatherResp = await axios.get(
         `https://react-weather-server-fkfe.vercel.app/v2/forecast?lat=${latitude}&lon=${longitude}&lang=en_US&limit=7&hours=true&extra=false`
@@ -342,7 +343,12 @@ function App() {
 
   return (
     <>
-      <Header changeColorTheme={changeColorTheme} mode={darkmode} />
+      <Header
+        changeColorTheme={changeColorTheme}
+        mode={darkmode}
+        cardMode={cardMode}
+        setCardMode={setCardMode}
+      />
 
       <Routes>
         <Route
@@ -358,6 +364,7 @@ function App() {
               location={location}
               setLocation={setLocation}
               catchLocation={catchLocation}
+              cardMode={cardMode}
               /*Mobile*/
               todayData={!isLoading ? weather.forecasts[0] : ""}
               pos={location}

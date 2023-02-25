@@ -2,17 +2,15 @@ import { Link } from "react-router-dom";
 import React from "react";
 import { ReactComponent as Logo } from "./logo.svg";
 
-function Header({ changeColorTheme, mode }) {
-  //const [activeLink, setActiveLink] = React.useState(1);
+function Header({ changeColorTheme, mode, setCardMode, cardMode }) {
   const [menuOpened, setMenuOpened] = React.useState(false);
-  //const links = ["About us", "Weather", "Moon calendar"];
   let menu = document.querySelector(".burger");
 
-  window.addEventListener("resize", () => {
-    let vh = window.innerHeight * 0.01;
+  // window.addEventListener("resize", () => {
+  //   let vh = window.innerHeight * 0.01;
 
-    document.documentElement.style.setProperty("--vh", `${vh}px`);
-  });
+  //   document.documentElement.style.setProperty("--vh", `${vh}px`);
+  // });
 
   const onClickMenu = () => {
     if (!menuOpened) {
@@ -49,11 +47,26 @@ function Header({ changeColorTheme, mode }) {
             <Link to="/calendar">Moon calendar</Link>
           </li>
         </ul>
-        <div className="theme-switcher" onClick={changeColorTheme}>
-          <img
-            src={`../../assets/img/${mode ? "moon2.png" : "sun.png"}`}
-            alt="theme-switch"
-          />
+        <div className="param-panel">
+          <div
+            className="card-mode-switcher"
+            onClick={() => setCardMode(!cardMode)}
+          >
+            <img
+              src={
+                cardMode
+                  ? "../../assets/img/grid2.png"
+                  : "../../assets/img/grid1.png"
+              }
+              alt="mode-grid"
+            />
+          </div>
+          <div className="theme-switcher" onClick={changeColorTheme}>
+            <img
+              src={`../../assets/img/${mode ? "moon2.png" : "sun.png"}`}
+              alt="theme-switch"
+            />
+          </div>
         </div>
       </nav>
     </header>
