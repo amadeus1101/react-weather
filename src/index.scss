@@ -246,9 +246,13 @@ p.subtitle a {
   }
 }
 @media (max-width: 500px) {
+  header {
+    padding: 10px;
+  }
   header.burger-opened {
-    height: 56px;
+    //height: 46px;
     nav {
+      overflow-y: hidden;
       position: fixed;
       left: 0;
       top: -100%;
@@ -284,13 +288,15 @@ p.subtitle a {
           margin: 30px 0;
         }
       }
-      .param-panel .theme-switcher {
+      .param-panel {
         position: absolute;
-        margin: 34px;
         top: 0;
         right: 0;
-        img {
-          width: 32px;
+        margin: 35px;
+        .theme-switcher {
+          img {
+            width: 32px;
+          }
         }
       }
     }
@@ -713,7 +719,7 @@ footer {
   }
 }
 .cardContainer {
-  max-width: 1300px;
+  max-width: 1600px;
   margin: 20px auto 40px;
   padding: 0 20px;
   display: flex;
@@ -1547,6 +1553,29 @@ section.mobile {
         font-size: 12px;
       }
     }
+    .skeleton {
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 0;
+      .skeleton-block {
+        &:first-child h5 {
+          width: 150px;
+          height: 45px;
+        }
+      }
+      .skeleton-block:nth-child(2) {
+        display: flex;
+        h5,
+        p {
+          height: 45px;
+          width: 60px;
+          margin: 0 20px;
+        }
+      }
+      .skeleton-block:first-child::after {
+        display: none;
+      }
+    }
   }
   .card:hover {
     .content {
@@ -1592,6 +1621,20 @@ section.mobile {
         width: 65%;
         img {
           width: 36px;
+        }
+      }
+    }
+    .skeleton {
+      .skeleton-block:first-child h5 {
+        height: 36px;
+        width: 100px;
+      }
+      .skeleton-block:nth-child(2) {
+        h5,
+        p {
+          height: 36px;
+          width: 40px;
+          margin: 0 10px;
         }
       }
     }
