@@ -4,7 +4,7 @@ import { ReactComponent as Logo } from "./logo.svg";
 
 function Header({ changeColorTheme, mode, setCardMode, cardMode }) {
   const [menuOpened, setMenuOpened] = React.useState(false);
-  let menu = document.querySelector(".burger");
+  const [activeLink, setActiveLink] = React.useState(2);
 
   // window.addEventListener("resize", () => {
   //   let vh = window.innerHeight * 0.01;
@@ -12,18 +12,22 @@ function Header({ changeColorTheme, mode, setCardMode, cardMode }) {
   //   document.documentElement.style.setProperty("--vh", `${vh}px`);
   // });
 
-  const onClickMenu = () => {
-    if (!menuOpened) {
-      menu.classList.add("active-menu");
-      document.querySelector("header").classList.add("burger-opened");
-      //document.body.style.overflow = "hidden";
-    } else {
-      menu.classList.remove("active-menu");
-      document.querySelector("header").classList.remove("burger-opened");
-      //document.body.style.overflow = "auto";
-      //document.body.style.overscrollBehavior = "none";
+  const onClickMenu = (id) => {
+    if (window.innerWidth <= 500) {
+      let menu = document.querySelector(".burger");
+      if (!menuOpened) {
+        menu.classList.add("active-menu");
+        document.querySelector("header").classList.add("burger-opened");
+        document.body.style.overflow = "hidden";
+      } else {
+        menu.classList.remove("active-menu");
+        document.querySelector("header").classList.remove("burger-opened");
+        document.body.style.overflow = "auto";
+        //document.body.style.overscrollBehavior = "none";
+      }
+      setMenuOpened(!menuOpened);
     }
-    setMenuOpened(!menuOpened);
+    setActiveLink(id);
   };
 
   return (
@@ -37,13 +41,22 @@ function Header({ changeColorTheme, mode, setCardMode, cardMode }) {
         </Link>
         <ul>
           <li className="burger" onClick={() => onClickMenu()}></li>
-          <li onClick={() => onClickMenu()}>
+          <li
+            onClick={() => onClickMenu(1)}
+            className={activeLink === 1 ? "active-link" : ""}
+          >
             <Link to="/about">About us</Link>
           </li>
-          <li onClick={() => onClickMenu()}>
+          <li
+            onClick={() => onClickMenu(2)}
+            className={activeLink === 2 ? "active-link" : ""}
+          >
             <Link to="/">Weather</Link>
           </li>
-          <li onClick={() => onClickMenu()}>
+          <li
+            onClick={() => onClickMenu(3)}
+            className={activeLink === 3 ? "active-link" : ""}
+          >
             <Link to="/calendar">Moon calendar</Link>
           </li>
         </ul>

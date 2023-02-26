@@ -5,21 +5,16 @@ function Mobile({ todayData, pos, showCurrentDate, loading }) {
   const today = showCurrentDate(0);
 
   const date = new Date();
-  const weekdays = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
+  const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const hours = date.getHours();
   const minutes = date.getMinutes();
   const [state, setState] = React.useState({ value: hours });
+  let randomBg = Math.floor(Math.random() * 7);
+
   function handleChange(event) {
     setState({ value: event.target.value });
   }
+
   return (
     <section className="mobile">
       {loading ? (
@@ -60,42 +55,49 @@ function Mobile({ todayData, pos, showCurrentDate, loading }) {
         </>
       ) : (
         <>
-          <div className="weather">
+          <div
+            className="weather"
+            style={{
+              backgroundImage: `url("../../assets/backgrounds/b6.jpg")`,
+            }}
+          >
             <div className="temp">
               <h4>{todayData.hours[hours].temp}</h4>
               <img
                 src={`https://yastatic.net/weather/i/icons/funky/dark/${todayData.hours[hours].icon}.svg`}
                 alt="weather"
               />
-              <p>
-                {String(todayData.parts.morning.temp_min) +
-                  " -> " +
-                  String(todayData.parts.day.temp_max + 1)}
-              </p>
-              <p>{todayData.description}</p>
+              <p>{pos}</p>
+              {/* <p>{todayData.description}</p> */}
             </div>
-            <div className="date">
-              <h4>{pos}</h4>
-              <b>{`${today.day} ${today.month}`}</b>
-              <p>{weekdays[date.getDay()]}</p>
-            </div>
-            <div className="params">
-              <div className="row">
-                <p>Speed</p>
-                <span>{`${todayData.hours[state.value].wind_speed} m/s`}</span>
-                <img src="assets/img/snowy.png" alt="weather-params" />
+            <div className="box">
+              <div className="date">
+                <h4>{`${today.day} ${today.month} - `}</h4>
+                <b
+                  className={
+                    date.getDay() === 6 || date.getDay() === 0 ? "weekday" : ""
+                  }
+                >
+                  {weekdays[date.getDay()]}
+                </b>
               </div>
-              <div className="row">
-                <p>Humidity</p>
-                <span>{`${todayData.hours[state.value].humidity} %`}</span>
-                <img src="assets/img/snowy.png" alt="weather-params" />
-              </div>
-              <div className="row">
-                <p>Pressure</p>
-                <span>{`${
-                  todayData.hours[state.value].pressure_mm
-                } mmHg`}</span>
-                <img src={"assets/img/snowy.png"} alt="weather-params" />
+              <div className="params">
+                <div className="row">
+                  <span>{`${
+                    todayData.hours[state.value].wind_speed
+                  } m/s`}</span>
+                  <img src="assets/img/snowy.png" alt="weather-params" />
+                </div>
+                <div className="row">
+                  <span>{`${todayData.hours[state.value].humidity} %`}</span>
+                  <img src="assets/img/snowy.png" alt="weather-params" />
+                </div>
+                <div className="row">
+                  <span>{`${
+                    todayData.hours[state.value].pressure_mm
+                  } mmHg`}</span>
+                  <img src={"assets/img/snowy.png"} alt="weather-params" />
+                </div>
               </div>
             </div>
           </div>

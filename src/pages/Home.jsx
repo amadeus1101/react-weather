@@ -41,6 +41,7 @@ function Home({
   const chooseActiveMenuItem = (i) => {
     onChooseMenu(i);
   };
+
   return (
     <>
       <Mobile
@@ -50,14 +51,6 @@ function Home({
         loading={isLoading}
       />
 
-      <h2 className="title">
-        <span className="red">N</span>
-        earest weather
-      </h2>
-      <p className="subtitle">
-        Here you will see nearest weather forecast in your city. City you
-        looking now <a href="#location">{location}</a>
-      </p>
       <div className="cards-menu">
         {cardMenu.map((item, index) => (
           <p

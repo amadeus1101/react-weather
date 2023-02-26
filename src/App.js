@@ -32,6 +32,7 @@ function App() {
   const [darkmode, setDarkmode] = React.useState(false);
   const [daylimit, setDaylimit] = React.useState(3);
   const [activeMenuItem, setActiveMenuItem] = React.useState(1);
+
   let latitude = 53.9;
   let longitude = 27.5667;
   const onChooseMenu = (id) => {
@@ -344,12 +345,11 @@ function App() {
   return (
     <>
       <Header
-        changeColorTheme={changeColorTheme}
-        mode={darkmode}
         cardMode={cardMode}
+        mode={darkmode}
         setCardMode={setCardMode}
+        changeColorTheme={changeColorTheme}
       />
-
       <Routes>
         <Route
           path="/"
@@ -364,6 +364,8 @@ function App() {
               location={location}
               setLocation={setLocation}
               catchLocation={catchLocation}
+              /* HEADER */
+
               cardMode={cardMode}
               /*Mobile*/
               todayData={!isLoading ? weather.forecasts[0] : ""}
@@ -374,7 +376,17 @@ function App() {
         />
         <Route path="/about" element={<About />} />
         <Route path="/calendar" element={<Calendar />} />
-        <Route path="*" element={<ErrorPage />} />
+        <Route
+          path="*"
+          element={
+            <ErrorPage /* HEADER */
+              changeColorTheme={changeColorTheme}
+              darkmode={darkmode}
+              cardMode={cardMode}
+              setCardMode={setCardMode}
+            />
+          }
+        />
       </Routes>
 
       {/* {!isLoading && (

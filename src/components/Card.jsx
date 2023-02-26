@@ -59,7 +59,8 @@ function Card(props) {
       if (props.activeType) classType = "card short flipped";
       else classType = "card short";
     } else {
-      classType = "card";
+      if (props.activeType) classType = "card opened";
+      else classType = "card";
     }
   };
   setCardClass();
