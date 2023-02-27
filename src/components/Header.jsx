@@ -13,16 +13,16 @@ function Header({ changeColorTheme, mode, setCardMode, cardMode }) {
   // });
 
   const onClickMenu = (id) => {
-    if (window.innerWidth <= 500) {
+    if (window.innerWidth <= 550) {
       let menu = document.querySelector(".burger");
       if (!menuOpened) {
         menu.classList.add("active-menu");
         document.querySelector("header").classList.add("burger-opened");
-        document.body.style.overflow = "hidden";
+        //document.body.style.overflow = "hidden";
       } else {
         menu.classList.remove("active-menu");
         document.querySelector("header").classList.remove("burger-opened");
-        document.body.style.overflow = "auto";
+        //document.body.style.overflow = "auto";
         //document.body.style.overscrollBehavior = "none";
       }
       setMenuOpened(!menuOpened);

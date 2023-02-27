@@ -9,11 +9,19 @@ function Mobile({ todayData, pos, showCurrentDate, loading }) {
   const hours = date.getHours();
   const minutes = date.getMinutes();
   const [state, setState] = React.useState({ value: hours });
-  let randomBg = Math.floor(Math.random() * 7);
 
   function handleChange(event) {
     setState({ value: event.target.value });
   }
+  // if (window.innerWidth <= 550) {
+  //   document.addEventListener("scroll", () => {
+  //     if (window.scrollY > 0) {
+  //       document.querySelector("header").style.opacity = 1;
+  //     } else {
+  //       document.querySelector("header").style.opacity = 0;
+  //     }
+  //   });
+  // }
 
   return (
     <section className="mobile">
@@ -58,7 +66,8 @@ function Mobile({ todayData, pos, showCurrentDate, loading }) {
           <div
             className="weather"
             style={{
-              backgroundImage: `url("../../assets/backgrounds/b6.jpg")`,
+              background:
+                "linear-gradient(45deg, rgb(225 174 0), rgb(242, 0, 255))",
             }}
           >
             <div className="temp">

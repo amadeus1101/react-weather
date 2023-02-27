@@ -236,9 +236,7 @@ p.subtitle a {
   body {
     background: #fff;
   }
-  header {
-    background: #ff3146;
-  }
+
   header nav {
     transition: 0.5s;
 
@@ -258,6 +256,8 @@ p.subtitle a {
 }
 @media (max-width: 550px) {
   header {
+    //opacity: 0;
+    //transition: 0.5s;
     padding: 10px;
     .param-panel {
       .card-mode-switcher {
@@ -267,6 +267,7 @@ p.subtitle a {
   }
   header.burger-opened {
     //height: 46px;
+    height: 52px;
     nav {
       overflow-y: hidden;
       position: fixed;
@@ -753,7 +754,7 @@ section.mobile {
   display: none;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+
   height: 100vh;
 
   background: #fff;
@@ -764,7 +765,7 @@ section.mobile {
     background-attachment: fixed;
 
     position: relative;
-    height: 75%;
+    height: 65%;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -781,18 +782,18 @@ section.mobile {
       h4 {
         color: #fff;
         font-family: "InterBold";
-        font-size: 96px;
+        font-size: 84px;
         letter-spacing: 0;
       }
       img {
-        width: 96px;
+        width: 84px;
       }
       p {
         letter-spacing: 0.1em;
         grid-column: span 2;
         text-align: center;
         font-family: "InterBold";
-        font-size: 36px;
+        font-size: 32px;
         color: #fff;
       }
     }
@@ -824,6 +825,7 @@ section.mobile {
           font-family: "InterMedium";
           font-size: 24px;
           margin-left: 5px;
+          color: #fff;
         }
         b.weekday {
           color: #ff3146;
@@ -845,9 +847,8 @@ section.mobile {
         display: flex;
         width: 100%;
         justify-content: space-around;
-        margin-top: 10px;
+        margin: 20px 0 10px;
         .row {
-          margin: 7px 0 7px 15px;
           position: relative;
         }
 
@@ -867,7 +868,7 @@ section.mobile {
   }
 
   .slider {
-    margin-top: 50px;
+    margin-top: 30px;
     width: 100%;
     padding: 0 40px;
     .sliderInfo {
@@ -989,7 +990,38 @@ section.mobile {
     opacity: 0.5;
   }
 }
-
+@media (max-height: 700px) {
+  section.mobile {
+    height: auto;
+    .weather {
+      height: 100vh;
+      .temp {
+        top: 20vh;
+      }
+    }
+  }
+}
+@media (max-height: 400px) {
+  section.mobile {
+    .weather {
+      .temp {
+        h4 {
+          font-size: 64px;
+        }
+        p {
+          font-size: 24px;
+        }
+        img {
+          width: 64px;
+        }
+      }
+      .box {
+        padding: 20px;
+        margin: 20px;
+      }
+    }
+  }
+}
 @media (max-width: 769px) {
   h2.title {
     font-size: 32px;
@@ -1005,7 +1037,9 @@ section.mobile {
       }
     }
   }
+
   .cards-menu p {
+    -webkit-tap-highlight-color: transparent;
     padding: 8px 35px;
     font-size: 14px;
     border: 2px solid #d9d9d9;
@@ -1050,7 +1084,6 @@ section.mobile {
       }
     }
     .slider {
-      margin-top: 45px;
       padding: 0 30px;
       .sliderInfo {
         padding: 40px 0 30px;
@@ -1096,7 +1129,6 @@ section.mobile {
           }
         }
         .params {
-          margin: 0;
           .row {
             p,
             span {
@@ -1152,7 +1184,6 @@ section.mobile {
       }
     }
     .slider {
-      margin-top: 0;
       .sliderInfo h5 {
         font-size: 28px;
         img {
@@ -1550,6 +1581,7 @@ section.mobile {
     border-radius: 0;
     margin-top: 0;
     border-bottom: 2px solid #d9d9d9;
+    -webkit-tap-highlight-color: transparent;
     h4 {
       font-size: 24px;
     }
@@ -1654,7 +1686,6 @@ section.mobile {
         font-size: 12px;
       }
       .temp {
-        width: 65%;
         img {
           width: 36px;
         }
@@ -1692,6 +1723,8 @@ section.mobile {
   padding: 30px;
   margin: 30px 10px 0;
   box-shadow: 5px 5px 15px rgb(0 0 0 / 25%), 10px 10px 5px rgb(0 0 0 / 10%);
+  border-radius: 15px;
+  border: none;
   /*anim*/
 
   /* perspective: 500px;
@@ -1951,11 +1984,11 @@ section.mobile {
   header,
   footer {
     //background: rgb(202, 8, 47);
-    background: #00537d;
+    background: #0088cc;
   }
   header.burger-opened {
     nav {
-      background: #00537d;
+      background: #0088cc;
     }
   }
   .error-container {
@@ -2020,11 +2053,11 @@ section.mobile {
     background: #3f4552;
   }
   .card {
-    background: #20232a;
-    border-bottom: 2px solid #5f5f5f;
+    background: #282c34;
+
     .content {
       border-color: #5f5f5f;
-      background: #20232a;
+      background: #282c34;
       .date p {
         color: #a9a9a9;
       }
@@ -2191,7 +2224,24 @@ section.mobile {
     }
   }
 }
-
+@media (max-width: 769px) {
+  .dark {
+    .card {
+      background: #20232a;
+      border-bottom: 2px solid #5f5f5f;
+      .content {
+        background: #20232a;
+      }
+    }
+    .card.short {
+      background: #282c34;
+      border: none;
+      .content {
+        background: #282c34;
+      }
+    }
+  }
+}
 /*******DARKMODE FOR CARD*/
 
 @media (max-width: 421px) {
