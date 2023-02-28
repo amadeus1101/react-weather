@@ -57,9 +57,9 @@ header {
   justify-content: center;
   padding: 15px;
   background: #ff3146;
-  position: fixed;
-  left: 0;
+  position: sticky;
   top: 0;
+
   z-index: 1000;
 
   nav {
@@ -258,7 +258,7 @@ p.subtitle a {
   header {
     //opacity: 0;
     //transition: 0.5s;
-    padding: 10px;
+
     .param-panel {
       .card-mode-switcher {
         display: none;
@@ -266,22 +266,25 @@ p.subtitle a {
     }
   }
   header.burger-opened {
-    //height: 46px;
-    height: 52px;
+    overflow-y: hidden;
+    position: fixed;
+    left: 0;
+    top: 0;
+    transition: 0.5s;
+    animation: move-up 0.5s ease-out;
+    width: 100%;
+    min-height: 100vh;
+    //height: calc(var(--vh, 1vh) * 100);
+    z-index: 1000;
+    background: rgb(202, 8, 47);
+
     nav {
-      overflow-y: hidden;
-      position: fixed;
-      left: 0;
-      top: -100%;
-      transform: translateY(100%);
       width: 100%;
-      height: 100vh;
-      //height: calc(var(--vh, 1vh) * 100);
-      z-index: 1000;
-      background: rgb(202, 8, 47);
-      padding: 50% 5%;
+      height: 100%;
+      padding: 25vh 3vw;
       flex-direction: column;
       align-items: center;
+      justify-content: space-around;
       .logo {
         svg {
           width: 36px;
@@ -384,6 +387,14 @@ p.subtitle a {
   }
   header nav ul li {
     margin: 0 15px;
+  }
+}
+@keyframes move-up {
+  0% {
+    top: -100%;
+  }
+  100% {
+    top: 0;
   }
 }
 @media (max-width: 426px) {
