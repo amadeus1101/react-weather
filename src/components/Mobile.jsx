@@ -28,9 +28,7 @@ function Mobile({ todayData, pos, showCurrentDate, loading }) {
       {loading ? (
         <>
           <div className="skeleton-mobile-weather">
-            <div className="skeleton-temp"></div>
-            <ul className="skeleton-pos">
-              <li></li>
+            <ul className="skeleton-temp">
               <li></li>
               <li></li>
             </ul>
