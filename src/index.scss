@@ -776,7 +776,7 @@ section.mobile {
     background-attachment: fixed;
 
     position: relative;
-    height: 65%;
+    height: 60%;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -786,7 +786,7 @@ section.mobile {
       display: grid;
       grid-template-columns: 1fr 1fr;
       position: absolute;
-      top: 30%;
+      top: 20%;
       grid-template-rows: auto;
       justify-items: center;
       align-items: center;
@@ -879,7 +879,6 @@ section.mobile {
   }
 
   .slider {
-    margin-top: 30px;
     width: 100%;
     padding: 0 40px;
     .sliderInfo {

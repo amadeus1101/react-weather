@@ -9,6 +9,16 @@ function Mobile({ todayData, pos, showCurrentDate, loading }) {
   const hours = date.getHours();
   const minutes = date.getMinutes();
   const [state, setState] = React.useState({ value: hours });
+  const randomBg = [
+    "#e1ae00, #f200ff",
+    "#ff506f, #ff7423",
+    "#ffa500, #ff0000",
+    "#ff8900, #00a1ff",
+    "#004aff, #00a1ff",
+    "#f83dff, #00bdff",
+    "#f83dff, #ffb500",
+    "#00e8b7, #0001ff",
+  ];
 
   function handleChange(event) {
     setState({ value: event.target.value });
@@ -64,8 +74,7 @@ function Mobile({ todayData, pos, showCurrentDate, loading }) {
           <div
             className="weather"
             style={{
-              background:
-                "linear-gradient(45deg, rgb(225 174 0), rgb(242, 0, 255))",
+              background: `linear-gradient(45deg, ${randomBg[0]})`,
             }}
           >
             <div className="temp">
