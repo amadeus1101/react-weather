@@ -1,5 +1,5 @@
 import React from "react";
-import Mobile from "./components/Mobile";
+import History from "./pages/History";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import axios from "axios";
@@ -36,6 +36,7 @@ function App() {
 
   let latitude = 53.9;
   let longitude = 27.5667;
+  let isSend = false;
 
   const onChooseMenu = (id) => {
     setActiveMenuItem(id);
@@ -141,6 +142,7 @@ function App() {
 
       setWeather(weatherResp.data);
       setLastWeather(historyResp.data);
+
       setIsLoading(false);
     }
     getWeather();
@@ -155,6 +157,46 @@ function App() {
       setWeather(weatherResp.data);
     }
     getWeather();
+  };
+
+  const sendWeather = () => {
+    let date_today = date.getDate() + (date.getMonth() + 1) / 100;
+    let isExist = false;
+    let obj = {
+      date: date_today,
+      weather: {
+        temp_night: weather.forecasts[0].parts.night.temp_avg,
+        temp_morning: weather.forecasts[0].parts.morning.temp_avg,
+        temp_day: weather.forecasts[0].parts.day.temp_avg,
+        temp_evening: weather.forecasts[0].parts.evening.temp_avg,
+        moon: weather.forecasts[0].moon_code,
+      },
+    };
+
+    for (let i = 0; i < lastWeather.length; i++) {
+      if (lastWeather[i].date === date_today) {
+        isExist = true;
+      }
+    }
+    if (isExist) {
+      console.log("e");
+    } else {
+      axios.post("https://63fe15b61626c165a0a7034c.mockapi.io/forecasts", obj);
+      console.log(obj);
+    }
+    // try {
+    //   if (lastWeather.find((item) => item.date != date_today)) {
+    // await axios.post(
+    //   "https://63fe15b61626c165a0a7034c.mockapi.io/forecasts",
+    //   obj
+    // );
+
+    //     console.log(obj);
+    //   }
+    // } catch (error) {
+    //   console.log("ne vishlo otpravit");
+    //   console.error(error);
+    // }
   };
 
   for (let i = 0; i < daylimit; i++) {
@@ -227,7 +269,9 @@ function App() {
   };
 
   if (!isLoading) {
+    sendWeather();
     //console.log(weather);
+
     const tempMinMax = (day) => {
       let tempObj = {
         t_min: weather.forecasts[day].parts.night.temp_min,
@@ -348,67 +392,7 @@ function App() {
       setDarkmode(true);
     }
   };
-  const isWeatherExist = () => {
-    let db_day = lastWeather[lastWeather.length - 1].date;
-    let db_month = Math.round((db_day - Math.trunc(db_day)) * 100);
-    let db_next_day =
-      db_day + 1 > months[db_month - 1].daysCount ? 1 : db_day + 1;
-    db_next_day < 10
-      ? (db_next_day = "0" + db_next_day)
-      : (db_next_day = String(db_next_day));
-    let next_day =
-      date.getDate() + 1 > months[date.getMonth()].daysCount
-        ? "01."
-        : date.getDate() + 1 < 10
-        ? "0" + (date.getDate() + 1)
-        : date.getDate() + 1;
-    let next_month =
-      next_day === "01."
-        ? date.getMonth() + 2 < 10
-          ? "0" + (date.getMonth() + 2)
-          : date.getMonth() + 2
-        : date.getMonth() + 1 < 10
-        ? "0" + (date.getMonth() + 1)
-        : date.getMonth() + 1;
-    let isExist = false;
 
-    let todayDate =
-      (date.getDate() < 10 ? "0" + date.getDate() : date.getDate()) +
-      "." +
-      (date.getMonth() + 1 < 10
-        ? "0" + (date.getMonth() + 1)
-        : date.getMonth() + 1);
-    for (let i = 0; i < lastWeather.length; i++) {
-      if (String(lastWeather[i].date) === String(todayDate)) {
-        isExist = true;
-        break;
-      }
-    }
-    if (!isExist) {
-      let todayWeather = {
-        date:
-          date.getDate() +
-          "." +
-          (date.getMonth() + 1 < 10
-            ? "0" + (date.getMonth() + 1)
-            : date.getMonth() + 1),
-        weather: {
-          temp_night: weather.forecasts[0].parts.night.temp_avg,
-          temp_morning: weather.forecasts[0].parts.morning.temp_avg,
-          temp_day: weather.forecasts[0].parts.day.temp_avg,
-          temp_evening: weather.forecasts[0].parts.evening.temp_avg,
-          moon: weather.forecasts[0].moon_code,
-        },
-      };
-      axios.post(
-        "https://63fe15b61626c165a0a7034c.mockapi.io/forecasts",
-        todayWeather
-      );
-    }
-  };
-  if (!isLoading) {
-    isWeatherExist();
-  }
   return (
     <>
       <Header
@@ -455,6 +439,7 @@ function App() {
             />
           }
         />
+        <Route path="/history" element={<History history={lastWeather} />} />
       </Routes>
 
       {/* {!isLoading && (
