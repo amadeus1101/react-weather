@@ -6,36 +6,36 @@ function Card(props) {
   const defineMoon = () => {
     switch (props.moon) {
       case 0:
-        pathToTheMoon = "1.png";
+        pathToTheMoon = "m5.png";
         break;
       case 1:
       case 2:
       case 3:
-        pathToTheMoon = "2.png";
+        pathToTheMoon = "m6.png";
         break;
       case 4:
-        pathToTheMoon = "3.png";
+        pathToTheMoon = "m7.png";
         break;
       case 5:
       case 6:
       case 7:
-        pathToTheMoon = "4.png";
+        pathToTheMoon = "m8.png";
         break;
       case 8:
-        pathToTheMoon = "5.png";
+        pathToTheMoon = "m1.png";
         break;
       case 9:
       case 10:
       case 11:
-        pathToTheMoon = "6.png";
+        pathToTheMoon = "m2.png";
         break;
       case 12:
-        pathToTheMoon = "7.png";
+        pathToTheMoon = "m3.png";
         break;
       case 13:
       case 14:
       case 15:
-        pathToTheMoon = "8.png";
+        pathToTheMoon = "m4.png";
         break;
       default:
         pathToTheMoon = "moon2.png";

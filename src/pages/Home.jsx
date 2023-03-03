@@ -50,7 +50,20 @@ function Home({
         showCurrentDate={showCurrentDate}
         loading={isLoading}
       />
-
+      <div className="select">
+        <p className="subtitle">
+          To change a city, please, put correct city-name into the search box
+          and press ENTER
+        </p>
+        <input
+          id="location"
+          className="selectCity"
+          type="text"
+          value={inputValue}
+          onChange={(event) => setInputValue(event.target.value)}
+          onKeyDown={(event) => checkCityname(event)}
+        />
+      </div>
       <div className="cards-menu">
         {cardMenu.map((item, index) => (
           <p
@@ -80,20 +93,6 @@ function Home({
         ))}
       </div>
 
-      <div className="select">
-        <p className="subtitle">
-          To change a city, please, put correct city-name into the search box
-          and press ENTER
-        </p>
-        <input
-          id="location"
-          className="selectCity"
-          type="text"
-          value={inputValue}
-          onChange={(event) => setInputValue(event.target.value)}
-          onKeyDown={(event) => checkCityname(event)}
-        />
-      </div>
       {/* <h2 className="title">
         <span className="red">F</span>orecast in nearest cities
       </h2> */}
