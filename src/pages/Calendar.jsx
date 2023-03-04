@@ -1,20 +1,39 @@
-function Calendar() {
+function Calendar({ months }) {
   const date = new Date();
   const currMonth = date.getMonth();
-  const months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-  let moons = [
-    4, 4, 4, 4, 4, 4, 5, 6, 6, 6, 6, 6, 6, 7, 8, 8, 8, 8, 8, 8, 1, 2, 2, 2, 2,
-    2, 2, 3, 4, 4, 4,
-  ];
-  let newMoons = [];
+
+  let moons = [];
   let calendar = [];
 
-  if (date.getFullYear() % 4 === 0) months[1] = 29;
-  const countMoonPhases = (newMoon) => {
-    for (let i = newMoon; i < months[currMonth]; i++) {
-      //hh
+  const fillMoonPhases = (newMoon) => {
+    let l_counter = 0;
+    for (let i = newMoon - 1; i < months[currMonth].daysCount; i++) {
+      if ((i + 1) % 7 === newMoon % 7) {
+        l_counter++;
+        if (l_counter === 9) {
+          l_counter = 1;
+        }
+        moons[i] = l_counter++;
+      } else {
+        moons[i] = l_counter;
+      }
     }
+    l_counter = 8;
+    for (let i = newMoon - 2; i >= 0; i--) {
+      if ((i + 1) % 7 === newMoon % 7) {
+        l_counter--;
+
+        moons[i] = l_counter--;
+        if (l_counter === 0) {
+          l_counter = 8;
+        }
+      } else {
+        moons[i] = l_counter;
+      }
+    }
+    console.log(moons);
   };
+  fillMoonPhases(21);
   const defineSpecialCases = (i) => {
     if (i === 0) {
       return "first";
@@ -26,7 +45,7 @@ function Calendar() {
     }
   };
   const fillCalendar = () => {
-    for (let i = 0; i < months[currMonth]; i++) {
+    for (let i = 0; i < months[currMonth].daysCount; i++) {
       calendar[i] = {
         day: i + 1,
         moon: `m${moons[i]}.png`,
@@ -39,7 +58,8 @@ function Calendar() {
     <>
       <div className="calendar">
         <h2 className="title">
-          <span className="red">M</span>arch
+          <span className="red">{months[currMonth].month[0]}</span>
+          {months[currMonth].month.slice(1)}
         </h2>
         <p className="subtitle">
           Moon calendar on <span className="red">March</span> 2023

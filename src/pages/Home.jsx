@@ -50,6 +50,9 @@ function Home({
         showCurrentDate={showCurrentDate}
         loading={isLoading}
       />
+      <h2 className="title">
+        <span className="red">F</span>orecast in {pos}
+      </h2>
       <div className="select">
         <p className="subtitle">
           To change a city, please, put correct city-name into the search box
@@ -93,13 +96,10 @@ function Home({
         ))}
       </div>
 
-      {/* <h2 className="title">
-        <span className="red">F</span>orecast in nearest cities
-      </h2> */}
-      <div className="cardContainer">
-        {/* <Card flip={flip} classMode={"card short"} /> */}
-      </div>
-      {/* <article>
+      {/* <div className="cardContainer">
+        <Card flip={flip} classMode={"card short"} />
+      </div> 
+       <article>
         <h2 className="title">
           <span className="red">D</span>ay of Rolex
         </h2>

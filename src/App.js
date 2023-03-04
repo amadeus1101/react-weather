@@ -36,7 +36,6 @@ function App() {
 
   let latitude = 53.9;
   let longitude = 27.5667;
-  let isSend = false;
 
   const onChooseMenu = (id) => {
     setActiveMenuItem(id);
@@ -427,7 +426,7 @@ function App() {
           }
         />
         <Route path="/about" element={<About />} />
-        <Route path="/calendar" element={<Calendar />} />
+        <Route path="/calendar" element={<Calendar months={months} />} />
         <Route
           path="*"
           element={
