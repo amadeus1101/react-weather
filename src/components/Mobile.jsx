@@ -9,7 +9,7 @@ function Mobile({ todayData, pos, showCurrentDate, loading }) {
   const hours = date.getHours();
   const minutes = date.getMinutes();
   const [state, setState] = React.useState({ value: hours });
-  const randomBg = [
+  const bgArray = [
     "#e1ae00, #f200ff",
     "#ff506f, #ff7423",
     "#ffa500, #ff0000",
@@ -74,7 +74,7 @@ function Mobile({ todayData, pos, showCurrentDate, loading }) {
           <div
             className="weather"
             style={{
-              background: `linear-gradient(45deg, ${randomBg[0]})`,
+              background: `linear-gradient(45deg, ${bgArray[4]})`,
             }}
           >
             <div className="temp">

@@ -574,7 +574,7 @@ article {
   $steps: 20;
   @for $i from 0 through $steps {
     #{percentage($i * calc(1 / $steps))} {
-      clip: rect(random(180) + px, 175px, random(180) + px, 30px);
+      clip: rect(random(180) + px, 350px, random(180) + px, 30px);
     }
   }
 }
@@ -582,7 +582,7 @@ article {
   $steps: 20;
   @for $i from 0 through $steps {
     #{percentage($i * calc(1 / $steps))} {
-      clip: rect(random(150) + px, 780px, random(150) + px, 30px);
+      clip: rect(random(180) + px, 350px, random(180) + px, 30px);
     }
   }
 }
@@ -1984,7 +1984,7 @@ section.mobile {
           text-shadow: -5px 0 #ff3146;
         }
         &::after {
-          text-shadow: -5px 0 #1affff;
+          text-shadow: -5px 0 #1ac6ff;
         }
       }
       p {

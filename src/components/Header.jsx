@@ -18,11 +18,11 @@ function Header({ changeColorTheme, mode, setCardMode, cardMode }) {
       if (!menuOpened) {
         menu.classList.add("active-menu");
         document.querySelector("header").classList.add("burger-opened");
-        document.body.style.overflow = "hidden";
+        //document.body.style.overflow = "hidden";
       } else {
         menu.classList.remove("active-menu");
         document.querySelector("header").classList.remove("burger-opened");
-        document.body.style.overflow = "auto";
+        //document.body.style.overflow = "auto";
         //document.body.style.overscrollBehavior = "none";
       }
       setMenuOpened(!menuOpened);
@@ -45,7 +45,7 @@ function Header({ changeColorTheme, mode, setCardMode, cardMode }) {
             onClick={() => onClickMenu(1)}
             className={activeLink === 1 ? "active-link" : ""}
           >
-            <Link to="/about">About us</Link>
+            <Link to="/about">About</Link>
           </li>
           <li
             onClick={() => onClickMenu(2)}
@@ -57,7 +57,7 @@ function Header({ changeColorTheme, mode, setCardMode, cardMode }) {
             onClick={() => onClickMenu(3)}
             className={activeLink === 3 ? "active-link" : ""}
           >
-            <Link to="/calendar">Moon calendar</Link>
+            <Link to="/calendar">Moon</Link>
           </li>
         </ul>
         <div className="param-panel">
