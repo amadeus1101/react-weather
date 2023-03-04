@@ -22,6 +22,11 @@ function Home({
 
   const checkCityname = (event) => {
     if (event.key === "Enter") {
+      if (inputValue[inputValue.length - 1] === " ") {
+        let len = inputValue.length - 1;
+        console.log(inputValue.slice(0, len));
+      }
+
       setLocation(inputValue);
       fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${inputValue}&appid=d8cb9f388c6c6f5acf8c2866895c6134`
