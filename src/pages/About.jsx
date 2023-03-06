@@ -22,7 +22,7 @@ function About() {
         </p>
         <p>
           Small deviations in the forecast are allowed due to the difference in
-          the readings og weather balloons. The lunar calendar is available only
+          the readings of weather balloons. The lunar calendar is available only
           for Minsk, but we are already working on it. <br /> Stop reading the
           description, go and try{" "}
           <a

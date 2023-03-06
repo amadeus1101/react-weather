@@ -27,6 +27,7 @@ function Header({ changeColorTheme, mode, setCardMode, cardMode }) {
       }
       setMenuOpened(!menuOpened);
     }
+
     setActiveLink(id);
   };
 
@@ -36,7 +37,7 @@ function Header({ changeColorTheme, mode, setCardMode, cardMode }) {
         <Link to="/">
           <div className="logo" onClick={() => onClickMenu()}>
             <Logo />
-            <p>eza</p>
+            {/* <p>eza</p> */}
           </div>
         </Link>
         <ul>

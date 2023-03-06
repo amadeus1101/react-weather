@@ -56,7 +56,7 @@ function Home({
         loading={isLoading}
       />
       <h2 className="title">
-        <span className="red">F</span>orecast in {pos}
+        <span className="red">W</span>eather in {pos}
       </h2>
       <div className="select">
         <p className="subtitle">

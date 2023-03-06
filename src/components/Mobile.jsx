@@ -9,16 +9,35 @@ function Mobile({ todayData, pos, showCurrentDate, loading }) {
   const hours = date.getHours();
   const minutes = date.getMinutes();
   const [state, setState] = React.useState({ value: hours });
+
   const bgArray = [
-    "#e1ae00, #f200ff",
-    "#ff506f, #ff7423",
-    "#ffa500, #ff0000",
-    "#ff8900, #00a1ff",
-    "#004aff, #00a1ff",
-    "#f83dff, #00bdff",
-    "#f83dff, #ffb500",
-    "#00e8b7, #0001ff",
+    "#a200ff, #00ffbd",
+    "#00e0ff, #ff02e5",
+    "#004aff, #00ecff",
+    "#ff00eb, #e1ff00",
+    "#ff0000, #ff00f7",
+
+    "#ff0000, #ffb500",
   ];
+
+  const defineBg = () => {
+    let temp = todayData.hours[hours].temp;
+    if (temp <= -10) return bgArray[0];
+    if (temp > -10 && temp <= -5) {
+      return bgArray[1];
+    }
+    if (temp > -5 && temp <= 0) {
+      return bgArray[2];
+    }
+    if (temp > 0 && temp <= 10) {
+      return bgArray[3];
+    }
+    if (temp > 10 && temp <= 20) {
+      return bgArray[4];
+    } else {
+      return bgArray[5];
+    }
+  };
 
   function handleChange(event) {
     setState({ value: event.target.value });
@@ -74,9 +93,10 @@ function Mobile({ todayData, pos, showCurrentDate, loading }) {
           <div
             className="weather"
             style={{
-              background: `linear-gradient(45deg, ${bgArray[4]})`,
+              background: `linear-gradient(45deg, ${defineBg()})`,
             }}
           >
+            {console.log(todayData)}
             <div className="temp">
               <h4>{todayData.hours[hours].temp}</h4>
               <img
@@ -99,20 +119,16 @@ function Mobile({ todayData, pos, showCurrentDate, loading }) {
               </div>
               <div className="params">
                 <div className="row">
-                  <span>{`${
-                    todayData.hours[state.value].wind_speed
-                  } m/s`}</span>
-                  <img src="assets/img/snowy.png" alt="weather-params" />
-                </div>
-                <div className="row">
-                  <span>{`${todayData.hours[state.value].humidity} %`}</span>
-                  <img src="assets/img/snowy.png" alt="weather-params" />
-                </div>
-                <div className="row">
-                  <span>{`${
-                    todayData.hours[state.value].pressure_mm
-                  } mmHg`}</span>
+                  <span>{`${todayData.hours[hours].feels_like}°`}</span>
                   <img src={"assets/img/snowy.png"} alt="weather-params" />
+                </div>
+                <div className="row">
+                  <span>{`${todayData.hours[hours].wind_speed} m/s`}</span>
+                  <img src="assets/img/snowy.png" alt="weather-params" />
+                </div>
+                <div className="row">
+                  <span>{`${todayData.hours[hours].humidity}%`}</span>
+                  <img src="assets/img/snowy.png" alt="weather-params" />
                 </div>
               </div>
             </div>
@@ -148,6 +164,21 @@ function Mobile({ todayData, pos, showCurrentDate, loading }) {
                 </li>
               ))}
             </ul>
+          </div>
+
+          <div className="details">
+            <div className="addition">
+              <p>Feels like</p>
+              <span>{todayData.hours[state.value].feels_like}°</span>
+            </div>
+            <div className="addition">
+              <p>Humidity</p>
+              <span>{todayData.hours[state.value].humidity}%</span>
+            </div>
+            <div className="addition">
+              <p>Wind speed</p>
+              <span>{todayData.hours[state.value].wind_speed}m/s</span>
+            </div>
           </div>
         </>
       )}

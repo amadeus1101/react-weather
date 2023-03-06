@@ -71,6 +71,7 @@ header {
     .logo {
       display: flex;
       align-items: center;
+
       svg {
         width: 36px;
         height: 36px;
@@ -82,6 +83,8 @@ header {
         font-size: 24px;
         font-family: "InterBold";
         color: #fff;
+        // z-index: -1;
+        // margin-left: -50px;
       }
     }
 
@@ -457,6 +460,9 @@ article {
       font-family: "InterBold";
       font-size: 40px;
     }
+    a {
+      color: #ff3146;
+    }
   }
 }
 
@@ -776,7 +782,7 @@ section.mobile {
     background-attachment: fixed;
 
     position: relative;
-    height: 60%;
+    height: 55%;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -868,7 +874,7 @@ section.mobile {
           letter-spacing: 0.1em;
           font-family: "InterRegular";
           font-size: 20px;
-          color: #d9d9d9;
+          color: #fff;
         }
         .row img {
           display: none;
@@ -881,6 +887,8 @@ section.mobile {
   .slider {
     width: 100%;
     padding: 0 40px;
+    z-index: 10;
+
     .sliderInfo {
       padding: 30px 0;
       width: 100%;
@@ -947,10 +955,33 @@ section.mobile {
       }
     }
   }
+
+  .details {
+    transition: 0.5s;
+    width: 100%;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
+
+    .addition {
+      width: 100%;
+      margin: 15px 0;
+
+      padding: 0 40px;
+      display: flex;
+      justify-content: space-between;
+      p,
+      span {
+        font-family: "InterRegular";
+        font-size: 18px;
+        color: #000;
+      }
+    }
+  }
   .skeleton-mobile-weather {
     width: 100%;
     position: relative;
-    height: 65%;
+    height: 55%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -961,7 +992,7 @@ section.mobile {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      top: 30%;
+      top: 20%;
       li {
         border-radius: 10px;
         background: #d9d9d9;
@@ -1138,9 +1169,6 @@ section.mobile {
         .date {
           h4 {
             font-size: 20px;
-          }
-          b {
-            font-size: 24px;
           }
         }
         .params {
@@ -2119,13 +2147,6 @@ section.mobile {
           color: #fff;
         }
       }
-
-      .params .row {
-        span,
-        p {
-          color: #d9d9d9;
-        }
-      }
     }
     .slider {
       .sliderInfo {
@@ -2149,6 +2170,10 @@ section.mobile {
           color: #a9a9a9;
         }
       }
+    }
+    .details .addition p,
+    .details .addition span {
+      color: #a9a9a9;
     }
     .skeleton-mobile-weather {
       .skeleton-temp li,
