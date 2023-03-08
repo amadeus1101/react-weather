@@ -16,6 +16,7 @@ function Home({
   showCurrentDate,
   catchLocation,
   cardMode,
+  graphic,
 }) {
   const [inputValue, setInputValue] = React.useState(location);
   const [activeCard, setActiveCard] = React.useState();
@@ -85,7 +86,47 @@ function Home({
           </p>
         ))}
       </div>
-
+      {graphic && (
+        <div className="graphic">
+          <ul className="diagram">
+            <li>
+              <span>3</span>
+              <div className="pole"></div>
+              <p>Mon</p>
+            </li>
+            <li>
+              <span>3</span>
+              <div className="pole"></div>
+              <p>Mon</p>
+            </li>
+            <li>
+              <span>3</span>
+              <div className="pole"></div>
+              <p>Mon</p>
+            </li>
+            <li>
+              <span>3</span>
+              <div className="pole"></div>
+              <p>Mon</p>
+            </li>
+            <li>
+              <span>3</span>
+              <div className="pole"></div>
+              <p>Mon</p>
+            </li>
+            <li>
+              <span>3</span>
+              <div className="pole"></div>
+              <p>Mon</p>
+            </li>
+            <li>
+              <span>3</span>
+              <div className="pole"></div>
+              <p>Mon</p>
+            </li>
+          </ul>
+        </div>
+      )}
       <div className="cardContainer">
         {globalArray.map((item, index) => (
           <Card

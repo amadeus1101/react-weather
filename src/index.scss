@@ -35,7 +35,7 @@
 /**? permanental   */
 body {
   //background: #dfffff;
-  background: url("../public/assets/img/bg.webp");
+  background: #eceef2;
   transition: background 0.5s;
 }
 .disabled {
@@ -198,6 +198,34 @@ p.subtitle a {
   }
   p.subtitle {
     font-size: 16px;
+  }
+}
+
+.graphic {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 50px;
+  .diagram {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    li {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      span,
+      p {
+        text-align: center;
+        font-family: "InterMedium";
+        font-size: 20px;
+      }
+      .pole {
+        width: 30px;
+        height: 150px;
+        background: #0088cc;
+      }
+    }
   }
 }
 

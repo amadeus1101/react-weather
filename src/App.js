@@ -33,15 +33,25 @@ function App() {
   const [daylimit, setDaylimit] = React.useState(3);
   const [activeMenuItem, setActiveMenuItem] = React.useState(1);
   const [lastWeather, setLastWeather] = React.useState([]);
+  const [graphic, setGraphic] = React.useState(false);
 
   let latitude = 53.9;
   let longitude = 27.5667;
 
   const onChooseMenu = (id) => {
     setActiveMenuItem(id);
-    if (id === 0) setDaylimit(1);
-    if (id === 1) setDaylimit(3);
-    if (id === 2) setDaylimit(7);
+    if (id === 0) {
+      setDaylimit(1);
+      setGraphic(true);
+    }
+    if (id === 1) {
+      setDaylimit(3);
+      setGraphic(false);
+    }
+    if (id === 2) {
+      setDaylimit(7);
+      setGraphic(false);
+    }
   };
 
   const date = new Date();
@@ -415,6 +425,7 @@ function App() {
               location={location}
               setLocation={setLocation}
               catchLocation={catchLocation}
+              graphic={graphic}
               /* HEADER */
 
               cardMode={cardMode}

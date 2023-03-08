@@ -96,7 +96,6 @@ function Mobile({ todayData, pos, showCurrentDate, loading }) {
               background: `linear-gradient(45deg, ${defineBg()})`,
             }}
           >
-            {console.log(todayData)}
             <div className="temp">
               <h4>{todayData.hours[hours].temp}</h4>
               <img
