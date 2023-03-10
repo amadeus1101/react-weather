@@ -5,7 +5,15 @@ function Mobile({ todayData, pos, showCurrentDate, loading }) {
   const today = showCurrentDate(0);
 
   const date = new Date();
-  const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const weekdays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
   const hours = date.getHours();
   const minutes = date.getMinutes();
   const [state, setState] = React.useState({ value: hours });
@@ -102,11 +110,11 @@ function Mobile({ todayData, pos, showCurrentDate, loading }) {
                 src={`https://yastatic.net/weather/i/icons/funky/dark/${todayData.hours[hours].icon}.svg`}
                 alt="weather"
               />
-              <p>{pos}</p>
+              <p>{todayData.hours[hours].condition}</p>
               {/* <p>{todayData.description}</p> */}
             </div>
             <div className="box">
-              <div className="date">
+              {/* <div className="date">
                 <h4>{`${today.day} ${today.month} - `}</h4>
                 <b
                   className={
@@ -115,19 +123,21 @@ function Mobile({ todayData, pos, showCurrentDate, loading }) {
                 >
                   {weekdays[date.getDay()]}
                 </b>
-              </div>
+              </div> */}
               <div className="params">
                 <div className="row">
-                  <span>{`${todayData.hours[hours].feels_like}°`}</span>
-                  <img src={"assets/img/snowy.png"} alt="weather-params" />
+                  <p>Feels like</p>
+                  <span>{`${todayData.hours[state.value].feels_like}°`}</span>
                 </div>
                 <div className="row">
-                  <span>{`${todayData.hours[hours].wind_speed} m/s`}</span>
-                  <img src="assets/img/snowy.png" alt="weather-params" />
+                  <p>Wind speed</p>
+                  <span>{`${
+                    todayData.hours[state.value].wind_speed
+                  } m/s`}</span>
                 </div>
                 <div className="row">
-                  <span>{`${todayData.hours[hours].humidity}%`}</span>
-                  <img src="assets/img/snowy.png" alt="weather-params" />
+                  <p>Humidity</p>
+                  <span>{`${todayData.hours[state.value].humidity}%`}</span>
                 </div>
               </div>
             </div>
@@ -163,21 +173,6 @@ function Mobile({ todayData, pos, showCurrentDate, loading }) {
                 </li>
               ))}
             </ul>
-          </div>
-
-          <div className="details">
-            <div className="addition">
-              <p>Feels like</p>
-              <span>{todayData.hours[state.value].feels_like}°</span>
-            </div>
-            <div className="addition">
-              <p>Humidity</p>
-              <span>{todayData.hours[state.value].humidity}%</span>
-            </div>
-            <div className="addition">
-              <p>Wind speed</p>
-              <span>{todayData.hours[state.value].wind_speed}m/s</span>
-            </div>
           </div>
         </>
       )}

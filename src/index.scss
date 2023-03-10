@@ -69,6 +69,7 @@ header {
     justify-content: space-between;
     align-items: center;
     .logo {
+      width: 74px;
       display: flex;
       align-items: center;
 
@@ -201,34 +202,6 @@ p.subtitle a {
   }
 }
 
-.graphic {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 50px;
-  .diagram {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    li {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      span,
-      p {
-        text-align: center;
-        font-family: "InterMedium";
-        font-size: 20px;
-      }
-      .pole {
-        width: 30px;
-        height: 150px;
-        background: #0088cc;
-      }
-    }
-  }
-}
-
 /***********************CardsMenu*******************/
 
 .cards-menu {
@@ -267,7 +240,6 @@ p.subtitle a {
   body {
     background: #fff;
   }
-
   header nav {
     transition: 0.5s;
 
@@ -295,6 +267,68 @@ p.subtitle a {
         display: none;
       }
     }
+  }
+  header nav {
+    justify-content: space-around;
+    .logo {
+      width: 24px;
+      svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+    ul {
+      li {
+        display: none;
+      }
+      .burger {
+        transition: 0.3s;
+        display: block;
+        width: 24px;
+        height: 24px;
+        position: relative;
+        cursor: pointer;
+        &::before,
+        &::after {
+          left: 0;
+          content: "";
+          display: block;
+          position: absolute;
+          width: 100%;
+          height: 2px;
+          background: #fff;
+        }
+        &::before {
+          top: 25%;
+          //transform: rotate(45deg);
+        }
+        &::after {
+          top: 75%;
+          //transform: rotate(-45deg);
+        }
+      }
+      .burger.active-menu {
+        position: absolute;
+        top: 0;
+        left: calc(50% - 16px);
+        margin: 40px 0;
+        &::before {
+          top: 50%;
+          transform: rotate(45deg);
+        }
+        &::after {
+          top: 50%;
+          transform: rotate(-45deg);
+        }
+      }
+    }
+
+    .param-panel .theme-switcher {
+      position: relative;
+    }
+  }
+  header nav ul li {
+    margin: 0 15px;
   }
   header.burger-opened {
     overflow-y: hidden;
@@ -354,70 +388,6 @@ p.subtitle a {
         }
       }
     }
-  }
-  header nav {
-    justify-content: space-around;
-    .logo {
-      svg {
-        width: 32px;
-        height: 32px;
-      }
-      p {
-        display: none;
-      }
-    }
-    ul {
-      li {
-        display: none;
-      }
-      .burger {
-        transition: 0.3s;
-        display: block;
-        width: 24px;
-        height: 24px;
-        position: relative;
-        cursor: pointer;
-        &::before,
-        &::after {
-          left: 0;
-          content: "";
-          display: block;
-          position: absolute;
-          width: 100%;
-          height: 2px;
-          background: #fff;
-        }
-        &::before {
-          top: 25%;
-          //transform: rotate(45deg);
-        }
-        &::after {
-          top: 75%;
-          //transform: rotate(-45deg);
-        }
-      }
-      .burger.active-menu {
-        position: absolute;
-        top: 0;
-        left: calc(50% - 16px);
-        margin: 40px 0;
-        &::before {
-          top: 50%;
-          transform: rotate(45deg);
-        }
-        &::after {
-          top: 50%;
-          transform: rotate(-45deg);
-        }
-      }
-    }
-
-    .param-panel .theme-switcher {
-      position: relative;
-    }
-  }
-  header nav ul li {
-    margin: 0 15px;
   }
 }
 @keyframes move-up {
@@ -672,10 +642,11 @@ article {
 }
 @media (max-width: 625px) {
   .calendar {
-    margin: 30px auto 0;
+    margin: 0 auto;
     padding: 20px;
     .month-container {
       .month-item {
+        border-radius: 10px;
         padding: 8px 10px;
         p {
           font-size: 14px;
@@ -853,7 +824,7 @@ section.mobile {
       background: rgba(255, 255, 255, 0.3);
       backdrop-filter: blur(3px);
       margin: 30px;
-      padding: 30px;
+      padding: 25px;
       z-index: 12;
       .date {
         text-align: center;
@@ -892,21 +863,26 @@ section.mobile {
         display: flex;
         width: 100%;
         justify-content: space-around;
-        margin: 20px 0 10px;
+        margin: 10px 0;
         .row {
-          position: relative;
+          margin: 0 5px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
 
         .row span {
-          margin: 0 5px;
+          text-align: center;
+          margin-top: 3px;
           letter-spacing: 0.1em;
           font-family: "InterRegular";
           font-size: 20px;
           color: #fff;
         }
-        .row img {
-          display: none;
-          width: 24px;
+        .row p {
+          font-family: "InterRegular";
+          font-size: 16px;
+          color: #eaeaea;
         }
       }
     }
@@ -984,28 +960,6 @@ section.mobile {
     }
   }
 
-  .details {
-    transition: 0.5s;
-    width: 100%;
-    padding: 0 20px;
-    position: relative;
-    z-index: 1;
-
-    .addition {
-      width: 100%;
-      margin: 15px 0;
-
-      padding: 0 40px;
-      display: flex;
-      justify-content: space-between;
-      p,
-      span {
-        font-family: "InterRegular";
-        font-size: 18px;
-        color: #000;
-      }
-    }
-  }
   .skeleton-mobile-weather {
     width: 100%;
     position: relative;
@@ -1065,30 +1019,6 @@ section.mobile {
   }
 }
 
-@media (max-height: 420px) {
-  section.mobile {
-    height: auto;
-    .weather {
-      height: 100vh;
-      .temp {
-        top: 20vh;
-        h4 {
-          font-size: 64px;
-        }
-        p {
-          font-size: 24px;
-        }
-        img {
-          width: 64px;
-        }
-      }
-      .box {
-        padding: 20px;
-        margin: 20px;
-      }
-    }
-  }
-}
 @media (max-width: 769px) {
   h2.title {
     font-size: 32px;
@@ -1136,6 +1066,8 @@ section.mobile {
       }
 
       .box {
+        margin: 20px;
+        padding: 20px 15px;
         .date {
           h4 {
             font-size: 20px;
@@ -1144,7 +1076,9 @@ section.mobile {
             font-size: 20px;
           }
         }
-        .params .row p,
+        .params .row p {
+          font-size: 14px;
+        }
         .params .row span {
           font-size: 18px;
         }
@@ -1184,7 +1118,7 @@ section.mobile {
   }
   article {
     padding: 30px 40px 100px;
-    margin: 30px auto 0;
+    margin: 0 auto;
   }
   section.mobile {
     .weather {
@@ -1201,7 +1135,9 @@ section.mobile {
         }
         .params {
           .row {
-            p,
+            p {
+              font-size: 12px;
+            }
             span {
               font-size: 16px;
             }
@@ -2199,10 +2135,7 @@ section.mobile {
         }
       }
     }
-    .details .addition p,
-    .details .addition span {
-      color: #a9a9a9;
-    }
+
     .skeleton-mobile-weather {
       .skeleton-temp li,
       ul.skeleton-params {

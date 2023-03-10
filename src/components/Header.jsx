@@ -35,7 +35,7 @@ function Header({ changeColorTheme, mode, setCardMode, cardMode }) {
     <header>
       <nav>
         <Link to="/">
-          <div className="logo" onClick={() => onClickMenu()}>
+          <div className="logo">
             <Logo />
             {/* <p>eza</p> */}
           </div>
