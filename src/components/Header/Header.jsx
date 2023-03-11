@@ -1,16 +1,11 @@
 import { Link } from "react-router-dom";
 import React from "react";
 import { ReactComponent as Logo } from "./logo.svg";
+import "./Header.scss";
 
 function Header({ changeColorTheme, mode, setCardMode, cardMode }) {
   const [menuOpened, setMenuOpened] = React.useState(false);
   const [activeLink, setActiveLink] = React.useState(2);
-
-  // window.addEventListener("resize", () => {
-  //   let vh = window.innerHeight * 0.01;
-
-  //   document.documentElement.style.setProperty("--vh", `${vh}px`);
-  // });
 
   const onClickMenu = (id) => {
     if (window.innerWidth <= 550) {
@@ -44,19 +39,19 @@ function Header({ changeColorTheme, mode, setCardMode, cardMode }) {
           <li className="burger" onClick={() => onClickMenu()}></li>
           <li
             onClick={() => onClickMenu(1)}
-            className={activeLink === 1 ? "active-link" : ""}
+            className={activeLink === 1 ? "active-link" : undefined}
           >
             <Link to="/about">About</Link>
           </li>
           <li
             onClick={() => onClickMenu(2)}
-            className={activeLink === 2 ? "active-link" : ""}
+            className={activeLink === 2 ? "active-link" : undefined}
           >
             <Link to="/">Weather</Link>
           </li>
           <li
             onClick={() => onClickMenu(3)}
-            className={activeLink === 3 ? "active-link" : ""}
+            className={activeLink === 3 ? "active-link" : undefined}
           >
             <Link to="/calendar">Moon</Link>
           </li>

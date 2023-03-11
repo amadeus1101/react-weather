@@ -31,7 +31,6 @@ function Calendar({ months }) {
         moons[i] = l_counter;
       }
     }
-    console.log(moons);
   };
   fillMoonPhases(21);
   const defineSpecialCases = (i) => {

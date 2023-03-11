@@ -1,6 +1,6 @@
 import React from "react";
 import History from "./pages/History";
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 import Footer from "./components/Footer";
 import axios from "axios";
 import Home from "./pages/Home";
@@ -23,36 +23,15 @@ import "./index.scss";
 // await position();
 
 function App() {
-  console.log("render");
-  const cardMenu = ["1 Day", "3 Days", "Week"];
   const [cardMode, setCardMode] = React.useState(0);
   const [weather, setWeather] = React.useState({});
   const [location, setLocation] = React.useState("Minsk");
   const [isLoading, setIsLoading] = React.useState(true);
   const [darkmode, setDarkmode] = React.useState(false);
-  const [daylimit, setDaylimit] = React.useState(3);
-  const [activeMenuItem, setActiveMenuItem] = React.useState(1);
   const [lastWeather, setLastWeather] = React.useState([]);
-  const [graphic, setGraphic] = React.useState(false);
 
   let latitude = 53.9;
   let longitude = 27.5667;
-
-  const onChooseMenu = (id) => {
-    setActiveMenuItem(id);
-    if (id === 0) {
-      setDaylimit(1);
-      setGraphic(true);
-    }
-    if (id === 1) {
-      setDaylimit(3);
-      setGraphic(false);
-    }
-    if (id === 2) {
-      setDaylimit(7);
-      setGraphic(false);
-    }
-  };
 
   const date = new Date();
 
@@ -187,11 +166,8 @@ function App() {
         isExist = true;
       }
     }
-    if (isExist) {
-      console.log("e");
-    } else {
+    if (!isExist) {
       axios.post("https://63fe15b61626c165a0a7034c.mockapi.io/forecasts", obj);
-      console.log(obj);
     }
     // try {
     //   if (lastWeather.find((item) => item.date != date_today)) {
@@ -208,7 +184,7 @@ function App() {
     // }
   };
 
-  for (let i = 0; i < daylimit; i++) {
+  for (let i = 0; i < 7; i++) {
     globalArray[i] = {
       day: 0,
       weekday: "",
@@ -330,11 +306,8 @@ function App() {
       globalArray[i].moon = weather.forecasts[i].moon_code;
 
       /**  morning */
-      globalArray[i].morning.temperature = Math.round(
-        (weather.forecasts[i].parts.morning.temp_min +
-          weather.forecasts[i].parts.morning.temp_max) /
-          2
-      );
+      globalArray[i].morning.temperature =
+        weather.forecasts[i].parts.morning.temp_avg;
       globalArray[i].morning.speed =
         weather.forecasts[i].parts.morning.wind_speed;
       globalArray[i].morning.pressure =
@@ -344,11 +317,8 @@ function App() {
       globalArray[i].morning.direction =
         weather.forecasts[i].parts.morning.wind_dir;
       /** afternoon */
-      globalArray[i].afternoon.temperature = Math.round(
-        (weather.forecasts[i].parts.day.temp_min +
-          weather.forecasts[i].parts.day.temp_max) /
-          2
-      );
+      globalArray[i].afternoon.temperature =
+        weather.forecasts[i].parts.day.temp_avg;
       globalArray[i].afternoon.speed =
         weather.forecasts[i].parts.day.wind_speed;
       globalArray[i].afternoon.pressure =
@@ -358,11 +328,8 @@ function App() {
       globalArray[i].afternoon.direction =
         weather.forecasts[i].parts.day.wind_dir;
       /** evening */
-      globalArray[i].evening.temperature = Math.round(
-        (weather.forecasts[i].parts.evening.temp_avg +
-          weather.forecasts[i].parts.evening.temp_max) /
-          2
-      );
+      globalArray[i].evening.temperature =
+        weather.forecasts[i].parts.evening.temp_avg;
       globalArray[i].evening.speed =
         weather.forecasts[i].parts.evening.wind_speed;
       globalArray[i].evening.pressure =
@@ -372,11 +339,8 @@ function App() {
       globalArray[i].evening.direction =
         weather.forecasts[i].parts.evening.wind_dir;
       /** night */
-      globalArray[i].night.temperature = Math.round(
-        (weather.forecasts[i].parts.night.temp_min +
-          weather.forecasts[i].parts.night.temp_max) /
-          2
-      );
+      globalArray[i].night.temperature =
+        weather.forecasts[i].parts.night.temp_avg;
       globalArray[i].night.speed = weather.forecasts[i].parts.night.wind_speed;
       globalArray[i].night.pressure =
         weather.forecasts[i].parts.night.pressure_mm;
@@ -387,7 +351,6 @@ function App() {
     globalArray[0].weekday = "Today";
     globalArray[0].temperature =
       weather.forecasts[0].hours[date.getHours()].temp;
-    console.log("loading complete");
   }
 
   const changeColorTheme = () => {
@@ -416,16 +379,12 @@ function App() {
           path="/"
           element={
             <Home
-              cardMenu={cardMenu}
               globalArray={globalArray}
               isLoading={isLoading}
               setIsLoading={setIsLoading}
-              onChooseMenu={onChooseMenu}
-              activeMenuItem={activeMenuItem}
               location={location}
               setLocation={setLocation}
               catchLocation={catchLocation}
-              graphic={graphic}
               /* HEADER */
 
               cardMode={cardMode}

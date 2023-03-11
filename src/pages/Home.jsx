@@ -1,14 +1,13 @@
 import React from "react";
 import Card from "../components/Card";
-import Mobile from "../components/Mobile";
+import Mobile from "../components/Mobile/Mobile";
+
+import Diagram from "../components/Diagram";
 
 function Home({
-  cardMenu,
   globalArray,
   isLoading,
   setIsLoading,
-  onChooseMenu,
-  activeMenuItem,
   location,
   setLocation,
   todayData,
@@ -16,7 +15,6 @@ function Home({
   showCurrentDate,
   catchLocation,
   cardMode,
-  graphic,
 }) {
   const [inputValue, setInputValue] = React.useState(location);
   const [activeCard, setActiveCard] = React.useState();
@@ -44,9 +42,6 @@ function Home({
   const changeActiveCard = (id) => {
     activeCard === id ? setActiveCard() : setActiveCard(id);
   };
-  const chooseActiveMenuItem = (i) => {
-    onChooseMenu(i);
-  };
 
   return (
     <>
@@ -56,9 +51,13 @@ function Home({
         showCurrentDate={showCurrentDate}
         loading={isLoading}
       />
+
       <h2 className="title">
         <span className="red">W</span>eather in {pos}
       </h2>
+      {!isLoading && (
+        <Diagram globalArray={globalArray} showCurrentDate={showCurrentDate} />
+      )}
       <div className="select">
         <p className="subtitle">
           To change a city, please, put correct city-name into the search box
@@ -73,19 +72,9 @@ function Home({
           onKeyDown={(event) => checkCityname(event)}
         />
       </div>
-      <div className="cards-menu">
-        {cardMenu.map((item, index) => (
-          <p
-            key={index}
-            onClick={() => {
-              chooseActiveMenuItem(index);
-            }}
-            className={index === activeMenuItem ? "choosed" : ""}
-          >
-            {item}
-          </p>
-        ))}
-      </div>
+      {/* <div className="cards-menu">
+        <p>Week</p>
+      </div> */}
 
       <div className="cardContainer">
         {globalArray.map((item, index) => (
@@ -101,38 +90,6 @@ function Home({
           />
         ))}
       </div>
-
-      {/* <div className="cardContainer">
-        <Card flip={flip} classMode={"card short"} />
-      </div> 
-       <article>
-        <h2 className="title">
-          <span className="red">D</span>ay of Rolex
-        </h2>
-        <p className="subtitle">Daily rubric of what? ...</p>
-
-        <p>
-          <span className="red">T</span>oday we celebrate The International Day
-          of Folex. Lorem ipsum dolor sit amet consequetur amatur de alesan.
-          Orde lando salom trea liciy Rreyne samoldano; ursa etra el abaddon.
-          Lorem ipsum dolor sit amet consequetur amatur de alesan. Orde lando
-          salom trea liciy Rreyne samoldano; ursa etra el abaddon.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam vel
-          itaque dignissimos nulla quidem neque nam iusto consequatur nihil,
-          dicta error atque corporis doloribus officia, odio debitis! Odio,
-          fugit ad? De alesan. Orde lando salom trea liciy Rreyne samoldano;
-          ursa etra el abaddon. Lorem ipsum dolor sit amet consequetur amatur de
-          alesan. Orde lando salom trea liciy Rreyne samoldano; ursa etra el
-          abaddon.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet consequetur amatur de alesan. Orde lando
-          salom trea liciy Rreyne samoldano; ursa etra el abaddon. Dicta error
-          atque corporis doloribus officia, odio debitis! Odio, fugit ad?
-        </p>
-      </article> */}
     </>
   );
 }

@@ -1,9 +1,7 @@
 function Footer() {
   return (
     <footer>
-      <h3>
-        weza<sup>beta</sup>-0.1.0
-      </h3>
+      <h3>weza-1.0</h3>
       {/* <nav>
           <ul>
             <li>
@@ -21,10 +19,7 @@ function Footer() {
         </nav> */}
 
       <p>
-        <a href="https://react-weather-brown-gamma.vercel.app">
-          react-weather.app
-        </a>{" "}
-        All rights reserved
+        <a href="https://weza.vercel.app">weza</a> All rights reserved
       </p>
       <p>
         <a href="https://www.flaticon.com/free-icons/moon" title="moon icons">

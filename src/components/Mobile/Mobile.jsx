@@ -1,4 +1,5 @@
 import React from "react";
+import "./Mobile.scss";
 
 function Mobile({ todayData, pos, showCurrentDate, loading }) {
   const hoursArray = [1, 5, 9, 13, 17, 21];
@@ -125,20 +126,14 @@ function Mobile({ todayData, pos, showCurrentDate, loading }) {
                 </b>
               </div> */}
               <div className="params">
-                <div className="row">
-                  <p>Feels like</p>
-                  <span>{`${todayData.hours[state.value].feels_like}°`}</span>
-                </div>
-                <div className="row">
-                  <p>Wind speed</p>
-                  <span>{`${
-                    todayData.hours[state.value].wind_speed
-                  } m/s`}</span>
-                </div>
-                <div className="row">
-                  <p>Humidity</p>
-                  <span>{`${todayData.hours[state.value].humidity}%`}</span>
-                </div>
+                <p>Feels like</p>
+                <span>{`${todayData.hours[state.value].feels_like}°`}</span>
+
+                <p>Wind speed</p>
+                <span>{`${todayData.hours[state.value].wind_speed} m/s`}</span>
+
+                <p>Humidity</p>
+                <span>{`${todayData.hours[state.value].humidity}%`}</span>
               </div>
             </div>
           </div>

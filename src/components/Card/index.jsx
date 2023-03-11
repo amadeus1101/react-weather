@@ -1,4 +1,4 @@
-import React from "react";
+import "./Card.scss";
 
 function Card(props) {
   let pathToTheMoon = "";
@@ -102,7 +102,7 @@ function Card(props) {
         <>
           <div className="content">
             <div className="date">
-              <h4 className={props.isWeekend ? "weekday" : ""}>
+              <h4 className={props.isWeekend ? "weekday" : undefined}>
                 {props.weekday}
               </h4>
               <p>{props.month + " " + props.day}</p>

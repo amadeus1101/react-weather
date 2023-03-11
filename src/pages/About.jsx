@@ -8,8 +8,7 @@ function About() {
         <p className="subtitle">Weza react-weather-project</p>
 
         <p>
-          <span className="red">Hi</span> there! I'm Artemy - junior web
-          developer, the creater of Weza. [Weza] is a React JS training project.
+          <span className="red">Hi</span> there! [Weza] is a React JS project.
           The App shows a weather in real-time up to 7 days.
         </p>
         <p>
