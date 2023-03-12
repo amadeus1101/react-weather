@@ -3,13 +3,8 @@ import { Line } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 import { Chart } from "react-chartjs-2";
 
-function Diagram({ globalArray, showCurrentDate }) {
-  let days = [];
-
-  for (let i = 0; i < 7; i++) {
-    days[i] = showCurrentDate(i).day;
-  }
-
+function Diagram({ globalArray, showCurrentDate, date }) {
+  let days = globalArray.map((item) => item.day);
   const [activeDiagram, setActiveDiagram] = React.useState(0);
   const [userData, setUserData] = React.useState({
     labels: days,
@@ -78,6 +73,31 @@ function Diagram({ globalArray, showCurrentDate }) {
     }
     setActiveDiagram(param);
   };
+  console.log(globalArray);
+  // const sendWeather = () => {
+  //   let date_today = date.getDate() + (date.getMonth() + 1) / 100;
+  //   let isExist = false;
+  //   let obj = {
+  //     date: date_today,
+  //     weather: {
+  //       temp_night: globalArray[0].night.temperature,
+  //       temp_morning: globalArray[0].morning.temperature,
+  //       temp_day: globalArray[0].afternoon.temperature,
+  //       temp_evening: globalArray[0].evening.temperature,
+  //       moon: globalArray[0].moon,
+  //     },
+  //   };
+
+  //   for (let i = 0; i < lastWeather.length; i++) {
+  //     if (lastWeather[i].date === date_today) {
+  //       isExist = true;
+  //     }
+  //   }
+  //   if (!isExist) {
+  //     axios.post("https://63fe15b61626c165a0a7034c.mockapi.io/forecasts", obj);
+  //   }
+  // };
+  // sendWeather();
   return (
     <div className="diagram">
       <Line data={userData} />
@@ -88,7 +108,11 @@ function Diagram({ globalArray, showCurrentDate }) {
             id={index === activeDiagram ? "active-diagram" : undefined}
             key={index}
           >
-            <img src={`../../assets/img/${item}`} alt="diagram-ico" />
+            <img
+              src={`../../assets/img/${item}`}
+              alt="diagram-ico"
+              width={24}
+            />
           </li>
         ))}
       </ul>

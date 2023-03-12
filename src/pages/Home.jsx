@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "../components/Card";
 import Mobile from "../components/Mobile/Mobile";
 
@@ -8,16 +8,29 @@ function Home({
   globalArray,
   isLoading,
   setIsLoading,
-  location,
-  setLocation,
   todayData,
-  pos,
   showCurrentDate,
   catchLocation,
   cardMode,
+  date,
 }) {
+  const [location, setLocation] = React.useState("Minsk");
   const [inputValue, setInputValue] = React.useState(location);
   const [activeCard, setActiveCard] = React.useState();
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 
   const checkCityname = (event) => {
     if (event.key === "Enter") {
@@ -47,16 +60,21 @@ function Home({
     <>
       <Mobile
         todayData={todayData}
-        pos={pos}
+        pos={location}
         showCurrentDate={showCurrentDate}
         loading={isLoading}
+        date={date}
       />
 
       <h2 className="title">
-        <span className="red">W</span>eather in {pos}
+        <span className="red">W</span>eather in {location}
       </h2>
       {!isLoading && (
-        <Diagram globalArray={globalArray} showCurrentDate={showCurrentDate} />
+        <Diagram
+          globalArray={globalArray}
+          showCurrentDate={showCurrentDate}
+          date={date}
+        />
       )}
       <div className="select">
         <p className="subtitle">
@@ -87,6 +105,7 @@ function Home({
             changeActiveCard={changeActiveCard}
             activeType={activeCard === index ? true : false}
             setActiveCard={setActiveCard}
+            monthName={monthNames[item.month - 1]}
           />
         ))}
       </div>

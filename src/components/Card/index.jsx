@@ -105,13 +105,14 @@ function Card(props) {
               <h4 className={props.isWeekend ? "weekday" : undefined}>
                 {props.weekday}
               </h4>
-              <p>{props.month + " " + props.day}</p>
+              <p>{props.monthName + " " + props.day}</p>
             </div>
             <div className="temp">
               <h4>{props.temperature}</h4>
               <img
                 src={`https://yastatic.net/weather/i/icons/funky/dark/${props.icon}.svg`}
                 alt="weather"
+                width={64}
               />
               <p>
                 {`${props.temperatureMin}` + " -> " + `${props.temperatureMax}`}
@@ -120,7 +121,11 @@ function Card(props) {
             </div>
             <div className="phase">
               <p>Moon phase:</p>
-              <img src={`../../assets/img/${pathToTheMoon}`} alt="moon-phase" />
+              <img
+                src={`../../assets/img/${pathToTheMoon}`}
+                alt="moon-phase"
+                width={48}
+              />
             </div>
           </div>
           <table>

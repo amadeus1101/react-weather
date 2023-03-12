@@ -3,28 +3,21 @@
   font-weight: normal;
   font-style: normal;
   src: url("../public/assets/fonts/Inter-Bold.ttf");
-  font-display: fallback;
+  font-display: swap;
 }
 @font-face {
   font-family: "InterMedium";
   font-weight: normal;
   font-style: normal;
   src: url("../public/assets/fonts/Inter-Medium.ttf");
-  font-display: fallback;
+  font-display: swap;
 }
 @font-face {
   font-family: "InterRegular";
   font-weight: normal;
   font-style: normal;
   src: url("../public/assets/fonts/Inter-Regular.ttf");
-  font-display: fallback;
-}
-@font-face {
-  font-family: "InterLight";
-  font-weight: normal;
-  font-style: normal;
-  src: url("../public/assets/fonts/Inter-Light.ttf");
-  font-display: fallback;
+  font-display: swap;
 }
 
 * {
@@ -78,7 +71,7 @@ p.subtitle {
   margin-top: 0;
   letter-spacing: 0;
   text-align: center;
-  font-family: "InterLight";
+  font-family: "InterRegular";
   font-size: 20px;
   color: #5f5f5f;
 }
@@ -195,7 +188,7 @@ p.subtitle a {
   border-radius: 10px;
   cursor: pointer;
   color: #000;
-  font-family: "InterMedium";
+  font-family: "InterRegular";
   font-size: 20px;
   outline: none;
   border: none;

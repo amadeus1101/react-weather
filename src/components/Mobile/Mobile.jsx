@@ -1,20 +1,18 @@
 import React from "react";
 import "./Mobile.scss";
 
-function Mobile({ todayData, pos, showCurrentDate, loading }) {
+function Mobile({ todayData, date, showCurrentDate, loading }) {
   const hoursArray = [1, 5, 9, 13, 17, 21];
-  const today = showCurrentDate(0);
-
-  const date = new Date();
-  const weekdays = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
+  // const today = showCurrentDate(0);
+  // const weekdays = [
+  //   "Sunday",
+  //   "Monday",
+  //   "Tuesday",
+  //   "Wednesday",
+  //   "Thursday",
+  //   "Friday",
+  //   "Saturday",
+  // ];
   const hours = date.getHours();
   const minutes = date.getMinutes();
   const [state, setState] = React.useState({ value: hours });
@@ -110,6 +108,7 @@ function Mobile({ todayData, pos, showCurrentDate, loading }) {
               <img
                 src={`https://yastatic.net/weather/i/icons/funky/dark/${todayData.hours[hours].icon}.svg`}
                 alt="weather"
+                width={72}
               />
               <p>{todayData.hours[hours].condition}</p>
               {/* <p>{todayData.description}</p> */}
@@ -149,6 +148,7 @@ function Mobile({ todayData, pos, showCurrentDate, loading }) {
                     todayData.hours[state.value].icon
                   }.svg`}
                   alt="weather-ico"
+                  width={64}
                 />
               </h5>
             </div>

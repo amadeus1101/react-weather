@@ -11,21 +11,9 @@ import { Routes, Route } from "react-router-dom";
 
 import "./index.scss";
 
-// async function position() {
-//   const pos = await new Promise((resolve, reject) => {
-//     navigator.geolocation.getCurrentPosition(resolve, reject);
-//   });
-//   return {
-//     long: pos.coords.longitude,
-//     lat: pos.coord.latitude,
-//   };
-// }
-// await position();
-
 function App() {
   const [cardMode, setCardMode] = React.useState(0);
   const [weather, setWeather] = React.useState({});
-  const [location, setLocation] = React.useState("Minsk");
   const [isLoading, setIsLoading] = React.useState(true);
   const [darkmode, setDarkmode] = React.useState(false);
   const [lastWeather, setLastWeather] = React.useState([]);
@@ -147,43 +135,6 @@ function App() {
     getWeather();
   };
 
-  const sendWeather = () => {
-    let date_today = date.getDate() + (date.getMonth() + 1) / 100;
-    let isExist = false;
-    let obj = {
-      date: date_today,
-      weather: {
-        temp_night: weather.forecasts[0].parts.night.temp_avg,
-        temp_morning: weather.forecasts[0].parts.morning.temp_avg,
-        temp_day: weather.forecasts[0].parts.day.temp_avg,
-        temp_evening: weather.forecasts[0].parts.evening.temp_avg,
-        moon: weather.forecasts[0].moon_code,
-      },
-    };
-
-    for (let i = 0; i < lastWeather.length; i++) {
-      if (lastWeather[i].date === date_today) {
-        isExist = true;
-      }
-    }
-    if (!isExist) {
-      axios.post("https://63fe15b61626c165a0a7034c.mockapi.io/forecasts", obj);
-    }
-    // try {
-    //   if (lastWeather.find((item) => item.date != date_today)) {
-    // await axios.post(
-    //   "https://63fe15b61626c165a0a7034c.mockapi.io/forecasts",
-    //   obj
-    // );
-
-    //     console.log(obj);
-    //   }
-    // } catch (error) {
-    //   console.log("ne vishlo otpravit");
-    //   console.error(error);
-    // }
-  };
-
   for (let i = 0; i < 7; i++) {
     globalArray[i] = {
       day: 0,
@@ -230,16 +181,16 @@ function App() {
     let currentDate = {
       day: date.getDate() + counter,
       weekday: date.getDay() + counter,
-      month: months[date.getMonth()].month,
+      month: date.getMonth() + 1,
       isWeekday: false,
     };
     const cMonth = date.getMonth();
     if (currentDate.day > months[cMonth].daysCount) {
       currentDate.day -= months[cMonth].daysCount;
       if (date.getMonth() < 11) {
-        currentDate.month = months[cMonth + 1].month;
+        currentDate.month = cMonth + 1;
       } else {
-        currentDate.month = months[cMonth - 11].month;
+        currentDate.month = cMonth - 11;
       }
     }
     if (currentDate.weekday > 6) {
@@ -254,7 +205,6 @@ function App() {
   };
 
   if (!isLoading) {
-    sendWeather();
     //console.log(weather);
 
     const tempMinMax = (day) => {
@@ -353,25 +303,13 @@ function App() {
       weather.forecasts[0].hours[date.getHours()].temp;
   }
 
-  const changeColorTheme = () => {
-    if (localStorage.getItem("theme") === "dark") {
-      document.body.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-      setDarkmode(false);
-    } else {
-      document.body.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-      setDarkmode(true);
-    }
-  };
-
   return (
     <>
       <Header
         cardMode={cardMode}
-        mode={darkmode}
         setCardMode={setCardMode}
-        changeColorTheme={changeColorTheme}
+        darkmode={darkmode}
+        setDarkmode={setDarkmode}
       />
 
       <Routes>
@@ -379,35 +317,23 @@ function App() {
           path="/"
           element={
             <Home
+              date={date}
               globalArray={globalArray}
               isLoading={isLoading}
               setIsLoading={setIsLoading}
-              location={location}
-              setLocation={setLocation}
               catchLocation={catchLocation}
               /* HEADER */
 
               cardMode={cardMode}
               /*Mobile*/
               todayData={!isLoading ? weather.forecasts[0] : ""}
-              pos={location}
               showCurrentDate={showCurrentDate}
             />
           }
         />
         <Route path="/about" element={<About />} />
         <Route path="/calendar" element={<Calendar months={months} />} />
-        <Route
-          path="*"
-          element={
-            <ErrorPage /* HEADER */
-              changeColorTheme={changeColorTheme}
-              darkmode={darkmode}
-              cardMode={cardMode}
-              setCardMode={setCardMode}
-            />
-          }
-        />
+        <Route path="*" element={<ErrorPage />} />
         <Route path="/history" element={<History history={lastWeather} />} />
       </Routes>
 

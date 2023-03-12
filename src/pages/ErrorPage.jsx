@@ -1,4 +1,4 @@
-function ErrorPage({ darkmode, cardMode, setCardMode, changeColorTheme }) {
+function ErrorPage() {
   return (
     <>
       <div className="error-container">

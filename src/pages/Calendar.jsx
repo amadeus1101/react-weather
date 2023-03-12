@@ -70,7 +70,11 @@ function Calendar({ months }) {
               className={item.weekend ? "month-item weekend" : "month-item"}
               key={index}
             >
-              <img src={`../../assets/img/${item.moon}`} alt="moon-phase" />
+              <img
+                src={`../../assets/img/${item.moon}`}
+                alt="moon-phase"
+                width={32}
+              />
               <p className={item.weekend ? "weekend" : ""}>{item.day}</p>
             </div>
           ))}
