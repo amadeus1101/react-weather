@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Card from "../components/Card";
 import Mobile from "../components/Mobile/Mobile";
-
 import Diagram from "../components/Diagram";
 
 function Home({
@@ -14,9 +13,9 @@ function Home({
   cardMode,
   date,
 }) {
-  const [location, setLocation] = React.useState("Minsk");
-  const [inputValue, setInputValue] = React.useState(location);
-  const [activeCard, setActiveCard] = React.useState();
+  const [location, setLocation] = useState("Minsk");
+  const [inputValue, setInputValue] = useState(location);
+  const [activeCard, setActiveCard] = useState();
   const monthNames = [
     "January",
     "February",
@@ -85,6 +84,7 @@ function Home({
           id="location"
           className="selectCity"
           type="text"
+          aria-label="Search"
           value={inputValue}
           onChange={(event) => setInputValue(event.target.value)}
           onKeyDown={(event) => checkCityname(event)}

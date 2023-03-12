@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import React from "react";
+import { useState } from "react";
 import { ReactComponent as Logo } from "./logo.svg";
 import "./Header.scss";
 
 function Header({ darkmode, setDarkmode, setCardMode, cardMode }) {
-  const [menuOpened, setMenuOpened] = React.useState(false);
-  const [activeLink, setActiveLink] = React.useState(2);
+  const [menuOpened, setMenuOpened] = useState(false);
+  const [activeLink, setActiveLink] = useState(2);
 
   const onClickMenu = (id) => {
     if (window.innerWidth <= 550) {

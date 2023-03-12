@@ -1,5 +1,4 @@
 function History({ history }) {
-  console.log("HISTORRRRRRRRRRRY");
   return history.map((item, index) => (
     <div key={index}>
       <p>Date: {item.date}</p>

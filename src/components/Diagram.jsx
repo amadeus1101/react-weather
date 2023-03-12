@@ -1,12 +1,34 @@
-import React from "react";
+import { useState } from "react";
 import { Line } from "react-chartjs-2";
-import { Chart as ChartJS } from "chart.js/auto";
+//import { Chart as ChartJS } from "chart.js/auto";
+//import { Chart } from "react-chartjs-2";
+
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
 import { Chart } from "react-chartjs-2";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 function Diagram({ globalArray, showCurrentDate, date }) {
   let days = globalArray.map((item) => item.day);
-  const [activeDiagram, setActiveDiagram] = React.useState(0);
-  const [userData, setUserData] = React.useState({
+  const [activeDiagram, setActiveDiagram] = useState(0);
+  const [userData, setUserData] = useState({
     labels: days,
     datasets: [
       {
@@ -73,7 +95,7 @@ function Diagram({ globalArray, showCurrentDate, date }) {
     }
     setActiveDiagram(param);
   };
-  console.log(globalArray);
+
   // const sendWeather = () => {
   //   let date_today = date.getDate() + (date.getMonth() + 1) / 100;
   //   let isExist = false;

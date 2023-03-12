@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import "./Mobile.scss";
 
 function Mobile({ todayData, date, showCurrentDate, loading }) {
@@ -15,7 +15,7 @@ function Mobile({ todayData, date, showCurrentDate, loading }) {
   // ];
   const hours = date.getHours();
   const minutes = date.getMinutes();
-  const [state, setState] = React.useState({ value: hours });
+  const [state, setState] = useState({ value: hours });
 
   const bgArray = [
     "#a200ff, #00ffbd",
