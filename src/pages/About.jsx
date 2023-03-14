@@ -33,6 +33,10 @@ function About() {
           for yourself!!!
         </p>
       </article>
+      <h2 className="title">
+        <span className="red">R</span>elease Notes
+      </h2>
+      <p className="subtitle">Here will be published all updations for weza</p>
     </>
   );
 }

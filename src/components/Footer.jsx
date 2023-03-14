@@ -19,7 +19,8 @@ function Footer() {
         </nav> */}
 
       <p>
-        <a href="https://weza.vercel.app">weza</a> All rights reserved
+        <a href="https://weza.vercel.app">weza.vercel.app</a> All rights
+        reserved
       </p>
       <p>
         <a href="https://www.flaticon.com/free-icons/moon" title="moon icons">

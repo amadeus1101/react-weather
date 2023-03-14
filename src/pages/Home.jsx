@@ -33,21 +33,26 @@ function Home({
 
   const checkCityname = (event) => {
     if (event.key === "Enter") {
-      if (inputValue[inputValue.length - 1] === " ") {
-        let len = inputValue.length - 1;
-        console.log(inputValue.slice(0, len));
-      }
+      if (!Number(inputValue)) {
+        if (inputValue[inputValue.length - 1] === " ") {
+          // let whiteSpaceCounter = 0;
+          // for(let i=inputValue)
+          let newInputValue = inputValue.slice(0, inputValue.length - 1);
+          setInputValue(newInputValue);
+        }
 
-      setLocation(inputValue);
-      fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${inputValue}&appid=d8cb9f388c6c6f5acf8c2866895c6134`
-      )
-        .then((res) => res.json())
-        .then((json) => {
-          catchLocation(json.coord.lat, json.coord.lon);
-          setIsLoading(true);
-        })
-        .catch((error) => setLocation("Invalid City!!!"));
+        setLocation(inputValue);
+        fetch(
+          `https://api.openweathermap.org/data/2.5/weather?q=${inputValue}&appid=d8cb9f388c6c6f5acf8c2866895c6134`
+        )
+          .then((res) => res.json())
+          .then((json) => {
+            catchLocation(json.coord.lat, json.coord.lon);
+
+            setIsLoading(true);
+          })
+          .catch((error) => setLocation("0"));
+      }
     }
   };
 
@@ -65,9 +70,18 @@ function Home({
         date={date}
       />
 
-      <h2 className="title">
-        <span className="red">W</span>eather in {location}
-      </h2>
+      {location !== "0" ? (
+        <h2 className="title">
+          <span className="red">W</span>eather in {location}
+        </h2>
+      ) : (
+        <>
+          <h2 className="title">Invalid city, check the input</h2>
+          <p className="subtitle">
+            The weather is shown in the last currently entered city{" "}
+          </p>
+        </>
+      )}
       {!isLoading && (
         <Diagram
           globalArray={globalArray}

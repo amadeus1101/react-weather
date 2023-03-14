@@ -1,5 +1,5 @@
 import React from "react";
-import History from "./pages/History";
+//import History from "./pages/History";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer";
 import axios from "axios";
@@ -16,7 +16,7 @@ function App() {
   const [weather, setWeather] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(true);
   const [darkmode, setDarkmode] = React.useState(false);
-  const [lastWeather, setLastWeather] = React.useState([]);
+  //const [lastWeather, setLastWeather] = React.useState([]);
 
   let latitude = 53.9;
   let longitude = 27.5667;
@@ -112,12 +112,12 @@ function App() {
       const weatherResp = await axios.get(
         `https://react-weather-server-fkfe.vercel.app/v2/forecast?lat=${latitude}&lon=${longitude}&lang=en_US&limit=7&hours=true&extra=false`
       );
-      const historyResp = await axios.get(
-        "https://63fe15b61626c165a0a7034c.mockapi.io/forecasts"
-      );
+      // const historyResp = await axios.get(
+      //   "https://63fe15b61626c165a0a7034c.mockapi.io/forecasts"
+      // );
 
       setWeather(weatherResp.data);
-      setLastWeather(historyResp.data);
+      //setLastWeather(historyResp.data);
 
       setIsLoading(false);
     }
@@ -334,16 +334,8 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/calendar" element={<Calendar months={months} />} />
         <Route path="*" element={<ErrorPage />} />
-        <Route path="/history" element={<History history={lastWeather} />} />
+        {/* <Route path="/history" element={<History history={lastWeather} />} /> */}
       </Routes>
-
-      {/* {!isLoading && (
-        <Mobile
-          todayData={weather.forecasts[0]}
-          pos={location}
-          showCurrentDate={showCurrentDate}
-        />
-      )} */}
       <Footer />
     </>
   );

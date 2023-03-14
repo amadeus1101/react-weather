@@ -6,21 +6,26 @@ import "./Header.scss";
 function Header({ darkmode, setDarkmode, setCardMode, cardMode }) {
   const [menuOpened, setMenuOpened] = useState(false);
   const [activeLink, setActiveLink] = useState(2);
+  const menu = document.querySelector(".burger");
+
+  const closeMenu = () => {
+    menu.classList.remove("active-menu");
+    document.querySelector("header").classList.remove("burger-opened");
+    setMenuOpened(false);
+  };
 
   const onClickMenu = (id) => {
     if (window.innerWidth <= 550) {
-      let menu = document.querySelector(".burger");
       if (!menuOpened) {
         menu.classList.add("active-menu");
         document.querySelector("header").classList.add("burger-opened");
+        setMenuOpened(true);
         //document.body.style.overflow = "hidden";
       } else {
-        menu.classList.remove("active-menu");
-        document.querySelector("header").classList.remove("burger-opened");
+        closeMenu();
         //document.body.style.overflow = "auto";
         //document.body.style.overscrollBehavior = "none";
       }
-      setMenuOpened(!menuOpened);
     }
 
     setActiveLink(id);
@@ -41,7 +46,7 @@ function Header({ darkmode, setDarkmode, setCardMode, cardMode }) {
     <header>
       <nav>
         <Link to="/">
-          <div className="logo">
+          <div className="logo" onClick={() => closeMenu()}>
             <Logo />
             {/* <p>eza</p> */}
           </div>
@@ -70,7 +75,10 @@ function Header({ darkmode, setDarkmode, setCardMode, cardMode }) {
         <div className="param-panel">
           <div
             className="card-mode-switcher"
-            onClick={() => setCardMode(!cardMode)}
+            onClick={() => {
+              setCardMode(!cardMode);
+              closeMenu();
+            }}
           >
             <img
               src={
@@ -87,7 +95,6 @@ function Header({ darkmode, setDarkmode, setCardMode, cardMode }) {
               src={`../../assets/img/${darkmode ? "moon2.png" : "sun.png"}`}
               alt="theme-switch"
               width={24}
-              height={24}
             />
           </div>
         </div>

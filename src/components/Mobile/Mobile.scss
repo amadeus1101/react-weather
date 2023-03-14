@@ -16,7 +16,7 @@ section.mobile {
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
 
     .temp {
       display: grid;
@@ -46,8 +46,7 @@ section.mobile {
     }
 
     .box {
-      position: absolute;
-      bottom: 0;
+      position: relative;
       width: 90%;
       display: flex;
       flex-direction: column;
@@ -101,6 +100,23 @@ section.mobile {
 
           letter-spacing: 0.1em;
         }
+      }
+      &::before,
+      &::after {
+        display: block;
+
+        content: "";
+        width: 2px;
+        height: 60%;
+        position: absolute;
+
+        background: #eaeaea81;
+      }
+      &::before {
+        left: 33%;
+      }
+      &::after {
+        right: 33%;
       }
     }
   }
