@@ -32,11 +32,20 @@ function About() {
           </a>{" "}
           for yourself!!!
         </p>
+        <h2 className="title">
+          <span className="red">R</span>elease Notes
+        </h2>
+        <p className="subtitle">
+          Here will be published all updations for weza
+        </p>
+        <p>
+          * New font technology 'woff2' for quickly loading and showing content
+        </p>
+        <p>
+          * New Error-page design, check it <a href="/h">here</a>
+        </p>
+        <p>* We almost here!!! Speed quality value: 90</p>
       </article>
-      <h2 className="title">
-        <span className="red">R</span>elease Notes
-      </h2>
-      <p className="subtitle">Here will be published all updations for weza</p>
     </>
   );
 }
