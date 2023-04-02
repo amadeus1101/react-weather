@@ -12,6 +12,8 @@ import { Routes, Route } from "react-router-dom";
 import "./index.scss";
 
 function App() {
+  alert("WEZA WILL WORK UNTIL APRIL 7, THEN STATIC DATA WILL BE POSTED");
+
   const [cardMode, setCardMode] = React.useState(0);
   const [weather, setWeather] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(true);
@@ -302,7 +304,6 @@ function App() {
     globalArray[0].temperature =
       weather.forecasts[0].hours[date.getHours()].temp;
   }
-
   return (
     <>
       <Header

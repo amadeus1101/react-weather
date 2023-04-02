@@ -32,7 +32,7 @@ function Calendar({ months }) {
       }
     }
   };
-  fillMoonPhases(21);
+  fillMoonPhases(20);
   const defineSpecialCases = (i) => {
     if (i === 0) {
       return "first";
