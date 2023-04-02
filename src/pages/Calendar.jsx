@@ -61,7 +61,7 @@ function Calendar({ months }) {
           {months[currMonth].month.slice(1)}
         </h2>
         <p className="subtitle">
-          Moon calendar on <span className="red">March</span> 2023 - Minsk
+          Moon calendar on <span className="red">April</span> 2023 - Minsk
         </p>
         <div className="month-container">
           {calendar.map((item, index) => (
