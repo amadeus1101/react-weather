@@ -48,7 +48,7 @@ function Calendar({ months }) {
       calendar[i] = {
         day: i + 1,
         moon: `m${moons[i]}.png`,
-        weekend: (i + 1) % 7 === 4 || (i + 1) % 7 === 5 ? true : false,
+        weekend: (i + 1) % 7 === 0 || (i + 1) % 7 === 6 ? true : false,
       };
     }
   };

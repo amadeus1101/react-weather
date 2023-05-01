@@ -204,117 +204,105 @@ function App() {
     return currentDate;
   };
 
-  // if (!isLoading) {
-  //   //console.log(weather);
+  if (!isLoading) {
+    //console.log(weather);
 
-  //   const tempMinMax = (day) => {
-  //     let tempObj = {
-  //       t_min: weather.forecasts[day].parts.night.temp_min,
-  //       t_max: weather.forecasts[day].parts.day.temp_max,
-  //     };
-  //     if (tempObj.t_min > weather.forecasts[day].parts.morning.temp_min)
-  //       tempObj.t_min = weather.forecasts[day].parts.morning.temp_min;
-  //     if (tempObj.t_min > weather.forecasts[day].parts.day.temp_min)
-  //       tempObj.t_min = weather.forecasts[day].parts.day.temp_min;
-  //     if (tempObj.t_min > weather.forecasts[day].parts.evening.temp_min)
-  //       tempObj.t_min = weather.forecasts[day].parts.evening.temp_min;
-  //     if (tempObj.t_max < weather.forecasts[day].parts.morning.temp_max)
-  //       tempObj.t_max = weather.forecasts[day].parts.morning.temp_max;
-  //     if (tempObj.t_max < weather.forecasts[day].parts.evening.temp_max)
-  //       tempObj.t_max = weather.forecasts[day].parts.evening.temp_max;
-  //     if (tempObj.t_max < weather.forecasts[day].parts.night.temp_max)
-  //       tempObj.t_max = weather.forecasts[day].parts.night.temp_max;
-  //     return tempObj;
-  //   };
-  //   const defineDaytime = (hour, day) => {
-  //     if (hour < 6) {
-  //       return weather.forecasts[day].parts.night;
-  //     }
-  //     if (hour > 5 && hour < 12) {
-  //       return weather.forecasts[day].parts.morning;
-  //     }
-  //     if (hour > 11 && hour < 18) {
-  //       return weather.forecasts[day].parts.day;
-  //     }
-  //     if (hour > 17) {
-  //       return weather.forecasts[day].parts.evening;
-  //     }
-  //   };
-  //   for (let i = 0; i < globalArray.length; i++) {
-  //     let todayParams = defineDaytime(date.getHours(), i);
-  //     let tObj = tempMinMax(i);
-  //     let tmp = showCurrentDate(i);
-  //     globalArray[i].day = tmp.day;
-  //     globalArray[i].weekday = tmp.weekday;
-  //     globalArray[i].isWeekend = tmp.isWeekday;
-  //     globalArray[i].month = tmp.month;
-  //     globalArray[i].temperature = todayParams.temp_avg;
-  //     globalArray[i].icon = todayParams.icon;
-  //     globalArray[i].description = todayParams.condition;
-  //     globalArray[i].temperatureMin = tObj.t_min;
-  //     globalArray[i].temperatureMax = tObj.t_max;
-  //     globalArray[i].moon = weather.forecasts[i].moon_code;
+    const tempMinMax = (day) => {
+      let tempObj = {
+        t_min: weather.forecasts[day].parts.night.temp_min,
+        t_max: weather.forecasts[day].parts.day.temp_max,
+      };
+      if (tempObj.t_min > weather.forecasts[day].parts.morning.temp_min)
+        tempObj.t_min = weather.forecasts[day].parts.morning.temp_min;
+      if (tempObj.t_min > weather.forecasts[day].parts.day.temp_min)
+        tempObj.t_min = weather.forecasts[day].parts.day.temp_min;
+      if (tempObj.t_min > weather.forecasts[day].parts.evening.temp_min)
+        tempObj.t_min = weather.forecasts[day].parts.evening.temp_min;
+      if (tempObj.t_max < weather.forecasts[day].parts.morning.temp_max)
+        tempObj.t_max = weather.forecasts[day].parts.morning.temp_max;
+      if (tempObj.t_max < weather.forecasts[day].parts.evening.temp_max)
+        tempObj.t_max = weather.forecasts[day].parts.evening.temp_max;
+      if (tempObj.t_max < weather.forecasts[day].parts.night.temp_max)
+        tempObj.t_max = weather.forecasts[day].parts.night.temp_max;
+      return tempObj;
+    };
+    const defineDaytime = (hour, day) => {
+      if (hour < 6) {
+        return weather.forecasts[day].parts.night;
+      }
+      if (hour > 5 && hour < 12) {
+        return weather.forecasts[day].parts.morning;
+      }
+      if (hour > 11 && hour < 18) {
+        return weather.forecasts[day].parts.day;
+      }
+      if (hour > 17) {
+        return weather.forecasts[day].parts.evening;
+      }
+    };
+    for (let i = 0; i < globalArray.length; i++) {
+      let todayParams = defineDaytime(date.getHours(), i);
+      let tObj = tempMinMax(i);
+      let tmp = showCurrentDate(i);
+      globalArray[i].day = tmp.day;
+      globalArray[i].weekday = tmp.weekday;
+      globalArray[i].isWeekend = tmp.isWeekday;
+      globalArray[i].month = tmp.month;
+      globalArray[i].temperature = todayParams.temp_avg;
+      globalArray[i].icon = todayParams.icon;
+      globalArray[i].description = todayParams.condition;
+      globalArray[i].temperatureMin = tObj.t_min;
+      globalArray[i].temperatureMax = tObj.t_max;
+      globalArray[i].moon = weather.forecasts[i].moon_code;
 
-  //     /**  morning */
-  //     globalArray[i].morning.temperature =
-  //       weather.forecasts[i].parts.morning.temp_avg;
-  //     globalArray[i].morning.speed =
-  //       weather.forecasts[i].parts.morning.wind_speed;
-  //     globalArray[i].morning.pressure =
-  //       weather.forecasts[i].parts.morning.pressure_mm;
-  //     globalArray[i].morning.humidity =
-  //       weather.forecasts[i].parts.morning.humidity;
-  //     globalArray[i].morning.direction =
-  //       weather.forecasts[i].parts.morning.wind_dir;
-  //     /** afternoon */
-  //     globalArray[i].afternoon.temperature =
-  //       weather.forecasts[i].parts.day.temp_avg;
-  //     globalArray[i].afternoon.speed =
-  //       weather.forecasts[i].parts.day.wind_speed;
-  //     globalArray[i].afternoon.pressure =
-  //       weather.forecasts[i].parts.day.pressure_mm;
-  //     globalArray[i].afternoon.humidity =
-  //       weather.forecasts[i].parts.day.humidity;
-  //     globalArray[i].afternoon.direction =
-  //       weather.forecasts[i].parts.day.wind_dir;
-  //     /** evening */
-  //     globalArray[i].evening.temperature =
-  //       weather.forecasts[i].parts.evening.temp_avg;
-  //     globalArray[i].evening.speed =
-  //       weather.forecasts[i].parts.evening.wind_speed;
-  //     globalArray[i].evening.pressure =
-  //       weather.forecasts[i].parts.evening.pressure_mm;
-  //     globalArray[i].evening.humidity =
-  //       weather.forecasts[i].parts.evening.humidity;
-  //     globalArray[i].evening.direction =
-  //       weather.forecasts[i].parts.evening.wind_dir;
-  //     /** night */
-  //     globalArray[i].night.temperature =
-  //       weather.forecasts[i].parts.night.temp_avg;
-  //     globalArray[i].night.speed = weather.forecasts[i].parts.night.wind_speed;
-  //     globalArray[i].night.pressure =
-  //       weather.forecasts[i].parts.night.pressure_mm;
-  //     globalArray[i].night.humidity = weather.forecasts[i].parts.night.humidity;
-  //     globalArray[i].night.direction =
-  //       weather.forecasts[i].parts.night.wind_dir;
-  //   }
-  //   globalArray[0].weekday = "Today";
-  //   globalArray[0].temperature =
-  //     weather.forecasts[0].hours[date.getHours()].temp;
-  // }
-  // <Home
-  //             date={date}
-  //             globalArray={g1lobalArray}
-  //             isLoading={isLoading}
-  //             setIsLoading={setIsLoading}
-  //             catchLocation={catchLocation}
-  //             /* HEADER */
+      /**  morning */
+      globalArray[i].morning.temperature =
+        weather.forecasts[i].parts.morning.temp_avg;
+      globalArray[i].morning.speed =
+        weather.forecasts[i].parts.morning.wind_speed;
+      globalArray[i].morning.pressure =
+        weather.forecasts[i].parts.morning.pressure_mm;
+      globalArray[i].morning.humidity =
+        weather.forecasts[i].parts.morning.humidity;
+      globalArray[i].morning.direction =
+        weather.forecasts[i].parts.morning.wind_dir;
+      /** afternoon */
+      globalArray[i].afternoon.temperature =
+        weather.forecasts[i].parts.day.temp_avg;
+      globalArray[i].afternoon.speed =
+        weather.forecasts[i].parts.day.wind_speed;
+      globalArray[i].afternoon.pressure =
+        weather.forecasts[i].parts.day.pressure_mm;
+      globalArray[i].afternoon.humidity =
+        weather.forecasts[i].parts.day.humidity;
+      globalArray[i].afternoon.direction =
+        weather.forecasts[i].parts.day.wind_dir;
+      /** evening */
+      globalArray[i].evening.temperature =
+        weather.forecasts[i].parts.evening.temp_avg;
+      globalArray[i].evening.speed =
+        weather.forecasts[i].parts.evening.wind_speed;
+      globalArray[i].evening.pressure =
+        weather.forecasts[i].parts.evening.pressure_mm;
+      globalArray[i].evening.humidity =
+        weather.forecasts[i].parts.evening.humidity;
+      globalArray[i].evening.direction =
+        weather.forecasts[i].parts.evening.wind_dir;
+      /** night */
+      globalArray[i].night.temperature =
+        weather.forecasts[i].parts.night.temp_avg;
+      globalArray[i].night.speed = weather.forecasts[i].parts.night.wind_speed;
+      globalArray[i].night.pressure =
+        weather.forecasts[i].parts.night.pressure_mm;
+      globalArray[i].night.humidity = weather.forecasts[i].parts.night.humidity;
+      globalArray[i].night.direction =
+        weather.forecasts[i].parts.night.wind_dir;
+    }
+    globalArray[0].weekday = "Today";
+    globalArray[0].temperature =
+      weather.forecasts[0].hours[date.getHours()].temp;
+  }
 
-  //             cardMode={cardMode}
-  //             /*Mobile*/
-  //             todayData={!isLoading ? weather.forecasts[0] : ""}
-  //             showCurrentDate={showCurrentDate}
-  //           />
   return (
     <>
       <Header
@@ -325,7 +313,24 @@ function App() {
       />
 
       <Routes>
-        <Route path="/" element={<ErrorPage />} />
+        <Route
+          path="/"
+          element={
+            <Home
+              date={date}
+              globalArray={globalArray}
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
+              catchLocation={catchLocation}
+              /* HEADER */
+
+              cardMode={cardMode}
+              /*Mobile*/
+              todayData={!isLoading ? weather.forecasts[0] : ""}
+              showCurrentDate={showCurrentDate}
+            />
+          }
+        />
         <Route path="/about" element={<About />} />
         <Route path="/calendar" element={<Calendar months={months} />} />
         <Route path="*" element={<ErrorPage />} />
