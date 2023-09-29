@@ -10,8 +10,11 @@ import ErrorPage from "./pages/ErrorPage";
 import { Routes, Route } from "react-router-dom";
 
 import "./index.scss";
-
+/*
+fetch("https://api.openweathermap.org/data/2.5/weather?q=Minsk&appid=d8cb9f388c6c6f5acf8c2866895c6134").then(res => res.json()).then(json => console.log(json))*/
 function App() {
+  const URL = "https://react-weather-server-fkfe.vercel.app/";
+  const APIKEY = "d8cb9f388c6c6f5acf8c2866895c6134";
   const [cardMode, setCardMode] = React.useState(0);
   const [weather, setWeather] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(true);
@@ -109,9 +112,7 @@ function App() {
     }
 
     async function getWeather() {
-      const weatherResp = await axios.get(
-        `https://react-weather-server-fkfe.vercel.app/v2/forecast?lat=${latitude}&lon=${longitude}&lang=en_US&limit=7&hours=true&extra=false`
-      );
+      const weatherResp = await axios.get(`${URL}`);
       // const historyResp = await axios.get(
       //   "https://63fe15b61626c165a0a7034c.mockapi.io/forecasts"
       // );
