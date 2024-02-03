@@ -1,26 +1,10 @@
 function Footer() {
   return (
     <footer>
-      <h3>weza-1.0</h3>
-      {/* <nav>
-          <ul>
-            <li>
-              <a href="#">About us</a>
-            </li>
-            <li>
-              <a href="#" id="active-link">
-                Weather
-              </a>
-            </li>
-            <li>
-              <a href="#">Moon calendar</a>
-            </li>
-          </ul>
-        </nav> */}
-
+      <h3>weza-2.0</h3>
       <p>
         <a href="https://weza.vercel.app">weza.vercel.app</a> All rights
-        reserved
+        reserved - 2024
       </p>
       <p>
         <a href="https://www.flaticon.com/free-icons/moon" title="moon icons">

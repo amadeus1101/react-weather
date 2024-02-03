@@ -1,46 +1,39 @@
 section.mobile {
   transition: background 0.5s;
-  display: none;
+  display: flex;
   flex-direction: column;
   align-items: center;
-
+  height: 100vh;
   background: #fff;
 
   .weather {
-    border-bottom-right-radius: 20px;
-    border-bottom-left-radius: 20px;
     background-attachment: fixed;
 
     position: relative;
-    height: 60vh;
+    height: 65%;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: flex-end;
 
     .temp {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: flex;
+      flex-direction: column;
       position: absolute;
-      top: 20%;
-      grid-template-rows: auto;
-      justify-items: center;
+      top: 25%;
       align-items: center;
       h4 {
         color: #fff;
         font-family: "InterBold";
-        font-size: 72px;
+        font-size: 84px;
         letter-spacing: 0;
-      }
-      img {
-        width: 72px;
       }
       p {
         letter-spacing: 0.1em;
         grid-column: span 2;
         text-align: center;
-        font-family: "InterBold";
-        font-size: 24px;
+        font-family: "InterRegular";
+        font-size: 22px;
         color: #fff;
       }
     }
@@ -48,6 +41,7 @@ section.mobile {
     .box {
       position: relative;
       width: 90%;
+      max-width: 1080px;
       display: flex;
       flex-direction: column;
       border-radius: 20px;
@@ -123,6 +117,7 @@ section.mobile {
 
   .slider {
     width: 100%;
+    max-width: 1080px;
     padding: 0 40px;
     z-index: 10;
 
@@ -196,7 +191,7 @@ section.mobile {
   .skeleton-mobile-weather {
     width: 100%;
     position: relative;
-    height: 60vh;
+    height: 65%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -207,7 +202,7 @@ section.mobile {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      top: 20%;
+      top: 25%;
       li {
         border-radius: 10px;
         background: #d9d9d9;
@@ -225,6 +220,7 @@ section.mobile {
       position: absolute;
       bottom: 0;
       width: 90%;
+      max-width: 1080px;
       height: 120px;
       display: flex;
       justify-content: space-around;
@@ -251,18 +247,19 @@ section.mobile {
     opacity: 0.5;
   }
 }
-@media (max-width: 769px) {
-  section.mobile {
-    display: flex;
-  }
-}
 @media (max-width: 565px) {
   section.mobile {
     .weather {
+      border-bottom-right-radius: 20px;
+      border-bottom-left-radius: 20px;
       .temp {
-        column-gap: 5px;
+        h4 {
+          font-size: 64px;
+        }
+        p {
+          font-size: 18px;
+        }
       }
-
       .box {
         margin: 20px;
         padding: 20px 15px;

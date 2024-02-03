@@ -1,81 +1,96 @@
-function Calendar({ months }) {
-  const date = new Date();
-  const currMonth = date.getMonth();
+import getDate from "../getDate";
 
-  let moons = [];
-  let calendar = [];
-
-  const fillMoonPhases = (newMoon) => {
-    let l_counter = 0;
-    for (let i = newMoon - 1; i < months[currMonth].daysCount; i++) {
-      if ((i + 1) % 7 === newMoon % 7) {
-        l_counter++;
-        if (l_counter === 9) {
-          l_counter = 1;
-        }
-        moons[i] = l_counter++;
-      } else {
-        moons[i] = l_counter;
+function Calendar() {
+  const d = new Date();
+  let fweek = d.getDay() - ((d.getDate() % 7) - 1);
+  //const tday = d.getDate();
+  if (fweek < 0) fweek += 7;
+  let calendar = getDate(100, 1, fweek, d.getMonth());
+  const fillMoonPhases = (n_moon) => {
+    const len = calendar.length;
+    calendar[n_moon - 1].moon = 1;
+    n_moon + 14 > len
+      ? (calendar[n_moon - 15].moon = 5)
+      : (calendar[n_moon + 13].moon = 5);
+    n_moon + 7 > len
+      ? (calendar[n_moon - 22].moon = 3)
+      : (calendar[n_moon + 6].moon = 3);
+    n_moon + 22 > len
+      ? (calendar[n_moon - 8].moon = 7)
+      : (calendar[n_moon + 21].moon = 7);
+    let moon_ep = 2;
+    let phase_iter = 1;
+    for (let i = n_moon; i < len; i++) {
+      if (calendar[i].moon === -1) calendar[i].moon = moon_ep;
+      switch (phase_iter) {
+        case 7:
+          moon_ep = 4;
+          break;
+        case 14:
+          moon_ep = 6;
+          break;
+        case 22:
+          moon_ep = 8;
+          break;
+        default:
+          break;
       }
+      phase_iter++;
     }
-    l_counter = 8;
-    for (let i = newMoon - 2; i >= 0; i--) {
-      if ((i + 1) % 7 === newMoon % 7) {
-        l_counter--;
-
-        moons[i] = l_counter--;
-        if (l_counter === 0) {
-          l_counter = 8;
-        }
-      } else {
-        moons[i] = l_counter;
+    phase_iter = 1;
+    moon_ep = 8;
+    for (let i = n_moon; i >= 0; i--) {
+      if (calendar[i].moon === -1) calendar[i].moon = moon_ep;
+      switch (phase_iter) {
+        case 8:
+          moon_ep = 6;
+          break;
+        case 15:
+          moon_ep = 4;
+          break;
+        case 22:
+          moon_ep = 2;
+          break;
+        default:
+          break;
       }
+      phase_iter++;
     }
   };
-  fillMoonPhases(20);
-  const defineSpecialCases = (i) => {
-    if (i === 0) {
-      return "first";
-    }
-    if (i === date.getDate() - 1) {
-      return "today";
-    } else {
-      return "";
-    }
-  };
-  const fillCalendar = () => {
-    for (let i = 0; i < months[currMonth].daysCount; i++) {
-      calendar[i] = {
-        day: i + 1,
-        moon: `m${moons[i]}.png`,
-        weekend: (i + 1) % 7 === 0 || (i + 1) % 7 === 6 ? true : false,
-      };
-    }
-  };
-  fillCalendar();
+  fillMoonPhases(10);
+  const first = calendar[0];
+  const f_weekday = first.weekcode === 0 ? 7 : first.weekcode;
+  calendar = calendar.slice(1);
   return (
     <>
       <div className="calendar">
         <h2 className="title">
-          <span className="red">{months[currMonth].month[0]}</span>
-          {months[currMonth].month.slice(1)}
+          <span className="red">{first.month[0]}</span>
+          {first.month.slice(1)}
         </h2>
         <p className="subtitle">
-          Moon calendar on <span className="red">April</span> 2023 - Minsk
+          Moon calendar on <span className="red">{first.month}</span>{" "}
+          {d.getFullYear()} - Minsk
         </p>
         <div className="month-container">
-          {calendar.map((item, index) => (
+          <div
+            className={first.isweekend ? "month-item weekend" : "month-item"}
+            style={{ gridColumn: f_weekday }}
+          >
+            <img src={`../../assets/img/m2.png`} alt="moon-phase" width={32} />
+            <p>{first.day}</p>
+          </div>
+          {calendar.map((elem) => (
             <div
-              id={defineSpecialCases(index)}
-              className={item.weekend ? "month-item weekend" : "month-item"}
-              key={index}
+              className={elem.isweekend ? "month-item weekend" : "month-item"}
+              key={elem.day}
             >
               <img
-                src={`../../assets/img/${item.moon}`}
+                src={`../../assets/img/m${elem.moon}.png`}
                 alt="moon-phase"
                 width={32}
               />
-              <p className={item.weekend ? "weekend" : ""}>{item.day}</p>
+              <p>{elem.day}</p>
             </div>
           ))}
         </div>

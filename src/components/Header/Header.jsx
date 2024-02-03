@@ -1,12 +1,20 @@
+import React from "react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import { ReactComponent as Logo } from "./logo.svg";
 import "./Header.scss";
 
-function Header({ darkmode, setDarkmode, setCardMode, cardMode }) {
-  const [menuOpened, setMenuOpened] = useState(false);
-  const [activeLink, setActiveLink] = useState(2);
+function Header({ cardMode, changeCardMode }) {
+  const [menuOpened, setMenuOpened] = React.useState(false);
+  const [activeLink, setActiveLink] = React.useState(2);
+  const [darkmode, setDarkmode] = React.useState(false);
   const menu = document.querySelector(".burger");
+
+  React.useEffect(() => {
+    if (localStorage.getItem("theme") === "dark") {
+      setDarkmode(true);
+      document.body.classList.add("dark");
+    }
+  }, []);
 
   const closeMenu = () => {
     menu.classList.remove("active-menu");
@@ -27,7 +35,6 @@ function Header({ darkmode, setDarkmode, setCardMode, cardMode }) {
         //document.body.style.overscrollBehavior = "none";
       }
     }
-
     setActiveLink(id);
   };
   const changeColorTheme = () => {
@@ -41,7 +48,6 @@ function Header({ darkmode, setDarkmode, setCardMode, cardMode }) {
       setDarkmode(true);
     }
   };
-
   return (
     <header>
       <nav>
@@ -53,30 +59,27 @@ function Header({ darkmode, setDarkmode, setCardMode, cardMode }) {
         </Link>
         <ul>
           <li className="burger" onClick={() => onClickMenu()}></li>
-          <li
-            onClick={() => onClickMenu(1)}
-            className={activeLink === 1 ? "active-link" : undefined}
-          >
-            <Link to="/about">About</Link>
+          <li className={activeLink === 1 ? "active-link" : undefined}>
+            <Link to="/about" onClick={() => onClickMenu(1)}>
+              About
+            </Link>
           </li>
-          <li
-            onClick={() => onClickMenu(2)}
-            className={activeLink === 2 ? "active-link" : undefined}
-          >
-            <Link to="/">Weather</Link>
+          <li className={activeLink === 2 ? "active-link" : undefined}>
+            <Link to="/" onClick={() => onClickMenu(2)}>
+              Weather
+            </Link>
           </li>
-          <li
-            onClick={() => onClickMenu(3)}
-            className={activeLink === 3 ? "active-link" : undefined}
-          >
-            <Link to="/calendar">Moon</Link>
+          <li className={activeLink === 3 ? "active-link" : undefined}>
+            <Link to="/calendar" onClick={() => onClickMenu(3)}>
+              Moon
+            </Link>
           </li>
         </ul>
         <div className="param-panel">
           <div
             className="card-mode-switcher"
             onClick={() => {
-              setCardMode(!cardMode);
+              changeCardMode();
               closeMenu();
             }}
           >

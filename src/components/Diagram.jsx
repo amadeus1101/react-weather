@@ -24,7 +24,8 @@ ChartJS.register(
   Legend
 );
 
-function Diagram({ globalArray, showCurrentDate, date }) {
+function Diagram({ data }) {
+  const globalArray = new Array(5);
   let days = globalArray.map((item) => item.day);
   const [activeDiagram, setActiveDiagram] = useState(0);
   const [userData, setUserData] = useState({

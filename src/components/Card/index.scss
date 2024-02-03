@@ -1,0 +1,97 @@
+@import "./cardOriginal";
+@import "./cardMini";
+@import "./cardMicro";
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background: #fff;
+  transition: 0.3s;
+  .content {
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    p {
+      letter-spacing: 0;
+      font-family: "InterMedium";
+      color: #5f5f5f;
+    }
+    h4 {
+      letter-spacing: 0;
+      font-family: "InterBold";
+      color: #000;
+    }
+    h4.weekday {
+      color: #ff3146;
+    }
+    .date p {
+      font-family: "InterBold";
+      color: #000;
+    }
+    .temp {
+      display: grid;
+      align-items: center;
+      justify-items: center;
+    }
+  }
+  table {
+    tr {
+      th {
+        font-family: "InterRegular";
+        color: #707070;
+      }
+      td {
+        font-family: "InterBold";
+        color: #000;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.dark {
+  .card {
+    background: #282c34;
+
+    .content {
+      border-color: #5f5f5f;
+      background: #282c34;
+      p {
+        color: #a9a9a9;
+      }
+    }
+    h4 {
+      color: #fff;
+    }
+    h4.weekday {
+      color: #ff3146;
+    }
+    table tr {
+      th {
+        color: #fff;
+      }
+      td {
+        color: #a9a9a9;
+      }
+    }
+  }
+  .card.short.flipped .content .date h4.weekday,
+  .card.short .content .date h4.weekday {
+    color: #ff3146;
+  }
+}
+
+@media (max-width: 769px) {
+  .dark {
+    .card {
+      background: #20232a;
+      border-bottom: 2px solid #5f5f5f;
+      .content {
+        background: #20232a;
+      }
+    }
+  }
+}
