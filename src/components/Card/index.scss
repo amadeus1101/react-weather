@@ -9,6 +9,10 @@
   width: 100%;
   background: #fff;
   transition: 0.3s;
+  user-select: none;
+  &::selection {
+    background: transparent;
+  }
   .content {
     width: 100%;
     display: flex;

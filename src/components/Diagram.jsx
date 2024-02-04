@@ -24,16 +24,15 @@ ChartJS.register(
   Legend
 );
 
-function Diagram({ data }) {
-  const globalArray = new Array(5);
-  let days = globalArray.map((item) => item.day);
+function Diagram({ data, days }) {
+  const days_arr = days.map((i) => i.day);
   const [activeDiagram, setActiveDiagram] = useState(0);
   const [userData, setUserData] = useState({
-    labels: days,
+    labels: days_arr,
     datasets: [
       {
         label: "Temperature",
-        data: globalArray.map((item) => item.temperature),
+        data: data.map((item) => item.parts.day_short.temp),
         borderColor: "#ff3146",
         backgroundColor: "#ff3146",
         pointStyle: "circle",
@@ -47,11 +46,11 @@ function Diagram({ data }) {
   const changeDiagram = (param) => {
     if (param === 0) {
       setUserData({
-        labels: days,
+        labels: days_arr,
         datasets: [
           {
             label: "Temperature",
-            data: globalArray.map((item) => item.temperature),
+            data: data.map((item) => item.parts.day_short.temp),
             borderColor: "#ff3146",
             backgroundColor: "#ff3146",
             pointStyle: "circle",
@@ -63,11 +62,11 @@ function Diagram({ data }) {
     }
     if (param === 1) {
       setUserData({
-        labels: days,
+        labels: days_arr,
         datasets: [
           {
             label: "Humidity",
-            data: globalArray.map((item) => item.afternoon.humidity),
+            data: data.map((item) => item.parts.day_short.humidity),
             borderColor: "#0088cc",
             backgroundColor: "#0088cc",
             pointStyle: "circle",
@@ -79,11 +78,11 @@ function Diagram({ data }) {
     }
     if (param === 2) {
       setUserData({
-        labels: days,
+        labels: days_arr,
         datasets: [
           {
             label: "Wind speed",
-            data: globalArray.map((item) => item.afternoon.speed),
+            data: data.map((item) => item.parts.day_short.wind_speed),
             borderColor: "#00cc44",
             backgroundColor: "#00cc44",
             pointStyle: "circle",

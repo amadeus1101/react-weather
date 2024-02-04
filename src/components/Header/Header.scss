@@ -4,10 +4,11 @@ header {
   display: flex;
   justify-content: center;
   padding: 15px;
-  background: #ff3146;
-  position: sticky;
+  background: #ff314680;
+  backdrop-filter: blur(5px);
+  position: fixed;
   top: 0;
-
+  left: 0;
   z-index: 1000;
 
   nav {
@@ -268,9 +269,10 @@ header {
 }
 .dark {
   header {
-    background: #0088cc;
+    background: #0088cc80;
   }
   header.burger-opened {
+    background: #0088cc;
     nav {
       background: #0088cc;
     }

@@ -1,0 +1,7 @@
+TODO
+?1. Archive + 30 days weather?
++2. Diagramma??
+-3. Fix user-select
++4. Play with burger-menu bg
+?5. Wallpaper temp. bg
+?6. Sunset-Sunrise

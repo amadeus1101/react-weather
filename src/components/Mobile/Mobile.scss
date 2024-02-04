@@ -10,7 +10,7 @@ section.mobile {
     background-attachment: fixed;
 
     position: relative;
-    height: 65%;
+    height: 75%;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -20,7 +20,7 @@ section.mobile {
       display: flex;
       flex-direction: column;
       position: absolute;
-      top: 25%;
+      top: 30%;
       align-items: center;
       h4 {
         color: #fff;
@@ -191,7 +191,7 @@ section.mobile {
   .skeleton-mobile-weather {
     width: 100%;
     position: relative;
-    height: 65%;
+    height: 75%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -202,7 +202,7 @@ section.mobile {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      top: 25%;
+      top: 30%;
       li {
         border-radius: 10px;
         background: #d9d9d9;

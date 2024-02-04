@@ -17,10 +17,6 @@ function Mobile({ weather, city }) {
     "#ff0000, #ffb500",
   ];
 
-  const onMoveThumb = (event) => {
-    setThumb(event.target.value);
-  };
-
   const setBackground = (temp) => {
     if (temp > 20) return background[6];
     if (temp > 10) return background[5];
@@ -126,7 +122,9 @@ function Mobile({ weather, city }) {
               min="0"
               max="23"
               value={thumb}
-              onChange={onMoveThumb}
+              onChange={(event) => {
+                setThumb(event.target.value);
+              }}
               className="thumb"
             />
             <ul className="sliderSub">
